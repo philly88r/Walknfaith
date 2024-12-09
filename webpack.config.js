@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const appDirectory = path.resolve(__dirname);
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
@@ -18,21 +19,22 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
-    publicPath: '',
+    publicPath: '/',
     clean: true
   },
   resolve: {
     extensions: ['.web.tsx', '.web.ts', '.tsx', '.ts', '.web.js', '.js'],
     alias: {
       'react-native$': 'react-native-web',
-      'react-native-vector-icons': 'react-native-vector-icons/dist',
+      'react-native-vector-icons': '@expo/vector-icons',
       '@react-native/assets-registry': path.resolve(__dirname, './src/assets-registry'),
       '@react-native/assets-registry/registry': path.resolve(__dirname, './src/assets-registry/registry.js')
     },
     fallback: {
       "process": require.resolve("process/browser"),
       "path": require.resolve("path-browserify"),
-      "fs": false
+      "fs": false,
+      "crypto": false
     }
   },
   module: {
@@ -43,8 +45,15 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
-            plugins: ['react-native-web']
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript'
+            ],
+            plugins: [
+              'react-native-web',
+              '@babel/plugin-proposal-export-namespace-from'
+            ]
           }
         }
       },
@@ -87,7 +96,8 @@ module.exports = {
       filename: 'index.html'
     }),
     new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(isDevelopment)
+      __DEV__: JSON.stringify(isDevelopment),
+      process: { env: {} }
     })
   ]
 };
