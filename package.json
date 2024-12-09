@@ -7,8 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "webpack serve --mode development",
-    "build": "cross-env NODE_ENV=production webpack --mode production",
-    "build:web": "cross-env NODE_ENV=production webpack --mode production",
+    "build": "webpack --mode production",
+    "build:web": "webpack --mode production",
     "vercel-build": "node vercel.build.js"
   },
   "dependencies": {
