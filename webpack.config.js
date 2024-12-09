@@ -10,6 +10,11 @@ module.exports = {
   },
   mode: isDevelopment ? 'development' : 'production',
   target: 'web',
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
@@ -82,8 +87,7 @@ module.exports = {
       filename: 'index.html'
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      '__DEV__': isDevelopment
+      __DEV__: JSON.stringify(isDevelopment)
     })
   ]
 };
