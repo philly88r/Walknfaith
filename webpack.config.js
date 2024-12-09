@@ -12,7 +12,7 @@ module.exports = {
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: isDevelopment ? '[name].js' : '[name].[contenthash].js',
+    filename: '[name].[contenthash].js',
     publicPath: '',
     clean: true
   },
@@ -38,15 +38,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              ['@babel/preset-env', { targets: 'defaults' }],
-              '@babel/preset-react',
-              '@babel/preset-typescript'
-            ],
-            plugins: [
-              'react-native-web',
-              '@babel/plugin-transform-runtime'
-            ]
+            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+            plugins: ['react-native-web']
           }
         }
       },
@@ -90,7 +83,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      __DEV__: isDevelopment
+      '__DEV__': isDevelopment
     })
   ]
 };

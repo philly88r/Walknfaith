@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "webpack serve --mode development",
     "build": "webpack --mode production",
-    "build:web": "webpack --mode production"
+    "build:web": "webpack --mode production",
+    "vercel-build": "webpack --mode production"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
