@@ -5,13 +5,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  entry: './src/index.web.tsx',
+  entry: {
+    main: './src/index.web.tsx'
+  },
   mode: isDevelopment ? 'development' : 'production',
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: isDevelopment ? '[name].js' : '[name].[contenthash].js',
-    publicPath: isDevelopment ? '/' : './',
+    publicPath: '',
     clean: true
   },
   resolve: {
@@ -37,10 +39,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', {
-                targets: 'defaults',
-                modules: 'commonjs'
-              }],
+              ['@babel/preset-env', { targets: 'defaults' }],
               '@babel/preset-react',
               '@babel/preset-typescript'
             ],
@@ -65,20 +64,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              ['@babel/preset-env', { modules: 'commonjs' }],
-              '@babel/preset-react'
-            ],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: ['react-native-web']
           }
         }
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: 'images/[hash][ext][query]'
-        }
+        type: 'asset/resource'
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -93,46 +86,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      minify: !isDevelopment && {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      }
+      filename: 'index.html'
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      '__DEV__': isDevelopment,
-      'global': 'window'
-    }),
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-      Buffer: ['buffer', 'Buffer']
-    }),
-    ...(isDevelopment ? [] : [
-      new webpack.optimize.ModuleConcatenationPlugin(),
-      new webpack.ids.HashedModuleIdsPlugin()
-    ])
-  ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'public')
-    },
-    historyApiFallback: true,
-    hot: true,
-    compress: true,
-    port: 3000,
-    client: {
-      overlay: {
-        errors: true,
-        warnings: false,
-      },
-    }
-  }
+      __DEV__: isDevelopment
+    })
+  ]
 };
