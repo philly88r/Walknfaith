@@ -22,8 +22,10 @@ module.exports = {
     extensions: ['.web.tsx', '.web.ts', '.tsx', '.ts', '.web.js', '.js'],
     alias: {
       'react-native$': 'react-native-web',
-      '@expo/vector-icons': '@expo/vector-icons/dist/FontAwesome',
-      'react-native-vector-icons': '@expo/vector-icons',
+      'react-native-vector-icons/MaterialCommunityIcons': '@expo/vector-icons/MaterialCommunityIcons',
+      'react-native-vector-icons/MaterialIcons': '@expo/vector-icons/MaterialIcons',
+      'react-native-vector-icons/FontAwesome': '@expo/vector-icons/FontAwesome',
+      '@expo/vector-icons': '@expo/vector-icons',
       '@react-native/assets-registry': path.resolve(__dirname, './src/assets-registry'),
       '@react-native/assets-registry/registry': path.resolve(__dirname, './src/assets-registry/registry.js')
     },
@@ -67,8 +69,11 @@ module.exports = {
       },
       {
         test: /\.ttf$/,
-        loader: 'url-loader',
-        include: path.resolve(__dirname, 'node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts'),
+        type: 'asset/resource',
+        include: [
+          /node_modules\/@expo\/vector-icons\/.*\/Fonts/,
+          /node_modules\/react-native-vector-icons\/Fonts/,
+        ],
       },
       {
         test: /\.(gif|jpe?g|png|svg)$/,
@@ -79,10 +84,6 @@ module.exports = {
             esModule: false,
           },
         }
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource'
       }
     ]
   },
