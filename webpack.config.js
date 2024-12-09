@@ -22,6 +22,8 @@ module.exports = {
     extensions: ['.web.tsx', '.web.ts', '.tsx', '.ts', '.web.js', '.js'],
     alias: {
       'react-native$': 'react-native-web',
+      '@expo/vector-icons': '@expo/vector-icons/dist/FontAwesome',
+      'react-native-vector-icons': '@expo/vector-icons',
       '@react-native/assets-registry': path.resolve(__dirname, './src/assets-registry'),
       '@react-native/assets-registry/registry': path.resolve(__dirname, './src/assets-registry/registry.js')
     },
@@ -36,18 +38,37 @@ module.exports = {
     rules: [
       {
         test: /\.(ts|tsx|js|jsx)$/,
-        exclude: /node_modules/,
+        include: [
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'App.tsx'),
+          path.resolve(__dirname, 'node_modules/@expo/vector-icons'),
+          path.resolve(__dirname, 'node_modules/react-native-vector-icons'),
+          path.resolve(__dirname, 'node_modules/@react-navigation'),
+          path.resolve(__dirname, 'node_modules/react-native-safe-area-context'),
+          path.resolve(__dirname, 'node_modules/react-native-paper'),
+        ],
         use: {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', { targets: { browsers: ['last 2 versions'] } }],
+              ['@babel/preset-env', { 
+                targets: { browsers: ['last 2 versions'] },
+                modules: 'commonjs'
+              }],
               '@babel/preset-react',
               '@babel/preset-typescript'
             ],
-            plugins: ['react-native-web']
+            plugins: [
+              'react-native-web',
+              '@babel/plugin-transform-runtime'
+            ]
           }
         }
+      },
+      {
+        test: /\.ttf$/,
+        loader: 'url-loader',
+        include: path.resolve(__dirname, 'node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts'),
       },
       {
         test: /\.(gif|jpe?g|png|svg)$/,
@@ -73,7 +94,11 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       __DEV__: isDevelopment,
-      process: { env: { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') } }
+      process: { env: { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') } },
+      'global.TYPED_ARRAY_SUPPORT': JSON.stringify(false)
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
     })
   ]
 };
