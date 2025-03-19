@@ -4,5 +4,14 @@ export type RootStackParamList = {
   CNATraining: undefined;
   Contact: undefined;
   Schedule: undefined;
-  // Add other screen names and their params here
+  MentalHealth: undefined;
+  About: undefined;
+  Events: undefined;
+  Profile: undefined;
+  Mentorship: undefined;
+  AnxietyResources: undefined;
+  DepressionResources: undefined;
+  CrisisHotlines: undefined;
+  PeerPressure: undefined;
+  SuicidePrevention: undefined;
 };

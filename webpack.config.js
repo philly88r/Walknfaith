@@ -13,6 +13,7 @@ module.exports = {
     filename: '[name].[contenthash].js',
     publicPath: '/',
     clean: true,
+    assetModuleFilename: 'assets/[name][ext]',
   },
   devServer: {
     historyApiFallback: true,
@@ -68,22 +69,27 @@ module.exports = {
         }
       },
       {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
         test: /\.ttf$/,
         type: 'asset/resource',
-        include: [
-          /node_modules\/@expo\/vector-icons\/.*\/Fonts/,
-          /node_modules\/react-native-vector-icons\/Fonts/,
-        ],
+        generator: {
+          filename: 'static/fonts/[name][ext]',
+        },
       },
       {
         test: /\.(gif|jpe?g|png|svg)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            name: '[name].[ext]',
-            esModule: false,
+        type: 'asset',
+        generator: {
+          filename: 'static/images/[name][ext]',
+        },
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024, // 10kb
           },
-        }
+        },
       }
     ]
   },

@@ -2,7 +2,8 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './src/navigation/AppNavigator';
-import { View, Text } from 'react-native';
+import { View, Text } from 'react-native-web';
+import { ProfileProvider } from './src/context/ProfileContext';
 
 class ErrorBoundary extends React.Component<any, { hasError: boolean, error: Error | null }> {
   constructor(props: any) {
@@ -32,10 +33,12 @@ export default function App() {
   console.log('App is rendering');
   return (
     <ErrorBoundary>
-      <SafeAreaProvider>
-        <StatusBar style="light" />
-        <AppNavigator />
-      </SafeAreaProvider>
+      <ProfileProvider>
+        <SafeAreaProvider>
+          <StatusBar style="light" />
+          <AppNavigator />
+        </SafeAreaProvider>
+      </ProfileProvider>
     </ErrorBoundary>
   );
 }

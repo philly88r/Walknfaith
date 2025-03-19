@@ -1,7 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native-web';
+import { MaterialIcons } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
 import ScheduleScreen from '../screens/ScheduleScreen';
 import MentalHealthScreen from '../screens/MentalHealthScreen';
@@ -19,20 +20,40 @@ import PeerPressureScreen from '../screens/PeerPressureScreen';
 import SuicidePreventionScreen from '../screens/SuicidePreventionScreen';
 import { RootStackParamList } from './types';
 import { colors } from '../theme/colors';
+import { useProfile } from '../context/ProfileContext';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
+  const { profile } = useProfile();
+
   const HeaderTitle = () => (
     <Text style={styles.headerText}>
       Crisis Counseling and Same-Day Medicated Assisted Treatment. No Appointment Needed. Call 314.913.8243
     </Text>
   );
 
+  const ProfileIcon = ({ navigation }: { navigation: any }) => (
+    <TouchableOpacity
+      style={styles.profileIconContainer}
+      onPress={() => navigation.navigate('Profile')}
+    >
+      {profile && profile.firstName && profile.lastName ? (
+        <View style={styles.profileInitialsContainer}>
+          <Text style={styles.profileInitials}>
+            {profile.firstName[0]}{profile.lastName[0]}
+          </Text>
+        </View>
+      ) : (
+        <MaterialIcons name="account-circle" size={28} color={colors.white} />
+      )}
+    </TouchableOpacity>
+  );
+
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
+        screenOptions={({ navigation }) => ({
           headerStyle: {
             backgroundColor: colors.primary,
             height: 80, // Make header taller to fit text
@@ -42,13 +63,14 @@ export default function AppNavigator() {
             fontWeight: 'bold',
           },
           headerTitleAlign: 'center',
-        }}
+          headerRight: () => <ProfileIcon navigation={navigation} />,
+        })}
       >
         <Stack.Screen 
           name="Home" 
           component={HomeScreen}
           options={{
-            headerTitle: (props) => <HeaderTitle {...props} />,
+            headerTitle: () => <HeaderTitle />,
           }}
         />
         <Stack.Screen 
@@ -151,5 +173,22 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: 10,
     lineHeight: 20,
+  },
+  profileIconContainer: {
+    marginRight: 15,
+    padding: 5,
+  },
+  profileInitialsContainer: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: colors.secondary,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profileInitials: {
+    color: colors.white,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });
