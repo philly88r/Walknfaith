@@ -19,7 +19,7 @@ interface Resource {
 export default function MentalHealthScreen() {
   const resources: Resource[] = [
     {
-      title: '24/7 Crisis Hotline',
+      title: '24/7 Crisis Hotline test',
       description: 'Immediate support available 24/7 for mental health crises',
       phone: '1-800-273-8255',
     },
