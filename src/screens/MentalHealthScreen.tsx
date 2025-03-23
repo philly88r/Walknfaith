@@ -81,6 +81,33 @@ export default function MentalHealthScreen() {
           </TouchableOpacity>
         </View>
 
+        <View style={styles.resourceCardAwarnessAndPrevention}>
+        <Text style={styles.resourceTitleAwarenessAndPrevention}>Mental Health Awareness and Prevention</Text>
+        <View style={styles.bulletPointContainer}>
+          <Text style={[styles.resourceDescription, styles.bulletPoint]}>• Mental health is a key component to overall health and is closely linked to physical health.</Text>
+          <Text style={[styles.resourceDescription, styles.bulletPoint]}>• Factors at the individual, family, community, and society levels can influence mental health.</Text>
+          <Text style={[styles.resourceDescription, styles.bulletPoint]}>• CDC promotes a public health approach to prevent mental health conditions before they develop or worsen.</Text>
+          <Text style={[styles.resourceDescription, styles.bulletPoint]}>• If you live with a mental health condition or are experiencing mental distress, help is available.</Text>
+        </View>
+        <Text style={styles.resourceDescriptionJustified}>
+          Mental health is the component of behavioral health that includes our emotional, psychological, and social well-being. Mental health is a state of well-being that enables us to cope with the stresses of life, realize our abilities, learn well and work well, and contribute to our community.
+        </Text>
+        <Text style={styles.resourceDescriptionJustified}>
+          Mental and physical health are equally important components of overall health.
+        </Text>
+        <Text style={styles.resourceDescriptionJustified}>
+        Mental health is closely linked to physical health.
+          For example, depression increases the risk for many types of physical, long-lasting (chronic) conditions like diabetes, heart disease, and stroke. Similarly, the presence of chronic conditions can increase the risk for developing a mental health condition.
+          Addressing mental health and physical health needs can improve overall health.
+          Mental health is not simply the absence of a mental health condition—it is also about the presence of well-being and the ability to thrive.
+        </Text>
+        <Text style={styles.resourceDescriptionJustified}>
+        Many factors influence our ability to thrive and experience optimal well-being, such as family and community relationships, access to opportunities, and environmental circumstances.
+          You can experience positive well-being even if you are living with a mental health condition. Having access to effective treatment that helps to manage symptoms along with presence of safe, stable, and nurturing relationships and environments can help.
+          People who don't have a mental health condition may still face challenges to their mental health.
+        </Text>
+      </View>
+
         {resources.map((resource, index) => (
           <TouchableOpacity
             key={index}
@@ -163,6 +190,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  resourceCardAwarnessAndPrevention: {
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
   resourceCard: {
     backgroundColor: colors.white,
     borderRadius: 12,
@@ -177,6 +218,28 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  bulletPointContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  bulletPoint: {
+    flex: 1, 
+    textAlign: 'center',
+  },
+  bulletPointSpacing: {
+    marginHorizontal: 5,
+  },
+  resourceTitleAwarenessAndPrevention: {
+    display: 'flex',
+    alignItem: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+    fontWeight: '600',
+    color: colors.text,
+    marginBottom: 8,
+  },
   resourceTitle: {
     fontSize: 18,
     fontWeight: '600',
@@ -184,6 +247,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   resourceDescription: {
+    fontSize: 16,
+    color: colors.textLight,
+    marginBottom: 12,
+  },
+  resourceDescriptionJustified: {
     fontSize: 16,
     color: colors.textLight,
     marginBottom: 12,
