@@ -219,14 +219,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   bulletPointContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginVertical: 16,
   },
   bulletPoint: {
-    flex: 1, 
-    textAlign: 'center',
+    marginBottom: 8,
   },
   bulletPointSpacing: {
     marginHorizontal: 5,
@@ -234,7 +232,6 @@ const styles = StyleSheet.create({
   resourceTitleAwarenessAndPrevention: {
     display: 'flex',
     alignItem: 'center',
-    justifyContent: 'center',
     fontSize: 18,
     fontWeight: '600',
     color: colors.text,
