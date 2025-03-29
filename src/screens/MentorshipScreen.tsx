@@ -218,7 +218,7 @@ const MentorshipScreen = () => {
               Hello all, I am Donyell Brooks, CNA. I recently completed my CNA course at WalkNFaith/ Purpose Tech Institute. I am so excited about my accomplishment and finally reaching one of my goals. A little more about me is that I graduated in 2017 as a medical assistant and in 2018 I became a pharmacy technician. I love the medical field and have a passion for caring for people. I have future plans to become a nurse practitioner in the NICU and also want to mentor and assist others wanting to join the medical field.
             </Text>
           </View>
-          <View style={[styles.mentorSection, styles.mentorSectionReversed]}>
+          <View style={styles.mentorSection}>
             <Image source={require('../../assets/darisha-barnes.png')} style={styles.mentorImage} />
             <Text style={styles.text}>
               Hello! I'm Darrisha Barnes. I've been dedicated to healthcare since age 18, with a passion for elder care that began at 16. I've progressed from dietary aid to L1MA/DSP, and now as a CNA, I find immense fulfilment in improving the lives of my residents. With over six years of experience and a strong work ethic, my residents are my top priority. I'm committed to growth, pursuing my CMT license in six months, and ultimately aiming to become a nurse. I believe my CNA experience provides invaluable insight into the challenges and sacrifices of frontline care, fostering a collaborative and supportive team environment. I'm a team player and eager to assist others in their growth and success.
@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   mentorSection: {
-    flexDirection: 'row',
+    flexDirection: 'column', 
     alignItems: 'center',
     marginVertical: 16,
   },
@@ -356,16 +356,13 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 100,
-    marginHorizontal: 16,
+    marginBottom: 16,
   },
   mentorBio: {
     flex: 1,
     fontSize: 14,
     color: '#34495e',
     lineHeight: 20,
-  },
-  mentorSectionReversed: {
-    flexDirection: 'row-reverse',
   },
   tabs: {
     flexDirection: 'row',
