@@ -7,7 +7,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-} from 'react-native';
+} from 'react-native-web';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 
@@ -17,57 +17,57 @@ const services = [
   {
     id: 1,
     title: 'Mental Health Treatment',
-    icon: 'medical',
+    icon: 'medical-outline' as const,
   },
   {
     id: 2,
     title: 'Substance Abuse & Mental Health Seminars',
-    icon: 'people',
+    icon: 'people-outline' as const,
   },
   {
     id: 3,
     title: 'Trauma Informed Care',
-    icon: 'heart',
+    icon: 'heart-outline' as const,
   },
   {
     id: 4,
     title: 'Medicated Assisted Treatment',
-    icon: 'medical',
+    icon: 'medical-outline' as const,
   },
   {
     id: 5,
     title: 'Narcan Community Distribution Site',
-    icon: 'medkit',
+    icon: 'medkit-outline' as const,
   },
   {
     id: 6,
     title: 'Crisis Stabilization & Diversity Training',
-    icon: 'people',
+    icon: 'people-outline' as const,
   },
   {
     id: 7,
     title: 'Individual, Group, and Spiritual Counseling',
-    icon: 'person',
+    icon: 'person-outline' as const,
   },
   {
     id: 8,
     title: 'Mentoring Sessions',
-    icon: 'people',
+    icon: 'people-outline' as const,
   },
   {
     id: 9,
     title: 'Job Training & Placement',
-    icon: 'briefcase',
+    icon: 'briefcase-outline' as const,
   },
   {
     id: 10,
     title: 'Dental Restorative Treatment',
-    icon: 'medical',
+    icon: 'medical-outline' as const,
   },
   {
     id: 11,
     title: 'Life Skills Classes',
-    icon: 'school',
+    icon: 'school-outline' as const,
   },
 ];
 
@@ -76,25 +76,25 @@ const partners = [
     id: 1,
     name: 'St. Luke\'s Hospital',
     description: 'Leading healthcare provider offering comprehensive medical services.',
-    icon: 'medical',
+    icon: 'medical-outline' as const,
   },
   {
     id: 2,
     name: 'Community Health Network',
     description: 'Network of healthcare providers focused on community wellness.',
-    icon: 'people',
+    icon: 'people-outline' as const,
   },
   {
     id: 3,
     name: 'Local Mental Health Alliance',
     description: 'Coalition of mental health professionals and organizations.',
-    icon: 'heart',
+    icon: 'heart-outline' as const,
   },
   {
     id: 4,
     name: 'Workforce Development Center',
     description: 'Supporting career development and job placement services.',
-    icon: 'business',
+    icon: 'business-outline' as const,
   },
 ];
 
@@ -119,6 +119,26 @@ export default function AboutScreen() {
           <Text style={styles.missionText}>
             WalkNFaith, is committed and dedicated to ending the Opioid Epidemic through spiritual care, medication-assisted treatment, preventative education, and supportive services.
           </Text>
+        </View>
+      </View>
+
+      {/* Our Team Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Our Team</Text>
+        <View style={styles.teamContainer}>
+          <View style={styles.teamMemberCard}>
+            <Image 
+              source={{uri: '/image_2022_06_22T19_30_23_373Z.png'}} 
+              style={styles.teamMemberImage} 
+              resizeMode="cover" 
+            />
+            <View style={styles.teamMemberInfo}>
+              <Text style={styles.teamMemberName}>Mandy Parker MS, BCBA, LBA</Text>
+              <Text style={styles.teamMemberBio}>
+                Mandy Parker has her undergraduate degree from Utah State University and a Master in Science at Southern Illinois University in Behavior Analysis and Therapy. She has years of experience working in various areas of human services: disabilities, youth corrections, substance abuse for adolescents, brain injury rehabilitation, helping families indicated on abuse and neglect in their homes to establish routines, acquire child management, problem-solving, assertiveness, budgeting, and stress management skills. She facilitates community training and serves on a Children's behavioral health coalition. Mandy specializes in Acceptance and Commitment Training and is passionate about teaching others how to identify their values and live more in line with what matters most to them amid whatever challenges they face.
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
 
@@ -251,7 +271,44 @@ const styles = StyleSheet.create({
   },
   partnerDescription: {
     fontSize: 14,
+    color: colors.text,
     textAlign: 'center',
-    color: colors.textLight,
+  },
+  teamContainer: {
+    marginTop: 10,
+  },
+  teamMemberCard: {
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  teamMemberImage: {
+    width: '100%',
+    height: 250,
+    borderRadius: 10,
+    marginBottom: 15,
+  },
+  teamMemberInfo: {
+    marginTop: 10,
+  },
+  teamMemberName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 10,
+  },
+  teamMemberBio: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: colors.text,
   },
 });
