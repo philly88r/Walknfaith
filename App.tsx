@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
+import { enableScreens } from 'react-native-screens';
 import AppNavigator from './src/navigation/AppNavigator';
 import AuthNavigator from './src/navigation/AuthNavigator';
 import { View, Text, ActivityIndicator } from 'react-native-web';
 import { ProfileProvider } from './src/context/ProfileContext';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { colors } from './src/theme/colors';
+
+// Enable screens for better performance
+enableScreens();
 
 class ErrorBoundary extends React.Component<any, { hasError: boolean, error: Error | null }> {
   constructor(props: any) {
@@ -58,7 +62,9 @@ const AppContainer = () => {
 };
 
 export default function App() {
+  // Log that the app is rendering
   console.log('App is rendering');
+  
   return (
     <ErrorBoundary>
       <AuthProvider>
