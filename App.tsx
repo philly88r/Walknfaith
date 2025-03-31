@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
 import AuthNavigator from './src/navigation/AuthNavigator';
 import { View, Text, ActivityIndicator } from 'react-native-web';
@@ -46,10 +47,12 @@ const AppContainer = () => {
 
   return (
     <ProfileProvider>
-      <SafeAreaProvider>
-        <StatusBar style="light" />
-        {user ? <AppNavigator /> : <AuthNavigator />}
-      </SafeAreaProvider>
+      <NavigationContainer>
+        <SafeAreaProvider>
+          <StatusBar style="light" />
+          {user ? <AppNavigator /> : <AuthNavigator />}
+        </SafeAreaProvider>
+      </NavigationContainer>
     </ProfileProvider>
   );
 };

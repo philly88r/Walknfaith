@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { Image, StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native-web';
@@ -56,149 +55,147 @@ export default function AppNavigator() {
   );
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={({ navigation }) => ({
-          headerStyle: {
-            backgroundColor: colors.primary,
-            height: 80, // Make header taller to fit text
-          },
-          headerTintColor: colors.white,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerTitleAlign: 'center',
-          headerRight: () => <ProfileIcon navigation={navigation} />,
+    <Stack.Navigator
+      screenOptions={({ navigation }) => ({
+        headerStyle: {
+          backgroundColor: colors.primary,
+          height: 80, // Make header taller to fit text
+        },
+        headerTintColor: colors.white,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        headerTitleAlign: 'center',
+        headerRight: () => <ProfileIcon navigation={navigation} />,
+      })}
+    >
+      <Stack.Screen 
+        name="Home" 
+        component={HomeScreen}
+        options={{
+          headerTitle: () => <HeaderTitle />,
+        }}
+      />
+      <Stack.Screen 
+        name="Schedule" 
+        component={ScheduleScreen}
+        options={{
+          title: 'Schedule Appointment',
+        }}
+      />
+      <Stack.Screen 
+        name="MentalHealth" 
+        component={MentalHealthScreen}
+        options={{
+          title: 'Mental Health Resources',
+        }}
+      />
+      <Stack.Screen 
+        name="About" 
+        component={AboutScreen}
+        options={{
+          title: 'About Us',
+        }}
+      />
+      <Stack.Screen 
+        name="Events" 
+        component={EventsScreen}
+        options={{
+          title: 'Events',
+        }}
+      />
+      <Stack.Screen 
+        name="Profile" 
+        component={ProfileScreen}
+        options={{
+          title: 'Edit Profile',
+        }}
+      />
+      <Stack.Screen 
+        name="Contact" 
+        component={ContactScreen}
+        options={{
+          title: 'Contact Us',
+        }}
+      />
+      <Stack.Screen 
+        name="Mentorship" 
+        component={MentorshipScreen}
+        options={{
+          title: 'Mentorship Program',
+        }}
+      />
+      <Stack.Screen 
+        name="CareerPlacement" 
+        component={CareerPlacementScreen}
+        options={{
+          title: 'Career Placement',
+        }}
+      />
+      <Stack.Screen 
+        name="CNATraining" 
+        component={CNATrainingScreen}
+        options={{
+          title: 'CNA Training Program',
+        }}
+      />
+      <Stack.Screen 
+        name="PhysicianMentorProgram" 
+        component={PhysicianMentorProgramScreen}
+        options={{
+          title: 'Physician Mentor Program',
+        }}
+      />
+      <Stack.Screen 
+        name="PurposeTechInstitute" 
+        component={PurposeTechInstituteScreen}
+        options={({ navigation }) => ({
+          title: 'Purpose Tech Institute',
+          headerLeft: () => <BackButton navigation={navigation} />,
         })}
-      >
-        <Stack.Screen 
-          name="Home" 
-          component={HomeScreen}
-          options={{
-            headerTitle: () => <HeaderTitle />,
-          }}
-        />
-        <Stack.Screen 
-          name="Schedule" 
-          component={ScheduleScreen}
-          options={{
-            title: 'Schedule Appointment',
-          }}
-        />
-        <Stack.Screen 
-          name="MentalHealth" 
-          component={MentalHealthScreen}
-          options={{
-            title: 'Mental Health Resources',
-          }}
-        />
-        <Stack.Screen 
-          name="About" 
-          component={AboutScreen}
-          options={{
-            title: 'About Us',
-          }}
-        />
-        <Stack.Screen 
-          name="Events" 
-          component={EventsScreen}
-          options={{
-            title: 'Events',
-          }}
-        />
-        <Stack.Screen 
-          name="Profile" 
-          component={ProfileScreen}
-          options={{
-            title: 'Edit Profile',
-          }}
-        />
-        <Stack.Screen 
-          name="Contact" 
-          component={ContactScreen}
-          options={{
-            title: 'Contact Us',
-          }}
-        />
-        <Stack.Screen 
-          name="Mentorship" 
-          component={MentorshipScreen}
-          options={{
-            title: 'Mentorship Program',
-          }}
-        />
-        <Stack.Screen 
-          name="CareerPlacement" 
-          component={CareerPlacementScreen}
-          options={{
-            title: 'Career Placement',
-          }}
-        />
-        <Stack.Screen 
-          name="CNATraining" 
-          component={CNATrainingScreen}
-          options={{
-            title: 'CNA Training Program',
-          }}
-        />
-        <Stack.Screen 
-          name="PhysicianMentorProgram" 
-          component={PhysicianMentorProgramScreen}
-          options={{
-            title: 'Physician Mentor Program',
-          }}
-        />
-        <Stack.Screen 
-          name="PurposeTechInstitute" 
-          component={PurposeTechInstituteScreen}
-          options={({ navigation }) => ({
-            title: 'Purpose Tech Institute',
-            headerLeft: () => <BackButton navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen 
-          name="CDLTrainingProgram" 
-          component={CDLTrainingProgramScreen}
-          options={({ navigation }) => ({
-            title: 'CDL Training Program',
-            headerLeft: () => <BackButton navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen 
-          name="TestAuth" 
-          component={TestAuthScreen}
-          options={({ navigation }) => ({
-            title: 'Authentication Test',
-            headerLeft: () => <BackButton navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen 
-          name="AnxietyResources" 
-          component={AnxietyResourcesScreen}
-          options={{ title: 'Anxiety Resources' }}
-        />
-        <Stack.Screen 
-          name="DepressionResources" 
-          component={DepressionResourcesScreen}
-          options={{ title: 'Depression Resources' }}
-        />
-        <Stack.Screen 
-          name="CrisisHotlines" 
-          component={CrisisHotlinesScreen}
-          options={{ title: 'Crisis Hotlines' }}
-        />
-        <Stack.Screen 
-          name="PeerPressure" 
-          component={PeerPressureScreen}
-          options={{ title: 'Peer Pressure' }}
-        />
-        <Stack.Screen 
-          name="SuicidePrevention" 
-          component={SuicidePreventionScreen}
-          options={{ title: 'Suicide Prevention Resources' }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+      />
+      <Stack.Screen 
+        name="CDLTrainingProgram" 
+        component={CDLTrainingProgramScreen}
+        options={({ navigation }) => ({
+          title: 'CDL Training Program',
+          headerLeft: () => <BackButton navigation={navigation} />,
+        })}
+      />
+      <Stack.Screen 
+        name="TestAuth" 
+        component={TestAuthScreen}
+        options={({ navigation }) => ({
+          title: 'Authentication Test',
+          headerLeft: () => <BackButton navigation={navigation} />,
+        })}
+      />
+      <Stack.Screen 
+        name="AnxietyResources" 
+        component={AnxietyResourcesScreen}
+        options={{ title: 'Anxiety Resources' }}
+      />
+      <Stack.Screen 
+        name="DepressionResources" 
+        component={DepressionResourcesScreen}
+        options={{ title: 'Depression Resources' }}
+      />
+      <Stack.Screen 
+        name="CrisisHotlines" 
+        component={CrisisHotlinesScreen}
+        options={{ title: 'Crisis Hotlines' }}
+      />
+      <Stack.Screen 
+        name="PeerPressure" 
+        component={PeerPressureScreen}
+        options={{ title: 'Peer Pressure' }}
+      />
+      <Stack.Screen 
+        name="SuicidePrevention" 
+        component={SuicidePreventionScreen}
+        options={{ title: 'Suicide Prevention Resources' }}
+      />
+    </Stack.Navigator>
   );
 }
 
