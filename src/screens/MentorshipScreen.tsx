@@ -9,11 +9,11 @@ import {
   Platform,
   Image,
   Linking,
+  ImageBackground,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Card } from 'react-native-paper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MaterialIcons } from '@expo/vector-icons';
 import { RootStackParamList } from '../types/navigation';
 import { colors } from '../theme/colors';
 
@@ -224,8 +224,21 @@ const MentorshipScreen = () => {
               Hello! I'm Darrisha Barnes. I've been dedicated to healthcare since age 18, with a passion for elder care that began at 16. I've progressed from dietary aid to L1MA/DSP, and now as a CNA, I find immense fulfilment in improving the lives of my residents. With over six years of experience and a strong work ethic, my residents are my top priority. I'm committed to growth, pursuing my CMT license in six months, and ultimately aiming to become a nurse. I believe my CNA experience provides invaluable insight into the challenges and sacrifices of frontline care, fostering a collaborative and supportive team environment. I'm a team player and eager to assist others in their growth and success.
             </Text>
           </View>
+          <View>
+            <ImageBackground
+              source={require('../../assets/mentor-image.jpg')}
+              style={styles.backgroundImage}
+              imageStyle={styles.backgroundImageStyle}
+            >
+              <Text style={styles.overlayText}>
+                Mentoring at Purpose Tech Institute involves experienced nurses and CNAs sharing knowledge and skills to support student career development. Peer mentors guide mentees, who are students seeking to advance in their technical programs. Benefits include practical learning, increased confidence, improved communication, and a trusted support system for both mentors and mentees.
+              </Text>
+            </ImageBackground>
+          </View>
         </Card.Content>
       </Card>
+
+      
 
       {educationalResources.map((resource, index) => (
         <TouchableOpacity
@@ -363,6 +376,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#34495e',
     lineHeight: 20,
+  },
+  backgroundImage: {
+    width: '100%',
+    height: 300,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 16,
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
+  backgroundImageStyle: {
+    opacity: 0.3,
+  },
+  overlayText: {
+    textAlign: 'center',
+    paddingHorizontal: 16,
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#34495e',
   },
   tabs: {
     flexDirection: 'row',
