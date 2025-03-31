@@ -6,8 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+} from 'react-native-web';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
@@ -23,9 +22,9 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
         type: ['application/pdf', 'image/*'],
       });
 
-      if (result.type === 'success') {
+      if (!result.canceled) {
         // Handle the uploaded file
-        console.log('Document:', result.uri);
+        console.log('Document:', result.assets[0].uri);
       }
     } catch (error) {
       console.error('Error uploading assignment:', error);
@@ -34,22 +33,15 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleAddSkillsVideo = async () => {
     try {
-      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      
-      if (permissionResult.granted === false) {
-        alert('Permission to access camera roll is required!');
-        return;
-      }
-
-      const result = await launchImageLibraryAsync({
+      const permissionResult = await launchImageLibraryAsync({
         mediaTypes: MediaTypeOptions.Videos,
         allowsEditing: true,
         quality: 1,
       });
 
-      if (!result.canceled) {
+      if (!permissionResult.canceled) {
         // Handle the selected video
-        console.log('Video selected:', result.assets[0].uri);
+        console.log('Video selected:', permissionResult.assets[0].uri);
         // Add your video upload logic here
       }
     } catch (error) {
@@ -58,7 +50,7 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         {/* Header Section */}
         <View style={styles.header}>
@@ -131,9 +123,81 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
               <Text style={styles.buttonText}>Add Skills Video</Text>
             </TouchableOpacity>
           </View>
+
+          {/* Additional Training Programs */}
+          <View style={styles.additionalPrograms}>
+            <Text style={styles.sectionTitle}>Additional Training Programs</Text>
+            
+            <TouchableOpacity 
+              style={styles.programCard}
+              onPress={() => navigation.navigate('PhysicianMentorProgram')}
+            >
+              <View style={styles.programHeader}>
+                <FontAwesome5 name="user-md" size={24} color="#007AFF" />
+                <View style={styles.programInfo}>
+                  <Text style={styles.programTitle}>Physician Mentor Program</Text>
+                  <Text style={styles.programDescription}>
+                    Provides local high school and college students the opportunity to witness and understand the importance of professions in the medical field.
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.readMoreContainer}>
+                <Text style={styles.readMore}>Learn More</Text>
+                <MaterialIcons name="arrow-forward" size={20} color="#007AFF" />
+              </View>
+            </TouchableOpacity>
+            
+            <View style={styles.comingSoonProgram}>
+              <FontAwesome5 name="user-nurse" size={24} color="#007AFF" />
+              <View style={styles.programInfo}>
+                <Text style={styles.programTitle}>Nurse Mentorship Program</Text>
+                <Text style={styles.comingSoonText}>Coming Soon</Text>
+              </View>
+            </View>
+            
+            <View style={styles.comingSoonProgram}>
+              <FontAwesome5 name="heartbeat" size={24} color="#007AFF" />
+              <View style={styles.programInfo}>
+                <Text style={styles.programTitle}>LPN Program</Text>
+                <Text style={styles.comingSoonText}>Coming Soon</Text>
+              </View>
+            </View>
+            
+            <View style={styles.comingSoonProgram}>
+              <FontAwesome5 name="medkit" size={24} color="#007AFF" />
+              <View style={styles.programInfo}>
+                <Text style={styles.programTitle}>CMT Program</Text>
+                <Text style={styles.comingSoonText}>Coming Soon</Text>
+              </View>
+            </View>
+          </View>
+          
+          {/* First Aid/CPR Section */}
+          <View style={styles.firstAidSection}>
+            <Text style={styles.sectionTitle}>Adult, Child and Baby First Aid/CPR/AED Online</Text>
+            <Text style={styles.firstAidCourseDescription}>
+              The Adult, Child and Baby First Aid/CPR/AED Online course equips students to recognize and care for a variety of first aid, breathing, and cardiac emergencies involving adults, children and babies. This course is taught in-person only. This course meets OSHA compliant and meets other workplace and regulatory requirements.
+            </Text>
+            <Text style={styles.priceText}>$75.00</Text>
+            <TouchableOpacity style={styles.signupButton}>
+              <Text style={styles.signupText}>SIGN ME UP</Text>
+            </TouchableOpacity>
+            <Text style={styles.noteText}>
+              Contact Customer Service to sign up additional students for classes provided by the Purpose Tech Institute & Staffing.
+            </Text>
+          </View>
+          
+          {/* CNA Refresher */}
+          <View style={styles.refresherSection}>
+            <Text style={styles.sectionTitle}>CNA Refresher Skills Course</Text>
+            <Text style={styles.priceText}>$100 out of pocket.</Text>
+            <Text style={styles.refresherCourseDescription}>
+              This course provides NA graduates a 4-6 hour skills refresher to ensure they pass their skills exam. Please contact our office for scheduling.
+            </Text>
+          </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -237,6 +301,112 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  additionalPrograms: {
+    marginTop: 30,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: '#2c3e50',
+  },
+  programCard: {
+    backgroundColor: '#f8f8f8',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 15,
+  },
+  programHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  programInfo: {
+    marginLeft: 15,
+    flex: 1,
+  },
+  programTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    marginBottom: 5,
+  },
+  programDescription: {
+    fontSize: 14,
+    color: '#34495e',
+    lineHeight: 20,
+  },
+  readMoreContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginTop: 10,
+  },
+  readMore: {
+    fontSize: 16,
+    color: "#007AFF",
+    marginRight: 8,
+  },
+  comingSoonProgram: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 15,
+  },
+  comingSoonText: {
+    fontSize: 14,
+    color: '#e74c3c',
+    fontStyle: 'italic',
+  },
+  firstAidSection: {
+    marginTop: 30,
+    backgroundColor: '#f8f8f8',
+    borderRadius: 10,
+    padding: 15,
+  },
+  firstAidCourseDescription: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#34495e',
+    marginBottom: 15,
+  },
+  priceText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    marginVertical: 10,
+  },
+  signupButton: {
+    backgroundColor: '#e74c3c',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginVertical: 15,
+  },
+  signupText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  noteText: {
+    fontSize: 14,
+    color: '#7f8c8d',
+    fontStyle: 'italic',
+  },
+  refresherSection: {
+    marginTop: 30,
+    backgroundColor: '#f8f8f8',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 20,
+  },
+  refresherCourseDescription: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#34495e',
+    marginBottom: 15,
   },
 });
 

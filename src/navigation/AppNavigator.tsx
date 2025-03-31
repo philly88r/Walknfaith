@@ -13,11 +13,16 @@ import ContactScreen from '../screens/ContactScreen';
 import MentorshipScreen from '../screens/MentorshipScreen';
 import CareerPlacementScreen from '../screens/CareerPlacementScreen';
 import CNATrainingScreen from '../screens/CNATrainingScreen';
+import PhysicianMentorProgramScreen from '../screens/PhysicianMentorProgramScreen';
+import PurposeTechInstituteScreen from '../screens/PurposeTechInstituteScreen';
+import CDLTrainingProgramScreen from '../screens/CDLTrainingProgramScreen';
 import AnxietyResourcesScreen from '../screens/AnxietyResourcesScreen';
 import DepressionResourcesScreen from '../screens/DepressionResourcesScreen';
 import CrisisHotlinesScreen from '../screens/CrisisHotlinesScreen';
 import PeerPressureScreen from '../screens/PeerPressureScreen';
 import SuicidePreventionScreen from '../screens/SuicidePreventionScreen';
+import TestAuthScreen from '../screens/TestAuthScreen';
+import BackButton from '../components/BackButton';
 import { RootStackParamList } from './types';
 import { colors } from '../theme/colors';
 import { useProfile } from '../context/ProfileContext';
@@ -135,6 +140,37 @@ export default function AppNavigator() {
           options={{
             title: 'CNA Training Program',
           }}
+        />
+        <Stack.Screen 
+          name="PhysicianMentorProgram" 
+          component={PhysicianMentorProgramScreen}
+          options={{
+            title: 'Physician Mentor Program',
+          }}
+        />
+        <Stack.Screen 
+          name="PurposeTechInstitute" 
+          component={PurposeTechInstituteScreen}
+          options={({ navigation }) => ({
+            title: 'Purpose Tech Institute',
+            headerLeft: () => <BackButton navigation={navigation} />,
+          })}
+        />
+        <Stack.Screen 
+          name="CDLTrainingProgram" 
+          component={CDLTrainingProgramScreen}
+          options={({ navigation }) => ({
+            title: 'CDL Training Program',
+            headerLeft: () => <BackButton navigation={navigation} />,
+          })}
+        />
+        <Stack.Screen 
+          name="TestAuth" 
+          component={TestAuthScreen}
+          options={({ navigation }) => ({
+            title: 'Authentication Test',
+            headerLeft: () => <BackButton navigation={navigation} />,
+          })}
         />
         <Stack.Screen 
           name="AnxietyResources" 

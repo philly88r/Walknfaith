@@ -14,4 +14,11 @@ export type RootStackParamList = {
   CrisisHotlines: undefined;
   PeerPressure: undefined;
   SuicidePrevention: undefined;
+  PhysicianMentorProgram: undefined;
+  PurposeTechInstitute: undefined;
+  CDLTrainingProgram: undefined;
+  TestAuth: undefined;
+  Login: undefined;
+  SignUp: undefined;
+  ForgotPassword: undefined;
 };

@@ -9,12 +9,16 @@ import {
   TouchableOpacity,
   Alert,
   Platform,
+  ActivityIndicator,
 } from 'react-native-web';
 import { useProfile, UserProfile } from '../context/ProfileContext';
+import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme/colors';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function ProfileScreen() {
-  const { profile: savedProfile, updateProfile } = useProfile();
+  const { profile: savedProfile, updateProfile, isLoading } = useProfile();
+  const { signOut, user } = useAuth();
   const [profile, setProfile] = useState<UserProfile>({
     firstName: '',
     lastName: '',
@@ -26,6 +30,7 @@ export default function ProfileScreen() {
     notifications: true,
     emailUpdates: true,
   });
+  const [isSaving, setIsSaving] = useState(false);
 
   // Load saved profile when component mounts
   useEffect(() => {
@@ -41,17 +46,43 @@ export default function ProfileScreen() {
     }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Validate required fields
     if (!profile.firstName || !profile.lastName || !profile.email) {
       Alert.alert('Missing Information', 'Please fill in all required fields (First Name, Last Name, Email)');
       return;
     }
 
-    // Save profile
-    updateProfile(profile);
-    Alert.alert('Success', 'Profile updated successfully');
+    try {
+      setIsSaving(true);
+      // Save profile
+      await updateProfile(profile);
+      Alert.alert('Success', 'Profile updated successfully');
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      Alert.alert('Error', 'Failed to update profile. Please try again.');
+    } finally {
+      setIsSaving(false);
+    }
   };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Error signing out:', error);
+      Alert.alert('Error', 'Failed to sign out. Please try again.');
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={colors.primary} />
+        <Text style={styles.loadingText}>Loading profile...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -59,6 +90,17 @@ export default function ProfileScreen() {
         <Text style={styles.headerText}>Your Profile</Text>
         <Text style={styles.subHeaderText}>Update your personal information and preferences</Text>
       </View>
+
+      {user && (
+        <View style={styles.userInfoSection}>
+          <View style={styles.userInitialsContainer}>
+            <Text style={styles.userInitials}>
+              {profile.firstName?.[0] || ''}{profile.lastName?.[0] || ''}
+            </Text>
+          </View>
+          <Text style={styles.userEmail}>{user.email}</Text>
+        </View>
+      )}
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Personal Information</Text>
@@ -121,7 +163,7 @@ export default function ProfileScreen() {
         <Text style={styles.sectionTitle}>Emergency Contact</Text>
         
         <View style={styles.fieldContainer}>
-          <Text style={styles.label}>Emergency Contact Name</Text>
+          <Text style={styles.label}>Contact Name</Text>
           <TextInput
             style={styles.input}
             value={profile.emergencyContact}
@@ -131,7 +173,7 @@ export default function ProfileScreen() {
         </View>
         
         <View style={styles.fieldContainer}>
-          <Text style={styles.label}>Emergency Contact Phone</Text>
+          <Text style={styles.label}>Contact Phone</Text>
           <TextInput
             style={styles.input}
             value={profile.emergencyPhone}
@@ -146,12 +188,12 @@ export default function ProfileScreen() {
         <Text style={styles.sectionTitle}>Preferences</Text>
         
         <View style={styles.switchContainer}>
-          <Text style={styles.switchLabel}>Enable Notifications</Text>
+          <Text style={styles.switchLabel}>Receive Push Notifications</Text>
           <Switch
             value={profile.notifications}
             onValueChange={(value: boolean) => handleChange('notifications', value)}
-            trackColor={{ false: '#767577', true: colors.primary }}
-            thumbColor={profile.notifications ? colors.secondary : '#f4f3f4'}
+            trackColor={{ false: '#d1d1d1', true: colors.primary + '80' }}
+            thumbColor={profile.notifications ? colors.primary : '#f4f3f4'}
           />
         </View>
         
@@ -160,21 +202,31 @@ export default function ProfileScreen() {
           <Switch
             value={profile.emailUpdates}
             onValueChange={(value: boolean) => handleChange('emailUpdates', value)}
-            trackColor={{ false: '#767577', true: colors.primary }}
-            thumbColor={profile.emailUpdates ? colors.secondary : '#f4f3f4'}
+            trackColor={{ false: '#d1d1d1', true: colors.primary + '80' }}
+            thumbColor={profile.emailUpdates ? colors.primary : '#f4f3f4'}
           />
         </View>
       </View>
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.saveButtonText}>Save Profile</Text>
-        </TouchableOpacity>
-      </View>
-      
-      <View style={styles.footer}>
-        <Text style={styles.requiredNote}><Text style={styles.required}>*</Text> Required fields</Text>
-      </View>
+      <TouchableOpacity 
+        style={styles.saveButton} 
+        onPress={handleSave}
+        disabled={isSaving}
+      >
+        {isSaving ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.saveButtonText}>Save Changes</Text>
+        )}
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={styles.signOutButtonLarge} 
+        onPress={handleSignOut}
+      >
+        <MaterialIcons name="logout" size={24} color="#fff" />
+        <Text style={styles.signOutButtonLargeText}>Sign Out</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -274,5 +326,58 @@ const styles = StyleSheet.create({
   requiredNote: {
     fontSize: 14,
     color: colors.textLight,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: 16,
+    color: colors.text,
+    marginTop: 10,
+  },
+  userInfoSection: {
+    padding: 20,
+    backgroundColor: colors.white,
+    marginBottom: 15,
+    borderRadius: 5,
+    ...Platform.select({
+      web: {
+        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.05)',
+      },
+    }),
+  },
+  userInitialsContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  userInitials: {
+    fontSize: 24,
+    color: colors.white,
+  },
+  userEmail: {
+    fontSize: 16,
+    color: colors.text,
+  },
+  signOutButtonLarge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    backgroundColor: colors.error,
+    marginTop: 10,
+  },
+  signOutButtonLargeText: {
+    fontSize: 16,
+    color: colors.white,
+    marginLeft: 10,
   },
 });

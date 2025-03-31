@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Image, Linking } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Image, Linking } from 'react-native-web';
 import { Card } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
@@ -81,6 +81,13 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
             offer classes that incorporate traditional learning styles as well as hands-on experiences 
             for adult education.
           </Text>
+          <TouchableOpacity 
+            style={styles.learnMoreButton}
+            onPress={() => navigation.navigate('PurposeTechInstitute')}
+          >
+            <Text style={styles.learnMoreButtonText}>Learn More</Text>
+            <MaterialIcons name="arrow-forward" size={20} color="white" />
+          </TouchableOpacity>
         </Card.Content>
       </Card>
 
@@ -160,7 +167,7 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity 
         style={styles.programCard}
-        onPress={() => navigation.navigate('CDLTraining')}
+        onPress={() => navigation.navigate('CDLTrainingProgram')}
       >
         <View style={styles.programHeader}>
           <FontAwesome5 name="truck" size={24} color="#007AFF" />
@@ -391,6 +398,19 @@ const styles = StyleSheet.create({
   readMore: {
     fontSize: 16,
     color: "#007AFF",
+    marginRight: 8,
+  },
+  learnMoreButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: colors.primary,
+    padding: 8,
+    borderRadius: 8,
+  },
+  learnMoreButtonText: {
+    fontSize: 16,
+    color: 'white',
     marginRight: 8,
   },
 });

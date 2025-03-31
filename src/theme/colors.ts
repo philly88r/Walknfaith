@@ -9,4 +9,5 @@ export const colors = {
   white: '#FFFFFF',
   error: '#FF3B30',
   success: '#34C759',
+  lightGray: '#F0F0F0', // Light gray for backgrounds and borders
 };
