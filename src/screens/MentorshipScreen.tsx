@@ -9,8 +9,10 @@ import {
   Platform,
   Image,
   Linking,
+  ImageBackground,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Card } from 'react-native-paper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import { colors } from '../theme/colors';
@@ -203,6 +205,41 @@ const MentorshipScreen = () => {
   const renderEducationalResources = () => (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Educational Resources</Text>
+      
+      <Card style={styles.card}>
+        <Card.Content>
+          <Text style={styles.sectionTitle2}>Our Peer Mentors</Text>
+          <Text style={styles.text}>
+            Our mentors understand the journey to recovery, bringing both lived experience and professional dedication. They're here to offer unwavering support, practical guidance, and a compassionate ear, proving that you're never alone. Like Darrisha and Donyell, they're passionate about helping others grow and prosper, fostering a strong team environment where your success is our shared priority.
+          </Text>
+          <View style={styles.mentorSection}>
+            <Image source={require('../../assets/donyell-brooks.png')} style={styles.mentorImage} />
+            <Text style={styles.text}>
+              Hello all, I am Donyell Brooks, CNA. I recently completed my CNA course at WalkNFaith/ Purpose Tech Institute. I am so excited about my accomplishment and finally reaching one of my goals. A little more about me is that I graduated in 2017 as a medical assistant and in 2018 I became a pharmacy technician. I love the medical field and have a passion for caring for people. I have future plans to become a nurse practitioner in the NICU and also want to mentor and assist others wanting to join the medical field.
+            </Text>
+          </View>
+          <View style={styles.mentorSection}>
+            <Image source={require('../../assets/darisha-barnes.png')} style={styles.mentorImage} />
+            <Text style={styles.text}>
+              Hello! I'm Darrisha Barnes. I've been dedicated to healthcare since age 18, with a passion for elder care that began at 16. I've progressed from dietary aid to L1MA/DSP, and now as a CNA, I find immense fulfilment in improving the lives of my residents. With over six years of experience and a strong work ethic, my residents are my top priority. I'm committed to growth, pursuing my CMT license in six months, and ultimately aiming to become a nurse. I believe my CNA experience provides invaluable insight into the challenges and sacrifices of frontline care, fostering a collaborative and supportive team environment. I'm a team player and eager to assist others in their growth and success.
+            </Text>
+          </View>
+          <View>
+            <ImageBackground
+              source={require('../../assets/mentor-image.jpg')}
+              style={styles.backgroundImage}
+              imageStyle={styles.backgroundImageStyle}
+            >
+              <Text style={styles.overlayText}>
+                Mentoring at Purpose Tech Institute involves experienced nurses and CNAs sharing knowledge and skills to support student career development. Peer mentors guide mentees, who are students seeking to advance in their technical programs. Benefits include practical learning, increased confidence, improved communication, and a trusted support system for both mentors and mentees.
+              </Text>
+            </ImageBackground>
+          </View>
+        </Card.Content>
+      </Card>
+
+      
+
       {educationalResources.map((resource, index) => (
         <TouchableOpacity
           key={index}
@@ -291,6 +328,73 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.white,
     opacity: 0.9,
+  },
+  card: {
+    marginBottom: 16,
+    elevation: 4,
+    backgroundColor: 'white',
+  },
+  sectionTitle2: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    color: '#2c3e50',
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#34495e',
+    marginBottom: 16,
+  },
+  featureContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 16,
+  },
+  feature: {
+    alignItems: 'center',
+  },
+  featureText: {
+    fontSize: 14,
+    color: '#2c3e50',
+    marginTop: 8,
+    textAlign: 'center',
+  },
+  mentorSection: {
+    flexDirection: 'column', 
+    alignItems: 'center',
+    marginVertical: 16,
+  },
+  mentorImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    marginBottom: 16,
+  },
+  mentorBio: {
+    flex: 1,
+    fontSize: 14,
+    color: '#34495e',
+    lineHeight: 20,
+  },
+  backgroundImage: {
+    width: '100%',
+    height: 300,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 16,
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
+  backgroundImageStyle: {
+    opacity: 0.3,
+  },
+  overlayText: {
+    textAlign: 'center',
+    paddingHorizontal: 16,
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#34495e',
   },
   tabs: {
     flexDirection: 'row',
