@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { useProfile } from '../context/ProfileContext';
 import LoadingScreen from '../components/LoadingScreen';
@@ -28,24 +27,24 @@ const MainNavigator: React.FC = () => {
     return <LoadingScreen />;
   }
 
-  return (
-    <NavigationContainer>
-      {!user ? (
-        <AuthNavigator />
-      ) : !isProfileComplete ? (
-        <Stack.Navigator 
-          screenOptions={{ 
-            headerShown: false,
-            contentStyle: { backgroundColor: colors.white }
-          }}
-        >
-          <Stack.Screen name="ProfileForm" component={ProfileFormScreen} />
-        </Stack.Navigator>
-      ) : (
-        <AppNavigator />
-      )}
-    </NavigationContainer>
-  );
+  if (!user) {
+    return <AuthNavigator />;
+  }
+  
+  if (!isProfileComplete) {
+    return (
+      <Stack.Navigator 
+        screenOptions={{ 
+          headerShown: false,
+          contentStyle: { backgroundColor: colors.white }
+        }}
+      >
+        <Stack.Screen name="ProfileForm" component={ProfileFormScreen} />
+      </Stack.Navigator>
+    );
+  }
+  
+  return <AppNavigator />;
 };
 
 export default MainNavigator;
