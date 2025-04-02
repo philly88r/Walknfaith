@@ -9,6 +9,7 @@ export interface UserProfile {
   lastName: string;
   email: string;
   phone?: string;
+  userPurpose?: 'career_help' | 'patient';
   address?: string;
   emergencyContact?: string;
   emergencyPhone?: string;
@@ -29,6 +30,7 @@ const defaultProfile: UserProfile = {
   lastName: '',
   email: '',
   phone: '',
+  userPurpose: undefined,
   address: '',
   emergencyContact: '',
   emergencyPhone: '',
@@ -79,6 +81,7 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
             lastName: data.last_name || '',
             email: data.email || '',
             phone: data.phone || '',
+            userPurpose: data.user_purpose as 'career_help' | 'patient' | undefined,
             address: data.address || '',
             emergencyContact: data.emergency_contact || '',
             emergencyPhone: data.emergency_phone || '',
@@ -86,8 +89,8 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
             emailUpdates: data.email_updates !== undefined ? data.email_updates : true,
           });
           
-          // Check if profile is complete
-          setIsProfileComplete(!!data.first_name && !!data.last_name && !!data.email);
+          // Check if profile is complete - must have name, email and user purpose
+          setIsProfileComplete(!!data.first_name && !!data.last_name && !!data.email && !!data.user_purpose);
         } else {
           setProfile(null);
         }
@@ -142,6 +145,7 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
         last_name: updatedProfile.lastName,
         email: updatedProfile.email,
         phone: updatedProfile.phone,
+        user_purpose: updatedProfile.userPurpose,
         address: updatedProfile.address,
         emergency_contact: updatedProfile.emergencyContact,
         emergency_phone: updatedProfile.emergencyPhone,
@@ -156,7 +160,7 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
       }
       
       setProfile(updatedProfile);
-      setIsProfileComplete(!!updatedProfile.firstName && !!updatedProfile.lastName && !!updatedProfile.email);
+      setIsProfileComplete(!!updatedProfile.firstName && !!updatedProfile.lastName && !!updatedProfile.email && !!updatedProfile.userPurpose);
     } catch (error) {
       console.error('Error updating profile:', error);
       throw error;

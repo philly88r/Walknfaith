@@ -1,3 +1,16 @@
+-- First, create the health_check table
+CREATE TABLE IF NOT EXISTS public.health_check (
+  id SERIAL PRIMARY KEY,
+  status TEXT NOT NULL,
+  timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  details JSONB
+);
+
+-- Insert an initial record if the table is empty
+INSERT INTO public.health_check (status, details)
+SELECT 'active', '{"created_by": "system", "purpose": "connectivity_test"}'::jsonb
+WHERE NOT EXISTS (SELECT 1 FROM public.health_check LIMIT 1);
+
 -- Function to create the health_check table
 CREATE OR REPLACE FUNCTION public.create_health_check_table()
 RETURNS void

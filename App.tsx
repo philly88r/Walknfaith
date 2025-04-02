@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
 import { enableScreens } from 'react-native-screens';
-import AppNavigator from './src/navigation/AppNavigator';
-import AuthNavigator from './src/navigation/AuthNavigator';
-import { View, Text, ActivityIndicator } from 'react-native-web';
+import { View, Text } from 'react-native-web';
 import { ProfileProvider } from './src/context/ProfileContext';
-import { AuthProvider, useAuth } from './src/context/AuthContext';
-import { colors } from './src/theme/colors';
+import { AuthProvider } from './src/context/AuthContext';
+import MainNavigator from './src/navigation/MainNavigator';
 
 // Enable screens for better performance
 enableScreens();
@@ -37,30 +35,6 @@ class ErrorBoundary extends React.Component<any, { hasError: boolean, error: Err
   }
 }
 
-// Main app container that checks auth state
-const AppContainer = () => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color={colors.primary} />
-      </View>
-    );
-  }
-
-  return (
-    <ProfileProvider>
-      <NavigationContainer>
-        <SafeAreaProvider>
-          <StatusBar style="light" />
-          {user ? <AppNavigator /> : <AuthNavigator />}
-        </SafeAreaProvider>
-      </NavigationContainer>
-    </ProfileProvider>
-  );
-};
-
 export default function App() {
   // Log that the app is rendering
   console.log('App is rendering');
@@ -68,7 +42,14 @@ export default function App() {
   return (
     <ErrorBoundary>
       <AuthProvider>
-        <AppContainer />
+        <ProfileProvider>
+          <NavigationContainer>
+            <SafeAreaProvider>
+              <StatusBar style="light" />
+              <MainNavigator />
+            </SafeAreaProvider>
+          </NavigationContainer>
+        </ProfileProvider>
       </AuthProvider>
     </ErrorBoundary>
   );
