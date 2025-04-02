@@ -22,4 +22,5 @@ export type RootStackParamList = {
   SignUp: undefined;
   ForgotPassword: undefined;
   ProfileForm: undefined;
+  CNAApplication: undefined;
 };

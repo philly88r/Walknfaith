@@ -12,6 +12,7 @@ import ContactScreen from '../screens/ContactScreen';
 import MentorshipScreen from '../screens/MentorshipScreen';
 import CareerPlacementScreen from '../screens/CareerPlacementScreen';
 import CNATrainingScreen from '../screens/CNATrainingScreen';
+import CNAApplicationScreen from '../screens/CNAApplicationScreen';
 import PhysicianMentorProgramScreen from '../screens/PhysicianMentorProgramScreen';
 import PurposeTechInstituteScreen from '../screens/PurposeTechInstituteScreen';
 import CDLTrainingProgramScreen from '../screens/CDLTrainingProgramScreen';
@@ -137,6 +138,13 @@ export default function AppNavigator() {
         component={CNATrainingScreen}
         options={{
           title: 'CNA Training Program',
+        }}
+      />
+      <Stack.Screen 
+        name="CNAApplication" 
+        component={CNAApplicationScreen}
+        options={{
+          title: 'CNA Application Form',
         }}
       />
       <Stack.Screen 

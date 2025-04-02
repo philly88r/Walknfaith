@@ -12,6 +12,7 @@ import * as DocumentPicker from 'expo-document-picker';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
+import { colors } from '../theme/colors';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CNATraining'>;
 
@@ -49,14 +50,17 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
+  const handleApplyNow = () => {
+    navigation.navigate('CNAApplication');
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
         {/* Header Section */}
         <View style={styles.header}>
           <Text style={styles.headerNumber}>01</Text>
-          <Text style={styles.headerTitle}>CNA Training Program</Text>
-          <Text style={styles.headerSubtitle}>Certified Nursing Assistant (CNA) Course</Text>
+          <Text style={styles.headerTitle}>Certified Nursing Assistant (CNA) Course</Text>
         </View>
 
         {/* Main Content */}
@@ -103,25 +107,34 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
               <MaterialIcons name="attach-money" size={24} color="#007AFF" />
               <Text style={styles.detailText}>Cost: $1,250.00</Text>
             </View>
+            <TouchableOpacity 
+              style={styles.applyButton}
+              onPress={handleApplyNow}
+            >
+              <Text style={styles.applyButtonText}>APPLY NOW</Text>
+            </TouchableOpacity>
           </View>
 
-          {/* Action Buttons */}
-          <View style={styles.actionButtons}>
-            <TouchableOpacity 
-              style={styles.actionButton}
-              onPress={handleUploadAssignment}
-            >
-              <MaterialIcons name="upload-file" size={24} color="white" />
-              <Text style={styles.buttonText}>Upload Assignments</Text>
-            </TouchableOpacity>
+          {/* Action Buttons for Current Students */}
+          <View style={styles.studentSection}>
+            <Text style={styles.sectionTitle}>Current Student Resources</Text>
+            <View style={styles.actionButtons}>
+              <TouchableOpacity 
+                style={styles.actionButton}
+                onPress={handleUploadAssignment}
+              >
+                <MaterialIcons name="upload-file" size={24} color="white" />
+                <Text style={styles.buttonText}>Upload Assignments</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity 
-              style={[styles.actionButton, styles.videoButton]}
-              onPress={handleAddSkillsVideo}
-            >
-              <MaterialIcons name="video-library" size={24} color="white" />
-              <Text style={styles.buttonText}>Add Skills Video</Text>
-            </TouchableOpacity>
+              <TouchableOpacity 
+                style={[styles.actionButton, styles.videoButton]}
+                onPress={handleAddSkillsVideo}
+              >
+                <MaterialIcons name="video-library" size={24} color="white" />
+                <Text style={styles.buttonText}>Add Skills Video</Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
           {/* Additional Training Programs */}
@@ -207,43 +220,46 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
+    backgroundColor: '#f8f9fa',
     padding: 20,
-    backgroundColor: '#007AFF',
     alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
   headerNumber: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: 'rgba(255, 255, 255, 0.2)',
-    position: 'absolute',
-    top: 10,
-    right: 20,
-  },
-  headerTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: colors.primary,
     marginBottom: 10,
   },
-  headerSubtitle: {
-    fontSize: 16,
-    color: '#fff',
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
     textAlign: 'center',
+    color: '#333',
+  },
+  headerSubtitle: {
+    fontSize: 18,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 5,
   },
   contentContainer: {
     padding: 20,
   },
   descriptionSection: {
-    marginBottom: 20,
+    marginBottom: 30,
   },
   descriptionText: {
     fontSize: 16,
     lineHeight: 24,
+    color: '#333',
     marginBottom: 20,
   },
   roleText: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#333',
     marginBottom: 15,
   },
   rolesList: {
@@ -252,161 +268,186 @@ const styles = StyleSheet.create({
   roleItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
-    backgroundColor: '#f8f8f8',
+    marginBottom: 10,
+    backgroundColor: '#f8f9fa',
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 8,
   },
   roleTitle: {
     marginLeft: 15,
     fontSize: 16,
+    color: '#333',
   },
   courseDescription: {
     fontSize: 16,
     lineHeight: 24,
-    marginTop: 10,
+    color: '#333',
   },
   detailsCard: {
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#f8f9fa',
+    borderRadius: 8,
     padding: 20,
-    borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   detailItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 15,
   },
   detailText: {
     marginLeft: 15,
     fontSize: 16,
-    fontWeight: 'bold',
+    color: '#333',
   },
-  actionButtons: {
-    gap: 15,
-  },
-  actionButton: {
-    backgroundColor: '#007AFF',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+  applyButton: {
+    backgroundColor: colors.primary,
+    borderRadius: 8,
     padding: 15,
-    borderRadius: 10,
-    gap: 10,
+    alignItems: 'center',
+    marginTop: 10,
   },
-  videoButton: {
-    backgroundColor: '#28a745',
-  },
-  buttonText: {
-    color: '#fff',
+  applyButtonText: {
+    color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  additionalPrograms: {
-    marginTop: 30,
+  studentSection: {
+    marginBottom: 30,
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#333',
     marginBottom: 15,
-    color: '#2c3e50',
+  },
+  actionButtons: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  actionButton: {
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    padding: 15,
+    alignItems: 'center',
+    width: '48%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  videoButton: {
+    backgroundColor: '#4CD964',
+  },
+  buttonText: {
+    color: 'white',
+    marginLeft: 10,
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  additionalPrograms: {
+    marginBottom: 30,
   },
   programCard: {
-    backgroundColor: '#f8f8f8',
-    borderRadius: 10,
+    backgroundColor: '#f8f9fa',
+    borderRadius: 8,
     padding: 15,
     marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 1,
   },
   programHeader: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    marginBottom: 10,
   },
   programInfo: {
     marginLeft: 15,
     flex: 1,
   },
   programTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
-    color: '#2c3e50',
+    color: '#333',
     marginBottom: 5,
   },
   programDescription: {
     fontSize: 14,
-    color: '#34495e',
+    color: '#666',
     lineHeight: 20,
   },
   readMoreContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginTop: 10,
   },
   readMore: {
-    fontSize: 16,
-    color: "#007AFF",
-    marginRight: 8,
+    color: '#007AFF',
+    marginRight: 5,
+    fontSize: 14,
   },
   comingSoonProgram: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8f8f8',
-    borderRadius: 10,
+    backgroundColor: '#f8f9fa',
+    borderRadius: 8,
     padding: 15,
     marginBottom: 15,
   },
   comingSoonText: {
+    color: '#FF9500',
     fontSize: 14,
-    color: '#e74c3c',
     fontStyle: 'italic',
   },
   firstAidSection: {
-    marginTop: 30,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 10,
-    padding: 15,
+    backgroundColor: '#f8f9fa',
+    borderRadius: 8,
+    padding: 20,
+    marginBottom: 30,
   },
   firstAidCourseDescription: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: '#34495e',
+    fontSize: 14,
+    lineHeight: 22,
+    color: '#333',
     marginBottom: 15,
   },
   priceText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#2c3e50',
-    marginVertical: 10,
+    color: '#333',
+    marginBottom: 15,
   },
   signupButton: {
-    backgroundColor: '#e74c3c',
+    backgroundColor: '#FF3B30',
+    borderRadius: 8,
     padding: 15,
-    borderRadius: 10,
     alignItems: 'center',
-    marginVertical: 15,
+    marginBottom: 15,
   },
   signupText: {
-    color: '#fff',
+    color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
   noteText: {
-    fontSize: 14,
-    color: '#7f8c8d',
+    fontSize: 12,
+    color: '#666',
     fontStyle: 'italic',
   },
   refresherSection: {
-    marginTop: 30,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 20,
+    backgroundColor: '#f8f9fa',
+    borderRadius: 8,
+    padding: 20,
   },
   refresherCourseDescription: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: '#34495e',
-    marginBottom: 15,
+    fontSize: 14,
+    lineHeight: 22,
+    color: '#333',
   },
 });
 
