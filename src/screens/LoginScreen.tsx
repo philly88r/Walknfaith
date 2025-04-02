@@ -60,12 +60,10 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     >
       <View style={styles.logoContainer}>
         <Image 
-          source={require('../../assets/logo.png')} 
+          source={require('../../assets/walknfaith-logo.png')} 
           style={styles.logo}
           resizeMode="contain"
         />
-        <Text style={styles.title}>Walk-N-Faith</Text>
-        <Text style={styles.subtitle}>Crisis Counseling & Mental Health Services</Text>
       </View>
 
       <View style={styles.formContainer}>
@@ -141,20 +139,9 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   logo: {
-    width: 120,
-    height: 120,
+    width: 200,
+    height: 200,
     marginBottom: 20,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: colors.primary,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
   },
   formContainer: {
     paddingHorizontal: 30,

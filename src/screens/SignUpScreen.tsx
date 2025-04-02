@@ -98,8 +98,7 @@ const SignUpScreen: React.FC<Props> = ({ navigation }) => {
             style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.title}>Walk-N-Faith</Text>
-          <Text style={styles.subtitle}>Crisis Counseling & Mental Health Services</Text>
+          <Text style={styles.title}>Walk N Faith</Text>
         </View>
 
         <View style={styles.formContainer}>
@@ -212,12 +211,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   logo: {
-    width: 100,
-    height: 100,
-    marginBottom: 16,
+    width: 150,
+    height: 150,
+    marginBottom: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     color: colors.primary,
     marginBottom: 8,
