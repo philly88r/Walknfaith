@@ -22,7 +22,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const { signIn } = useAuth();
+  const { signIn, signUp } = useAuth();
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -123,6 +123,32 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             <Text style={styles.signupLink}>Sign Up</Text>
           </TouchableOpacity>
         </View>
+
+        {/* Temporary test button for creating a test user */}
+        <TouchableOpacity 
+          style={[styles.loginButton, { marginTop: 20, backgroundColor: '#4CAF50' }]} 
+          onPress={async () => {
+            try {
+              setLoading(true);
+              const testEmail = 'test@example.com';
+              const testPassword = 'password123';
+              const { data, error } = await signUp(testEmail, testPassword);
+              if (error) {
+                setErrorMessage(`Test user creation failed: ${error.message}`);
+              } else {
+                setErrorMessage(`Test user created! Email: ${testEmail}, Password: ${testPassword}`);
+                setEmail(testEmail);
+                setPassword(testPassword);
+              }
+            } catch (error: any) {
+              setErrorMessage(`Test user creation error: ${error.message}`);
+            } finally {
+              setLoading(false);
+            }
+          }}
+        >
+          <Text style={styles.loginButtonText}>Create Test User</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
