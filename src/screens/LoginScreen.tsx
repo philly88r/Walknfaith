@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,7 @@ import { RootStackParamList } from '../navigation/types';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme/colors';
 import SupabaseConnectionTest from '../components/SupabaseConnectionTest';
+import { ensureHealthCheckTable } from '../utils/createHealthCheckTable';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -24,6 +25,20 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const { signIn, signUp } = useAuth();
+
+  // Create health_check table when component mounts
+  useEffect(() => {
+    const setupHealthCheck = async () => {
+      try {
+        const result = await ensureHealthCheckTable();
+        console.log('Health check table setup:', result.message);
+      } catch (error) {
+        console.error('Error setting up health check table:', error);
+      }
+    };
+    
+    setupHealthCheck();
+  }, []);
 
   const handleLogin = async () => {
     if (!email || !password) {
