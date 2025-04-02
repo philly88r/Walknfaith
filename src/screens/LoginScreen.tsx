@@ -60,7 +60,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     >
       <View style={styles.logoContainer}>
         <Image 
-          source={require('../../assets/walknfaith-logo.png')} 
+          source={require('../../assets/walknfaith-logo-footer.png')} 
           style={styles.logo}
           resizeMode="contain"
         />
