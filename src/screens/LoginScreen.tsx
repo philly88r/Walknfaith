@@ -14,6 +14,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme/colors';
+import SupabaseConnectionTest from '../components/SupabaseConnectionTest';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -149,6 +150,9 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         >
           <Text style={styles.loginButtonText}>Create Test User</Text>
         </TouchableOpacity>
+        
+        {/* Supabase Connection Test */}
+        <SupabaseConnectionTest />
       </View>
     </KeyboardAvoidingView>
   );
