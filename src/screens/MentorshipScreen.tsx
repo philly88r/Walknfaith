@@ -9,7 +9,7 @@ import {
   Platform,
   Image,
   Linking,
-} from 'react-native';
+} from 'react-native-web';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
@@ -235,14 +235,7 @@ const MentorshipScreen = () => {
     </View>
   );
 
-  const renderAttendanceSurvey = () => (
-    <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Session Feedback</Text>
-      <TouchableOpacity style={styles.surveyButton}>
-        <Text style={styles.surveyButtonText}>Complete Attendance Survey</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  // Attendance survey removed as requested
 
   const tabs = [
     { key: 'program', title: 'Program' },
@@ -278,7 +271,6 @@ const MentorshipScreen = () => {
         {activeTab === 'program' && (
           <>
             {renderProgramLeads()}
-            {renderAttendanceSurvey()}
           </>
         )}
         {activeTab === 'calendar' && renderUpcomingZoomSessions()}
