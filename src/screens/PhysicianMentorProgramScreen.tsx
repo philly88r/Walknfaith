@@ -162,29 +162,7 @@ const PhysicianMentorProgramScreen: React.FC<Props> = ({ navigation }) => {
           </View>
         </View>
 
-        {/* First Aid Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Adult, Child and Baby First Aid/CPR/AED Online</Text>
-          <Text style={styles.paragraphText}>
-            The Adult, Child and Baby First Aid/CPR/AED Online course equips students to recognize and care for a variety of first aid, breathing, and cardiac emergencies involving adults, children and babies. This course is taught in-person only. This course meets OSHA compliant and meets other workplace and regulatory requirements.
-          </Text>
-          <Text style={styles.priceText}>$75.00</Text>
-          <TouchableOpacity style={styles.signupButton}>
-            <Text style={styles.signupButtonText}>SIGN ME UP</Text>
-          </TouchableOpacity>
-          <Text style={styles.noteText}>
-            Contact Customer Service to sign up additional students for classes provided by the Purpose Tech Institute & Staffing.
-          </Text>
-        </View>
-
-        {/* CNA Refresher */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>CNA Refresher Skills Course</Text>
-          <Text style={styles.priceText}>$100 out of pocket.</Text>
-          <Text style={styles.paragraphText}>
-            This course provides NA graduates a 4-6 hour skills refresher to ensure they pass their skills exam. Please contact our office for scheduling.
-          </Text>
-        </View>
+        {/* First Aid and CNA Refresher sections removed as requested */}
 
         {/* Back Button */}
         <TouchableOpacity 
