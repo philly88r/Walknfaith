@@ -44,12 +44,29 @@ const MentorshipScreen = () => {
   
   const programLeads: ProgramLead[] = [
     {
-      name: "Dr. Sarah Johnson",
-      role: "Program Director",
-      bio: "20+ years experience in mental health counseling and youth mentorship",
+      name: "Mandy Parker",
+      role: "Youth Regional Director",
+      bio: "Experienced youth mentor dedicated to empowering young individuals in healthcare careers",
       image: require('../../assets/placeholder.png'),
     },
-    // Add more program leads here
+    {
+      name: "Leah Johnson",
+      role: "CNA Student Mentor",
+      bio: "Guiding CNA students through their educational journey with practical insights and support",
+      image: require('../../assets/placeholder.png'),
+    },
+    {
+      name: "Staci Stevenson",
+      role: "Peer Youth Mentor",
+      bio: "Supporting youth through peer mentorship and creating a positive community environment",
+      image: require('../../assets/placeholder.png'),
+    },
+    {
+      name: "Emmanuel Opada",
+      role: "Physician Mentor/Regional Health Director",
+      bio: "Experienced physician providing guidance and insights into healthcare careers and practices",
+      image: require('../../assets/placeholder.png'),
+    }
   ];
 
   const upcomingSessions: ZoomSession[] = [
