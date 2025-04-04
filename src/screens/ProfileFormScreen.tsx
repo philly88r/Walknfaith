@@ -66,16 +66,14 @@ const ProfileFormScreen: React.FC<Props> = ({ navigation }) => {
         // Then update the profile in the context
         console.log('Profile updated in database, updating context...');
         
-        // Use the ProfileContext to update the profile
+        // Use the ProfileContext to update the profile with all required fields
         await updateProfile({
           firstName,
           lastName,
-          email: user.email || '',
+          email: user?.email || '',
           phone,
           userPurpose: userPurpose as UserPurpose,
-          address: '',
-          emergencyContact: '',
-          emergencyPhone: '',
+          // Include required fields with default values
           notifications: true,
           emailUpdates: true
         });

@@ -76,17 +76,19 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
           setProfile(null);
         } else if (data) {
           // Map Supabase profile data to our app's UserProfile format
+          // Use default values for fields that don't exist in the database
           setProfile({
             firstName: data.first_name || '',
             lastName: data.last_name || '',
-            email: data.email || '',
+            email: user?.email || '', // Use user email from auth context
             phone: data.phone || '',
             userPurpose: data.user_purpose as 'career_help' | 'patient' | undefined,
-            address: data.address || '',
-            emergencyContact: data.emergency_contact || '',
-            emergencyPhone: data.emergency_phone || '',
-            notifications: data.notifications !== undefined ? data.notifications : true,
-            emailUpdates: data.email_updates !== undefined ? data.email_updates : true,
+            // Default values for fields that don't exist in the database
+            address: '',
+            emergencyContact: '',
+            emergencyPhone: '',
+            notifications: true,
+            emailUpdates: true,
           });
           
           // Check if profile is complete - must have name, email and user purpose
@@ -140,17 +142,20 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
 
     try {
       // Convert from client UserProfile to Supabase format
+      // Only include fields that actually exist in the user_profiles table
       const supabaseProfileData: Partial<SupabaseUserProfile> = {
         first_name: updatedProfile.firstName,
         last_name: updatedProfile.lastName,
-        email: updatedProfile.email,
         phone: updatedProfile.phone,
         user_purpose: updatedProfile.userPurpose,
-        address: updatedProfile.address,
-        emergency_contact: updatedProfile.emergencyContact,
-        emergency_phone: updatedProfile.emergencyPhone,
-        notifications: updatedProfile.notifications,
-        email_updates: updatedProfile.emailUpdates,
+        // These fields don't exist in the database table, so we don't include them
+        // Commented out to prevent database errors
+        // email: updatedProfile.email,
+        // address: updatedProfile.address,
+        // emergency_contact: updatedProfile.emergencyContact,
+        // emergency_phone: updatedProfile.emergencyPhone,
+        // notifications: updatedProfile.notifications,
+        // email_updates: updatedProfile.emailUpdates,
       };
 
       const { error } = await updateUserProfile(user.id, supabaseProfileData);
