@@ -13,6 +13,7 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { useAuth } from '../context/AuthContext';
+import { useProfile } from '../context/ProfileContext';
 import { colors } from '../theme/colors';
 import { updateUserProfile, UserPurpose } from '../utils/userProfile';
 
@@ -20,12 +21,14 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ProfileForm'>;
 
 const ProfileFormScreen: React.FC<Props> = ({ navigation }) => {
   const { user } = useAuth();
+  const { updateProfile } = useProfile();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [userPurpose, setUserPurpose] = useState<UserPurpose | ''>('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async () => {
     console.log('Submit button clicked');
@@ -42,9 +45,11 @@ const ProfileFormScreen: React.FC<Props> = ({ navigation }) => {
     try {
       setLoading(true);
       setErrorMessage('');
+      setSuccessMessage('');
       console.log('Updating profile for user:', user.id);
       console.log('Form data:', { firstName, lastName, phone, userPurpose });
 
+      // First update the profile in Supabase
       const { data, error } = await updateUserProfile(user.id, {
         first_name: firstName,
         last_name: lastName,
@@ -58,11 +63,25 @@ const ProfileFormScreen: React.FC<Props> = ({ navigation }) => {
         console.error('Profile update error:', error);
         setErrorMessage(error.message);
       } else {
-        console.log('Profile updated successfully');
-        // Don't navigate directly - the MainNavigator will automatically show AppNavigator
-        // when isProfileComplete becomes true
-        // Just set a success message and let the context update handle navigation
-        setErrorMessage('Profile updated successfully! Loading your dashboard...');
+        // Then update the profile in the context
+        console.log('Profile updated in database, updating context...');
+        
+        // Use the ProfileContext to update the profile
+        await updateProfile({
+          firstName,
+          lastName,
+          email: user.email || '',
+          phone,
+          userPurpose: userPurpose as UserPurpose,
+          address: '',
+          emergencyContact: '',
+          emergencyPhone: '',
+          notifications: true,
+          emailUpdates: true
+        });
+        
+        console.log('Profile updated successfully in context');
+        setSuccessMessage('Profile updated successfully! Loading your dashboard...');
       }
     } catch (error: any) {
       console.error('Exception during profile update:', error);
@@ -88,6 +107,12 @@ const ProfileFormScreen: React.FC<Props> = ({ navigation }) => {
         {errorMessage ? (
           <View style={styles.errorContainer}>
             <Text style={styles.errorText}>{errorMessage}</Text>
+          </View>
+        ) : null}
+        
+        {successMessage ? (
+          <View style={[styles.errorContainer, styles.successContainer]}>
+            <Text style={styles.successText}>{successMessage}</Text>
           </View>
         ) : null}
 
@@ -220,6 +245,13 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: '#d32f2f',
+    fontSize: 14,
+  },
+  successContainer: {
+    backgroundColor: '#e8f5e9',
+  },
+  successText: {
+    color: '#2e7d32',
     fontSize: 14,
   },
   inputContainer: {
