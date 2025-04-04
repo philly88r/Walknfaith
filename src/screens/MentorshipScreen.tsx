@@ -47,7 +47,7 @@ const MentorshipScreen = () => {
       name: "Mandy Parker",
       role: "Youth Regional Director",
       bio: "Experienced youth mentor dedicated to empowering young individuals in healthcare careers",
-      image: require('../../assets/placeholder.png'),
+      image: { uri: '/image_2022_06_22T19_30_23_373Z.png' },
     },
     {
       name: "Leah Johnson",
