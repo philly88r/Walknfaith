@@ -30,7 +30,7 @@ export const createUserProfile = async (
   userPurpose?: UserPurpose
 ): Promise<{ data: any; error: any }> => {
   const { data, error } = await supabase
-    .from('profiles')
+    .from('user_profiles')
     .insert([
       {
         id: userId,
@@ -50,7 +50,7 @@ export const createUserProfile = async (
 // Get user profile by user ID
 export const getUserProfile = async (userId: string): Promise<{ data: UserProfile | null; error: any }> => {
   const { data, error } = await supabase
-    .from('profiles')
+    .from('user_profiles')
     .select('*')
     .eq('id', userId)
     .single();
@@ -63,6 +63,8 @@ export const updateUserProfile = async (
   userId: string,
   updates: Partial<UserProfile>
 ): Promise<{ data: any; error: any }> => {
+  console.log('updateUserProfile called with:', { userId, updates });
+  
   // If user_purpose is being set, mark profile as completed
   const updatedData = {
     ...updates,
@@ -72,21 +74,55 @@ export const updateUserProfile = async (
   // If user purpose is being set, mark profile as completed
   if (updates.user_purpose) {
     updatedData.profile_completed = true;
+    console.log('Setting profile_completed to true');
   }
 
-  const { data, error } = await supabase
-    .from('profiles')
-    .update(updatedData)
-    .eq('id', userId)
-    .select();
-
-  return { data, error };
+  try {
+    console.log('Sending update to Supabase:', updatedData);
+    
+    // First check if the profile exists
+    const { data: existingProfile, error: checkError } = await supabase
+      .from('user_profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
+      
+    console.log('Existing profile check:', { existingProfile, checkError });
+    
+    let result;
+    
+    if (checkError || !existingProfile) {
+      // Profile doesn't exist, create it
+      console.log('Profile not found, creating new profile');
+      result = await supabase
+        .from('user_profiles')
+        .insert({
+          id: userId,
+          ...updatedData
+        })
+        .select();
+    } else {
+      // Profile exists, update it
+      console.log('Profile found, updating existing profile');
+      result = await supabase
+        .from('user_profiles')
+        .update(updatedData)
+        .eq('id', userId)
+        .select();
+    }
+    
+    console.log('Supabase update result:', result);
+    return result;
+  } catch (err) {
+    console.error('Error in updateUserProfile:', err);
+    return { data: null, error: err };
+  }
 };
 
 // Check if user has completed their profile
 export const isProfileCompleted = async (userId: string): Promise<boolean> => {
   const { data, error } = await supabase
-    .from('profiles')
+    .from('user_profiles')
     .select('profile_completed')
     .eq('id', userId)
     .single();

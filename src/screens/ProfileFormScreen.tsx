@@ -28,6 +28,7 @@ const ProfileFormScreen: React.FC<Props> = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async () => {
+    console.log('Submit button clicked');
     if (!firstName || !lastName || !userPurpose) {
       setErrorMessage('Please fill out all required fields');
       return;
@@ -41,21 +42,28 @@ const ProfileFormScreen: React.FC<Props> = ({ navigation }) => {
     try {
       setLoading(true);
       setErrorMessage('');
+      console.log('Updating profile for user:', user.id);
+      console.log('Form data:', { firstName, lastName, phone, userPurpose });
 
-      const { error } = await updateUserProfile(user.id, {
+      const { data, error } = await updateUserProfile(user.id, {
         first_name: firstName,
         last_name: lastName,
         phone,
         user_purpose: userPurpose as UserPurpose,
       });
 
+      console.log('Update response:', { data, error });
+
       if (error) {
+        console.error('Profile update error:', error);
         setErrorMessage(error.message);
       } else {
+        console.log('Profile updated successfully, navigating to Home');
         // Navigate to the home screen after successful profile update
         navigation.replace('Home');
       }
     } catch (error: any) {
+      console.error('Exception during profile update:', error);
       setErrorMessage(error.message || 'An error occurred while updating your profile');
     } finally {
       setLoading(false);

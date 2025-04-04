@@ -114,7 +114,7 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
           { 
             event: '*', 
             schema: 'public', 
-            table: 'profiles',
+            table: 'user_profiles',
             filter: `id=eq.${user.id}` 
           }, 
           () => {

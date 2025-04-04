@@ -17,7 +17,7 @@ const TestAuthScreen = () => {
     
     try {
       // Test Supabase connection
-      const { data, error } = await supabase.from('profiles').select('count').single();
+      const { data, error } = await supabase.from('user_profiles').select('count').single();
       
       if (error) {
         setTestResult(`❌ Supabase connection failed: ${error.message}`);
