@@ -58,9 +58,11 @@ const ProfileFormScreen: React.FC<Props> = ({ navigation }) => {
         console.error('Profile update error:', error);
         setErrorMessage(error.message);
       } else {
-        console.log('Profile updated successfully, navigating to Home');
-        // Navigate to the home screen after successful profile update
-        navigation.replace('Home');
+        console.log('Profile updated successfully');
+        // Don't navigate directly - the MainNavigator will automatically show AppNavigator
+        // when isProfileComplete becomes true
+        // Just set a success message and let the context update handle navigation
+        setErrorMessage('Profile updated successfully! Loading your dashboard...');
       }
     } catch (error: any) {
       console.error('Exception during profile update:', error);
