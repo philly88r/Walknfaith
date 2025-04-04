@@ -91,8 +91,8 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
             emailUpdates: true,
           });
           
-          // Check if profile is complete - must have name, email and user purpose
-          setIsProfileComplete(!!data.first_name && !!data.last_name && !!data.email && !!data.user_purpose);
+          // Use the profile_completed field from the database instead of checking fields
+          setIsProfileComplete(!!data.profile_completed);
         } else {
           setProfile(null);
         }
@@ -164,8 +164,17 @@ export const ProfileProvider = ({ children }: ProfileProviderProps) => {
         throw error;
       }
       
+      // After updating the profile in the database, fetch the updated profile to get the profile_completed status
+      const { data: updatedData, error: fetchError } = await getUserProfile(user.id);
+      
+      if (fetchError) {
+        console.error('Error fetching updated profile:', fetchError);
+      } else if (updatedData) {
+        // Use the profile_completed field from the database
+        setIsProfileComplete(!!updatedData.profile_completed);
+      }
+      
       setProfile(updatedProfile);
-      setIsProfileComplete(!!updatedProfile.firstName && !!updatedProfile.lastName && !!updatedProfile.email && !!updatedProfile.userPurpose);
     } catch (error) {
       console.error('Error updating profile:', error);
       throw error;
