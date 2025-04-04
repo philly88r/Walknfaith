@@ -12,6 +12,7 @@ interface Program {
   duration: string;
   description: string;
   icon: keyof typeof MaterialIcons.glyphMap;
+  route?: string; // Optional navigation route for the program
 }
 
 interface Event {
@@ -28,15 +29,17 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
   const programs: Program[] = [
     {
       title: 'CNA Training Program',
-      duration: '10 weeks',
-      description: 'Our program allows working adults the flexibility of learning in a hybrid environment.',
+      duration: '6-8 weeks',
+      description: 'Start your nursing career as a Certified Nursing Assistant. Learn essential patient care skills in our comprehensive program.',
       icon: 'medical-services',
+      route: 'CNATraining',
     },
     {
       title: 'CDL Training Program',
       duration: '3-4 weeks',
-      description: 'Be on your way to a successful truck driving career in just a few weeks.',
+      description: 'Start your career in commercial truck driving. Earn between $69,000 and $85,000 with our ELDT registered training program.',
       icon: 'local-shipping',
+      route: 'CDLTrainingProgram',
     },
     {
       title: 'Physician Mentor Program',
@@ -131,57 +134,33 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
       {/* Programs Section */}
       <Text style={styles.sectionHeader}>Our Programs</Text>
       {programs.map((program, index) => (
-        <Card key={index} style={styles.programCard}>
-          <Card.Content>
-            <View style={styles.programHeader}>
+        <TouchableOpacity 
+          key={index} 
+          style={styles.programCard}
+          onPress={program.route ? () => navigation.navigate(program.route as keyof RootStackParamList) : undefined}
+        >
+          <View style={styles.programHeader}>
+            {program.title.includes('CNA') ? (
+              <FontAwesome5 name="user-nurse" size={24} color="#007AFF" />
+            ) : program.title.includes('CDL') ? (
+              <FontAwesome5 name="truck" size={24} color="#007AFF" />
+            ) : (
               <MaterialIcons name={program.icon} size={32} color={colors.primary} />
-              <View style={styles.programTitleContainer}>
-                <Text style={styles.programTitle}>{program.title}</Text>
-                <Text style={styles.duration}>{program.duration}</Text>
-              </View>
+            )}
+            <View style={styles.programTitleContainer}>
+              <Text style={styles.programTitle}>{program.title}</Text>
             </View>
-            <Text style={styles.programDescription}>{program.description}</Text>
-            <TouchableOpacity style={styles.readMoreButton}>
-              <Text style={styles.readMoreText}>Read More</Text>
-              <MaterialIcons name="arrow-forward" size={20} color={colors.primary} />
-            </TouchableOpacity>
-          </Card.Content>
-        </Card>
+          </View>
+          <Text style={styles.programDuration}>{program.duration}</Text>
+          <Text style={styles.programDescription}>{program.description}</Text>
+          {program.route && (
+            <View style={styles.readMoreContainer}>
+              <Text style={styles.readMore}>Learn More</Text>
+              <MaterialIcons name="arrow-forward" size={20} color="#007AFF" />
+            </View>
+          )}
+        </TouchableOpacity>
       ))}
-      <TouchableOpacity 
-        style={styles.programCard}
-        onPress={() => navigation.navigate('CNATraining')}
-      >
-        <View style={styles.programHeader}>
-          <FontAwesome5 name="user-nurse" size={24} color="#007AFF" />
-          <Text style={styles.programTitle}>CNA Training Program</Text>
-        </View>
-        <Text style={styles.programDuration}>6-8 weeks</Text>
-        <Text style={styles.programDescription}>
-          Start your nursing career as a Certified Nursing Assistant. Learn essential patient care skills in our comprehensive program.
-        </Text>
-        <View style={styles.readMoreContainer}>
-          <Text style={styles.readMore}>Learn More</Text>
-          <MaterialIcons name="arrow-forward" size={20} color="#007AFF" />
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        style={styles.programCard}
-        onPress={() => navigation.navigate('CDLTrainingProgram')}
-      >
-        <View style={styles.programHeader}>
-          <FontAwesome5 name="truck" size={24} color="#007AFF" />
-          <Text style={styles.programTitle}>CDL Training Program</Text>
-        </View>
-        <Text style={styles.programDuration}>3-4 weeks</Text>
-        <Text style={styles.programDescription}>
-          Start your career in commercial truck driving. Earn between $69,000 and $85,000 with our ELDT registered training program.
-        </Text>
-        <View style={styles.readMoreContainer}>
-          <Text style={styles.readMore}>Learn More</Text>
-          <MaterialIcons name="arrow-forward" size={20} color="#007AFF" />
-        </View>
-      </TouchableOpacity>
 
       {/* Schedule Section */}
       <Text style={styles.sectionHeader}>Upcoming Events</Text>
