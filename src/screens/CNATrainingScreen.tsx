@@ -105,7 +105,7 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
             </View>
             <View style={styles.detailItem}>
               <MaterialIcons name="attach-money" size={24} color="#007AFF" />
-              <Text style={styles.detailText}>Cost: $1,250.00</Text>
+              <Text style={styles.detailText}>Application Cost: $50</Text>
             </View>
             <TouchableOpacity 
               style={styles.applyButton}
@@ -137,77 +137,7 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
             </View>
           </View>
 
-          {/* Additional Training Programs */}
-          <View style={styles.additionalPrograms}>
-            <Text style={styles.sectionTitle}>Additional Training Programs</Text>
-            
-            <TouchableOpacity 
-              style={styles.programCard}
-              onPress={() => navigation.navigate('PhysicianMentorProgram')}
-            >
-              <View style={styles.programHeader}>
-                <FontAwesome5 name="user-md" size={24} color="#007AFF" />
-                <View style={styles.programInfo}>
-                  <Text style={styles.programTitle}>Physician Mentor Program</Text>
-                  <Text style={styles.programDescription}>
-                    Provides local high school and college students the opportunity to witness and understand the importance of professions in the medical field.
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.readMoreContainer}>
-                <Text style={styles.readMore}>Learn More</Text>
-                <MaterialIcons name="arrow-forward" size={20} color="#007AFF" />
-              </View>
-            </TouchableOpacity>
-            
-            <View style={styles.comingSoonProgram}>
-              <FontAwesome5 name="user-nurse" size={24} color="#007AFF" />
-              <View style={styles.programInfo}>
-                <Text style={styles.programTitle}>Nurse Mentorship Program</Text>
-                <Text style={styles.comingSoonText}>Coming Soon</Text>
-              </View>
-            </View>
-            
-            <View style={styles.comingSoonProgram}>
-              <FontAwesome5 name="heartbeat" size={24} color="#007AFF" />
-              <View style={styles.programInfo}>
-                <Text style={styles.programTitle}>LPN Program</Text>
-                <Text style={styles.comingSoonText}>Coming Soon</Text>
-              </View>
-            </View>
-            
-            <View style={styles.comingSoonProgram}>
-              <FontAwesome5 name="medkit" size={24} color="#007AFF" />
-              <View style={styles.programInfo}>
-                <Text style={styles.programTitle}>CMT Program</Text>
-                <Text style={styles.comingSoonText}>Coming Soon</Text>
-              </View>
-            </View>
-          </View>
-          
-          {/* First Aid/CPR Section */}
-          <View style={styles.firstAidSection}>
-            <Text style={styles.sectionTitle}>Adult, Child and Baby First Aid/CPR/AED Online</Text>
-            <Text style={styles.firstAidCourseDescription}>
-              The Adult, Child and Baby First Aid/CPR/AED Online course equips students to recognize and care for a variety of first aid, breathing, and cardiac emergencies involving adults, children and babies. This course is taught in-person only. This course meets OSHA compliant and meets other workplace and regulatory requirements.
-            </Text>
-            <Text style={styles.priceText}>$75.00</Text>
-            <TouchableOpacity style={styles.signupButton}>
-              <Text style={styles.signupText}>SIGN ME UP</Text>
-            </TouchableOpacity>
-            <Text style={styles.noteText}>
-              Contact Customer Service to sign up additional students for classes provided by the Purpose Tech Institute & Staffing.
-            </Text>
-          </View>
-          
-          {/* CNA Refresher */}
-          <View style={styles.refresherSection}>
-            <Text style={styles.sectionTitle}>CNA Refresher Skills Course</Text>
-            <Text style={styles.priceText}>$100 out of pocket.</Text>
-            <Text style={styles.refresherCourseDescription}>
-              This course provides NA graduates a 4-6 hour skills refresher to ensure they pass their skills exam. Please contact our office for scheduling.
-            </Text>
-          </View>
+          {/* Additional Training Programs section removed as requested */}
         </View>
       </ScrollView>
     </View>
