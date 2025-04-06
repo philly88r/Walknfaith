@@ -6,8 +6,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+} from 'react-native-web';
+import { SafeAreaView } from 'react-native-safe-area-context';3
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';

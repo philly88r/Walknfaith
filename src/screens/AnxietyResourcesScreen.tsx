@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, Linking, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Linking, TouchableOpacity } from 'react-native-web';
 import { Card } from 'react-native-paper';
 
 const AnxietyResourcesScreen = () => {

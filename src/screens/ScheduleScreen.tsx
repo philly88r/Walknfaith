@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-} from 'react-native';
+} from 'react-native-web';
 import { Picker } from '@react-native-picker/picker';
 import { format, addDays, isWeekend, parseISO, isValid } from 'date-fns';
 import { colors } from '../theme/colors';

@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-} from 'react-native';
+} from 'react-native-web';
 import { colors } from '../theme/colors';
 
 interface Event {

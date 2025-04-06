@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Linking,
   Platform,
-} from 'react-native';
+} from 'react-native-web';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 

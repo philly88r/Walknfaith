@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Linking,
   Platform,
-} from 'react-native';
+} from 'react-native-web';
 import { colors } from '../theme/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

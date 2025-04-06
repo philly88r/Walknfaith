@@ -7,7 +7,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-} from 'react-native';
+} from 'react-native-web';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 
@@ -128,7 +128,7 @@ export default function AboutScreen() {
         <View style={styles.servicesGrid}>
           {services.map((service) => (
             <View key={service.id} style={styles.serviceCard}>
-              <Ionicons name={service.icon} size={24} color={colors.primary} />
+              <Ionicons name={service.icon as any} size={24} color={colors.primary} />
               <Text style={styles.serviceTitle}>{service.title}</Text>
             </View>
           ))}
@@ -141,7 +141,7 @@ export default function AboutScreen() {
         <View style={styles.partnersContainer}>
           {partners.map((partner) => (
             <TouchableOpacity key={partner.id} style={styles.partnerCard}>
-              <Ionicons name={partner.icon} size={32} color={colors.primary} />
+              <Ionicons name={partner.icon as any} size={32} color={colors.primary} />
               <Text style={styles.partnerName}>{partner.name}</Text>
               <Text style={styles.partnerDescription}>{partner.description}</Text>
             </TouchableOpacity>

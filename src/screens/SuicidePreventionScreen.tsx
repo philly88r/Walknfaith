@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Linking, Platform } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Linking, Platform } from 'react-native-web';
 import { Card } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';

@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
-} from 'react-native';
+} from 'react-native-web';
 import { colors } from '../theme/colors';
 
 interface Resource {

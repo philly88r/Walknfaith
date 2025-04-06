@@ -10,7 +10,7 @@ import {
   Image,
   Linking,
   ImageBackground,
-} from 'react-native';
+} from 'react-native-web';
 import { useNavigation } from '@react-navigation/native';
 import { Card } from 'react-native-paper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';

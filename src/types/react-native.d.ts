@@ -1,4 +1,4 @@
-declare module 'react-native' {
+declare module 'react-native-web' {
   export type PackagerAsset = {
     __packager_asset: boolean;
     fileSystemLocation: string;
