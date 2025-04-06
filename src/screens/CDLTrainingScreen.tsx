@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   View,
+  ViewStyle,
   Text,
   StyleSheet,
   ScrollView,
@@ -45,92 +46,94 @@ const CDLTrainingScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        {/* Header Section */}
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>CDL Training Program</Text>
-          <Text style={styles.headerSubtitle}>Start Your New Career in Truck Driving Today!</Text>
-        </View>
-
-        {/* Benefits Grid */}
-        <View style={styles.benefitsContainer}>
-          <Text style={styles.sectionTitle}>TRUCKING INDUSTRY BENEFITS</Text>
-          <View style={styles.benefitsGrid}>
-            {benefits.map((benefit, index) => (
-              <View key={index} style={styles.benefitItem}>
-                <MaterialIcons name={benefit.icon} size={24} color="#007AFF" />
-                <Text style={styles.benefitText}>{benefit.title}</Text>
-              </View>
-            ))}
+    <SafeAreaView>
+      <View style={styles.container}>
+        <ScrollView>
+          {/* Header Section */}
+          <View style={styles.header}>
+            <Text style={styles.headerTitle}>CDL Training Program</Text>
+            <Text style={styles.headerSubtitle}>Start Your New Career in Truck Driving Today!</Text>
           </View>
-        </View>
 
-        {/* ELDT Information */}
-        <View style={styles.infoSection}>
-          <Text style={styles.infoTitle}>GET THE TRAINING YOU NEED FROM OUR ELDT REGISTERED SCHOOLS</Text>
-          <Text style={styles.infoText}>
-            If you are looking for a new career in a growing industry, the commercial trucking sector could be the place for you. 
-            Since 1993, more than 50,000 students have graduated from our CDL training, and more than 95% of them got help finding a job.
-          </Text>
-        </View>
+          {/* Benefits Grid */}
+          <View style={styles.benefitsContainer}>
+            <Text style={styles.sectionTitle}>TRUCKING INDUSTRY BENEFITS</Text>
+            <View style={styles.benefitsGrid}>
+              {benefits.map((benefit, index) => (
+                <View key={index} style={styles.benefitItem}>
+                  <MaterialIcons name={benefit.icon as any} size={24} color="#007AFF" />
+                  <Text style={styles.benefitText}>{benefit.title}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
 
-        {/* Earnings Section */}
-        <View style={styles.earningsSection}>
-          <Text style={styles.earningsTitle}>POTENTIAL EARNINGS</Text>
-          <Text style={styles.earningsAmount}>$69,000 - $85,000</Text>
-          <Text style={styles.noExperience}>No experience required</Text>
-        </View>
+          {/* ELDT Information */}
+          <View style={styles.infoSection}>
+            <Text style={styles.infoTitle}>GET THE TRAINING YOU NEED FROM OUR ELDT REGISTERED SCHOOLS</Text>
+            <Text style={styles.infoText}>
+              If you are looking for a new career in a growing industry, the commercial trucking sector could be the place for you. 
+              Since 1993, more than 50,000 students have graduated from our CDL training, and more than 95% of them got help finding a job.
+            </Text>
+          </View>
 
-        {/* Application Form */}
-        <View style={styles.formContainer}>
-          <Text style={styles.formTitle}>START YOUR APPLICATION</Text>
-          
-          <TextInput
-            style={styles.input}
-            placeholder="First Name"
-            value={formData.firstName}
-            onChangeText={(text) => setFormData({...formData, firstName: text})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Last Name"
-            value={formData.lastName}
-            onChangeText={(text) => setFormData({...formData, lastName: text})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Email Address"
-            keyboardType="email-address"
-            value={formData.email}
-            onChangeText={(text) => setFormData({...formData, email: text})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Phone Number"
-            keyboardType="phone-pad"
-            value={formData.phone}
-            onChangeText={(text) => setFormData({...formData, phone: text})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Home Zip"
-            keyboardType="numeric"
-            maxLength={5}
-            value={formData.zipCode}
-            onChangeText={(text) => setFormData({...formData, zipCode: text})}
-          />
+          {/* Earnings Section */}
+          <View style={styles.earningsSection}>
+            <Text style={styles.earningsTitle}>POTENTIAL EARNINGS</Text>
+            <Text style={styles.earningsAmount}>$69,000 - $85,000</Text>
+            <Text style={styles.noExperience}>No experience required</Text>
+          </View>
 
-          <TouchableOpacity style={styles.applyButton} onPress={handleApply}>
-            <Text style={styles.applyButtonText}>Apply Now</Text>
-          </TouchableOpacity>
+          {/* Application Form */}
+          <View style={styles.formContainer}>
+            <Text style={styles.formTitle}>START YOUR APPLICATION</Text>
+            
+            <TextInput
+              style={styles.input}
+              placeholder="First Name"
+              value={formData.firstName}
+              onChangeText={(text: string) => setFormData({...formData, firstName: text})}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChangeText={(text: string) => setFormData({...formData, lastName: text})}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Email Address"
+              keyboardType="email-address"
+              value={formData.email}
+              onChangeText={(text: string) => setFormData({...formData, email: text})}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Phone Number"
+              keyboardType="phone-pad"
+              value={formData.phone}
+              onChangeText={(text: string) => setFormData({...formData, phone: text})}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Home Zip"
+              keyboardType="numeric"
+              maxLength={5}
+              value={formData.zipCode}
+              onChangeText={(text: string) => setFormData({...formData, zipCode: text})}
+            />
 
-          <TouchableOpacity style={styles.callButton} onPress={handleCall}>
-            <FontAwesome5 name="phone" size={20} color="white" />
-            <Text style={styles.callButtonText}>Call 314.260.9097</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            <TouchableOpacity style={styles.applyButton} onPress={handleApply}>
+              <Text style={styles.applyButtonText}>Apply Now</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.callButton} onPress={handleCall}>
+              <FontAwesome5 name="phone" size={20} color="white" />
+              <Text style={styles.callButtonText}>Call 314.260.9097</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
