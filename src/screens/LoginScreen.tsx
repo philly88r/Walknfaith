@@ -75,11 +75,13 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       style={styles.container}
     >
       <View style={styles.logoContainer}>
-        <Image 
-          source={require('../../assets/walknfaith-logo-footer.png')} 
-          style={styles.logo}
-          resizeMode="contain"
-        />
+        <View style={styles.logoBackground}>
+          <Image 
+            source={require('../../assets/walknfaith-logo-footer.png')} 
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </View>
       </View>
 
       <View style={styles.formContainer}>
@@ -183,10 +185,20 @@ const styles = StyleSheet.create({
     marginTop: 60,
     marginBottom: 40,
   },
+  logoBackground: {
+    backgroundColor: '#f0f8ff', // Light blue background
+    borderRadius: 15,
+    padding: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
   logo: {
     width: 200,
     height: 200,
-    marginBottom: 20,
+    marginBottom: 0,
   },
   formContainer: {
     paddingHorizontal: 30,

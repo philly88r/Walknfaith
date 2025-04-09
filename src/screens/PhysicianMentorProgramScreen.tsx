@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
+  Modal,
 } from 'react-native-web';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
@@ -15,6 +16,8 @@ import { RootStackParamList } from '../navigation/types';
 type Props = NativeStackScreenProps<RootStackParamList, 'PhysicianMentorProgram'>;
 
 const PhysicianMentorProgramScreen: React.FC<Props> = ({ navigation }) => {
+  const [showLearnMoreModal, setShowLearnMoreModal] = useState(false);
+
   const handleEmailContact = () => {
     Linking.openURL('mailto:Sabrina@walknfaith.org');
   };
@@ -29,6 +32,10 @@ const PhysicianMentorProgramScreen: React.FC<Props> = ({ navigation }) => {
     // In a real implementation, this would open the application link
     alert(`Opening application for: ${programType}`);
     // You would implement actual link opening functionality here
+  };
+  
+  const toggleLearnMoreModal = () => {
+    setShowLearnMoreModal(!showLearnMoreModal);
   };
 
   return (
@@ -122,15 +129,24 @@ const PhysicianMentorProgramScreen: React.FC<Props> = ({ navigation }) => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Learn More</Text>
           <Text style={styles.paragraphText}>
-            To learn more about our physician mentoring program email Sabrina@walknfaith.org
+            Want to know more about our physician mentoring program? Click below for detailed information or email Sabrina@walknfaith.org
           </Text>
-          <TouchableOpacity 
-            style={styles.contactButton}
-            onPress={handleEmailContact}
-          >
-            <MaterialIcons name="email" size={24} color="white" />
-            <Text style={styles.buttonText}>Contact via Email</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonRow}>
+            <TouchableOpacity 
+              style={styles.learnMoreButton}
+              onPress={toggleLearnMoreModal}
+            >
+              <MaterialIcons name="info" size={24} color="white" />
+              <Text style={styles.buttonText}>Learn More</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.contactButton}
+              onPress={handleEmailContact}
+            >
+              <MaterialIcons name="email" size={24} color="white" />
+              <Text style={styles.buttonText}>Contact via Email</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Other Programs */}
@@ -173,6 +189,79 @@ const PhysicianMentorProgramScreen: React.FC<Props> = ({ navigation }) => {
           <Text style={styles.buttonText}>Back to Training Programs</Text>
         </TouchableOpacity>
       </ScrollView>
+
+      {/* Learn More Modal */}
+      <Modal
+        visible={showLearnMoreModal}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={toggleLearnMoreModal}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Physician Mentor Program</Text>
+              <TouchableOpacity onPress={toggleLearnMoreModal} style={styles.closeButton}>
+                <MaterialIcons name="close" size={24} color="#333" />
+              </TouchableOpacity>
+            </View>
+
+            <ScrollView style={styles.modalScrollView}>
+              {/* Application Notice */}
+              <View style={styles.modalNoticeContainer}>
+                <MaterialIcons name="announcement" size={24} color="#ff6b6b" />
+                <Text style={styles.modalNoticeText}>
+                  <Text style={styles.noticeHighlight}>Applications are only accepted March 27, 2023 through April 24, 2023.</Text> Please DO NOT submit the application until March 27th.
+                </Text>
+              </View>
+
+              {/* Program Purpose */}
+              <View style={styles.modalSection}>
+                <Text style={styles.modalSectionTitle}>Program Purpose</Text>
+                <Text style={styles.modalParagraph}>
+                  The Purpose Tech Physician Mentoring Program provides local high school and college students the opportunity to witness and understand the importance of professions in the medical field, from evaluation and treatment for follow-up care.
+                </Text>
+              </View>
+
+              {/* Program Details */}
+              <View style={styles.modalSection}>
+                <Text style={styles.modalSectionTitle}>Program Details</Text>
+                <Text style={styles.modalParagraph}>
+                  Doctors from a variety of specialties volunteer their time, leading students in the office setting, on their hospital rounds, in the emergency department, and even in the operating room. The Purpose Tech Physician Mentoring Program is offered at both WalkNFaith outpatient clinic and St. Luke's Hospital.
+                </Text>
+              </View>
+
+              {/* Program Schedule */}
+              <View style={styles.modalSection}>
+                <Text style={styles.modalSectionTitle}>Program Schedule</Text>
+                <Text style={styles.modalParagraph}>
+                  The Program is offered for six to eight weeks between June and August. Student participation for the program requires a three to five day per week commitment.
+                </Text>
+              </View>
+
+              {/* Rotation Information */}
+              <View style={styles.modalSection}>
+                <Text style={styles.modalSectionTitle}>Medical Specialty Rotations</Text>
+                <Text style={styles.modalParagraph}>
+                  Each week, participating students work with a different medical professional in a different specialty. This rotation introduces the participating students to the many multidisciplinary facets of medicine. By exposing the students to many specialties, participants have a more complete understanding of the diversity of medical career opportunities.
+                </Text>
+              </View>
+
+              {/* Application Button */}
+              <TouchableOpacity 
+                style={styles.modalApplyButton}
+                onPress={() => {
+                  toggleLearnMoreModal();
+                  handleApplicationLink('Physician');
+                }}
+              >
+                <MaterialIcons name="assignment" size={24} color="white" />
+                <Text style={styles.buttonText}>Apply to Program</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -197,6 +286,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
     textAlign: 'center',
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  learnMoreButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#4CAF50',
+    padding: 12,
+    borderRadius: 5,
+    marginTop: 10,
+    flex: 1,
+    marginRight: 10,
   },
   noticeContainer: {
     flexDirection: 'row',
@@ -321,6 +426,83 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     margin: 20,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    width: '90%',
+    maxWidth: 600,
+    maxHeight: '80%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#007AFF',
+  },
+  closeButton: {
+    padding: 5,
+  },
+  modalScrollView: {
+    padding: 15,
+  },
+  modalNoticeContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#FFF9C4',
+    padding: 15,
+    borderRadius: 5,
+    marginBottom: 15,
+    alignItems: 'flex-start',
+  },
+  modalNoticeText: {
+    marginLeft: 10,
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  modalSection: {
+    marginBottom: 20,
+  },
+  modalSectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  modalParagraph: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+    marginBottom: 10,
+  },
+  modalApplyButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#007AFF',
+    padding: 15,
+    borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 20,
   },
 });
 
