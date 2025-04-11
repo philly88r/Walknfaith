@@ -582,4 +582,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Export the component for use in navigation
 export default CareerPlacementScreen;
