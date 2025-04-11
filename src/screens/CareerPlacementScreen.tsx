@@ -15,18 +15,11 @@ interface Program {
   route?: string; // Optional navigation route for the program
 }
 
-interface Event {
-  day: string;
-  title: string;
-  description: string;
-  time: string;
-  location: string;
-}
-
 type Props = NativeStackScreenProps<RootStackParamList, 'CareerPlacement'>;
 
 const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
-  const [activeTab, setActiveTab] = useState<'general' | 'cna' | 'cdl'>('general');
+  const [activeTab, setActiveTab] = useState<'cna' | 'cdl' | 'physician'>('cna');
+  
   const programs: Program[] = [
     {
       title: 'CNA Training Program',
@@ -51,30 +44,6 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
     },
   ];
 
-  const events: Event[] = [
-    {
-      day: 'Tuesdays',
-      title: 'Facilities Tour',
-      description: 'Tour for prospective students.',
-      time: '1:00 pm-2:00 pm',
-      location: 'Main Campus',
-    },
-    {
-      day: 'Wednesday',
-      title: 'Financial Aid Q&A',
-      description: 'A questions and answer session about available tuition assistance.',
-      time: '6:00 pm-8:00 pm',
-      location: 'Main Campus',
-    },
-    {
-      day: 'Saturday',
-      title: 'Facilities Tour',
-      description: 'Visit our facilities and see the work of our students.',
-      time: '10:00 am-3:00 pm',
-      location: 'Main Campus',
-    },
-  ];
-
   return (
     <ScrollView style={styles.container}>
       {/* Header Section */}
@@ -89,277 +58,248 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
         </Card.Content>
       </Card>
 
+      {/* Overview Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Career Training Programs</Text>
+        <Text style={styles.sectionDescription}>
+          Purpose Tech Institute offers comprehensive career training programs designed to prepare you for in-demand jobs in healthcare, transportation, and medical fields. Our programs combine classroom learning with hands-on experience to ensure you're ready for your new career.
+        </Text>
+      </View>
+
       {/* Tab Navigation */}
       <View style={styles.tabContainer}>
-        <TouchableOpacity 
-          style={[styles.tab, activeTab === 'general' && styles.activeTab]}
-          onPress={() => setActiveTab('general')}
-        >
-          <Text style={[styles.tabText, activeTab === 'general' && styles.activeTabText]}>Workforce Training</Text>
-        </TouchableOpacity>
         <TouchableOpacity 
           style={[styles.tab, activeTab === 'cna' && styles.activeTab]}
           onPress={() => setActiveTab('cna')}
         >
-          <Text style={[styles.tabText, activeTab === 'cna' && styles.activeTabText]}>CNA Program</Text>
+          <Text style={[styles.tabText, activeTab === 'cna' && styles.activeTabText]}>CNA</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={[styles.tab, activeTab === 'cdl' && styles.activeTab]}
           onPress={() => setActiveTab('cdl')}
         >
-          <Text style={[styles.tabText, activeTab === 'cdl' && styles.activeTabText]}>CDL Program</Text>
+          <Text style={[styles.tabText, activeTab === 'cdl' && styles.activeTabText]}>CDL License</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={[styles.tab, activeTab === 'physician' && styles.activeTab]}
+          onPress={() => setActiveTab('physician')}
+        >
+          <Text style={[styles.tabText, activeTab === 'physician' && styles.activeTabText]}>Physician Mentor Program</Text>
         </TouchableOpacity>
       </View>
 
-      {/* General Workforce Training Tab Content */}
-      {activeTab === 'general' && (
-        <>
-          {/* About Us Section */}
-          <Card style={styles.card}>
-            <Card.Content>
-              <Text style={styles.sectionTitle}>About Us</Text>
-              <Text style={styles.text}>
-                Purpose Technical Institute & Staffing is more than a Technical College. We provide skills 
-                training and education needed to find a well-paying, high-demand job. Enrollment is just 
-                the first step.
-              </Text>
-            </Card.Content>
-          </Card>
-
-          {/* Mission Section */}
-          <Card style={styles.card}>
-            <Card.Content>
-              <Text style={styles.sectionTitle}>Our Mission</Text>
-              <Text style={styles.text}>
-                Your success is our priority. Our school instructors provide a personal approach to support 
-                our inclusive community, tailoring learning methods to each student's needs.
-              </Text>
-            </Card.Content>
-          </Card>
-
-          {/* Educators Section */}
-          <Card style={styles.card}>
-            <Card.Content>
-              <Text style={styles.sectionTitle}>Dedicated Educators</Text>
-              <Text style={styles.text}>
-                Our classes are taught by dedicated, diverse, and experienced educators throughout the United States. 
-                Using proven teaching strategies, they make sure that every student finds a path to success.
-              </Text>
-            </Card.Content>
-          </Card>
-
-          {/* Investment Areas */}
-          <Card style={styles.card}>
-            <Card.Content>
-              <Text style={styles.sectionTitle}>Our Investment Areas</Text>
-              <Text style={styles.text}>
-                We invest in the following ways to increase work, educational and job-training opportunities 
-                that lead to stable careers for adults and youth throughout the country:
-              </Text>
-              
-              <View style={styles.bulletPoint}>
-                <MaterialIcons name="check-circle" size={24} color={colors.primary} />
-                <Text style={styles.bulletText}>
-                  Expanding access to postsecondary education and skills training for adults and youth.
-                </Text>
-              </View>
-              
-              <View style={styles.bulletPoint}>
-                <MaterialIcons name="check-circle" size={24} color={colors.primary} />
-                <Text style={styles.bulletText}>
-                  Building partnerships with businesses and others to increase career opportunities for low-wage workers and jobseekers, as well as the pool of workers with skills that employers seek.
-                </Text>
-              </View>
-              
-              <View style={styles.bulletPoint}>
-                <MaterialIcons name="check-circle" size={24} color={colors.primary} />
-                <Text style={styles.bulletText}>
-                  Providing families with resources to assist with monthly expenses through our parent assistance program which includes monthly diaper distribution and toiletry supplies.
-                </Text>
-              </View>
-              
-              <View style={styles.bulletPoint}>
-                <MaterialIcons name="check-circle" size={24} color={colors.primary} />
-                <Text style={styles.bulletText}>
-                  Facilitating change in black and brown communities through partnerships with Low-income housing by offering tuition-free training and job placement to singe parents who cannot afford to pay.
-                </Text>
-              </View>
-            </Card.Content>
-          </Card>
-
-          {/* Program Flexibility */}
-          <Card style={styles.card}>
-            <Card.Content>
-              <Text style={styles.sectionTitle}>Program Flexibility</Text>
-              <Text style={styles.text}>
-                At Purpose Tech Institute we understand every family situation is unique. Due to this fact, we prioritize our job training programs to fit working-adults, single parents, and individuals who reside in urban communities by offering evening and weekend options.
-              </Text>
-              <Text style={styles.text}>
-                To reduce barriers associated with transportation we offer a hybrid- online platform for curriculum training and transportation to and from our skills centers.
-              </Text>
-              <Text style={styles.text}>
-                To ensure every student's success, we include soft-skills training, parenting skills, resume builder, and dress for success training. We believe a well-prepared student will result in a successful employee.
-              </Text>
-            </Card.Content>
-          </Card>
-        </>
-      )}
-
       {/* CNA Program Tab Content */}
       {activeTab === 'cna' && (
-        <>
-          <Card style={styles.card}>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Certified Nursing Assistant (CNA) Program</Text>
+          <Text style={styles.sectionDescription}>
+            Our CNA program prepares students for a rewarding career in healthcare. As a certified nursing assistant, you'll provide essential care to patients in hospitals, nursing homes, and other healthcare settings.
+          </Text>
+
+          <Card style={styles.programDetailsCard}>
             <Card.Content>
-              <Text style={styles.sectionTitle}>Certified Nursing Assistant (CNA) Program</Text>
-              <Text style={styles.text}>
-                Thank You for Your Interest in Our Certified Nursing Assistant (CNA) Program
-              </Text>
-              <Text style={styles.subSectionTitle}>Eligibility Requirements</Text>
-              <Text style={styles.text}>To ensure a seamless application process, please be aware of the following eligibility criteria:</Text>
+              <Text style={styles.subSectionTitle}>Program Highlights</Text>
               
               <View style={styles.bulletPoint}>
-                <MaterialIcons name="person" size={24} color={colors.primary} />
+                <MaterialIcons name="check-circle" size={20} color={colors.primary} />
                 <Text style={styles.bulletText}>
-                  <Text style={styles.boldText}>Age Requirement:</Text> Applicants must be 18 years of age or older.
+                  <Text style={styles.boldText}>Comprehensive Training: </Text>
+                  Our 6-8 week program covers all aspects of patient care, from basic nursing skills to specialized care techniques.
                 </Text>
               </View>
-              
+
               <View style={styles.bulletPoint}>
-                <MaterialIcons name="badge" size={24} color={colors.primary} />
+                <MaterialIcons name="check-circle" size={20} color={colors.primary} />
                 <Text style={styles.bulletText}>
-                  <Text style={styles.boldText}>Identification:</Text> A valid state-issued ID or Driver's License is required.
+                  <Text style={styles.boldText}>Hands-on Experience: </Text>
+                  Practice your skills in our state-of-the-art lab and through clinical rotations at local healthcare facilities.
                 </Text>
               </View>
-              
+
               <View style={styles.bulletPoint}>
-                <MaterialIcons name="security" size={24} color={colors.primary} />
+                <MaterialIcons name="check-circle" size={20} color={colors.primary} />
                 <Text style={styles.bulletText}>
-                  <Text style={styles.boldText}>Background Screening:</Text> Successful passing of the Family Care Safety Background Screening (FCSR) is mandatory.
+                  <Text style={styles.boldText}>Job Placement Assistance: </Text>
+                  Our career services team will help you find employment opportunities after graduation.
                 </Text>
               </View>
-              
+
               <View style={styles.bulletPoint}>
-                <MaterialIcons name="attach-money" size={24} color={colors.primary} />
+                <MaterialIcons name="check-circle" size={20} color={colors.primary} />
                 <Text style={styles.bulletText}>
-                  <Text style={styles.boldText}>Application Fee:</Text> There is a non-refundable application fee of $75. After submitting your application, please pay this fee via Cash App to $WalkNFAith2024. Your application will not be processed until the fee is paid.
+                  <Text style={styles.boldText}>Certification Preparation: </Text>
+                  We'll prepare you to pass the state certification exam with confidence.
                 </Text>
               </View>
-              
-              <Text style={styles.text}>
-                Once we have confirmed that you meet these initial requirements, a representative from WalkNFaith will contact you to schedule a video interview. Please allow 5-7 business days for us to receive and process the results of your FCSR screening. Your patience and understanding during this period are greatly appreciated.
-              </Text>
-              
-              <TouchableOpacity style={styles.applicationButton}>
-                <Text style={styles.applicationButtonText}>CNA Class Application</Text>
+
+              <TouchableOpacity 
+                style={styles.applicationButton}
+                onPress={() => navigation.navigate('CNATraining')}
+              >
+                <Text style={styles.applicationButtonText}>View Full Program Details</Text>
               </TouchableOpacity>
             </Card.Content>
           </Card>
-        </>
+        </View>
       )}
 
       {/* CDL Program Tab Content */}
       {activeTab === 'cdl' && (
-        <>
-          <Card style={styles.card}>
-            <Card.Content>
-              <Text style={styles.sectionTitle}>Commercial Driving License (CDL) Program</Text>
-              
-              <View style={styles.cdlBenefitsContainer}>
-                <Text style={styles.subSectionTitle}>TRUCKING INDUSTRY BENEFITS</Text>
-                
-                <View style={styles.cdlBenefitsGrid}>
-                  <View style={styles.cdlBenefit}>
-                    <MaterialIcons name="work" size={32} color={colors.primary} />
-                    <Text style={styles.cdlBenefitText}>Stable Employment</Text>
-                  </View>
-                  
-                  <View style={styles.cdlBenefit}>
-                    <MaterialIcons name="school" size={32} color={colors.primary} />
-                    <Text style={styles.cdlBenefitText}>No College Necessary</Text>
-                  </View>
-                  
-                  <View style={styles.cdlBenefit}>
-                    <MaterialIcons name="attach-money" size={32} color={colors.primary} />
-                    <Text style={styles.cdlBenefitText}>High Earning Potential</Text>
-                  </View>
-                  
-                  <View style={styles.cdlBenefit}>
-                    <MaterialIcons name="timer" size={32} color={colors.primary} />
-                    <Text style={styles.cdlBenefitText}>Minimal Training Time</Text>
-                  </View>
-                  
-                  <View style={styles.cdlBenefit}>
-                    <MaterialIcons name="account-balance-wallet" size={32} color={colors.primary} />
-                    <Text style={styles.cdlBenefitText}>Low-Cost Training</Text>
-                  </View>
-                  
-                  <View style={styles.cdlBenefit}>
-                    <MaterialIcons name="trending-up" size={32} color={colors.primary} />
-                    <Text style={styles.cdlBenefitText}>Career Advancement</Text>
-                  </View>
-                  
-                  <View style={styles.cdlBenefit}>
-                    <MaterialIcons name="directions-car" size={32} color={colors.primary} />
-                    <Text style={styles.cdlBenefitText}>Independence and Freedom</Text>
-                  </View>
-                  
-                  <View style={styles.cdlBenefit}>
-                    <MaterialIcons name="map" size={32} color={colors.primary} />
-                    <Text style={styles.cdlBenefitText}>Travel the Entire Country</Text>
-                  </View>
-                </View>
-                
-                <TouchableOpacity style={styles.cdlApplyButton}>
-                  <Text style={styles.cdlApplyButtonText}>Apply Now</Text>
-                </TouchableOpacity>
-                
-                <Text style={styles.cdlContactText}>314.260.9097</Text>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Commercial Driver's License (CDL) Program</Text>
+          <Text style={styles.sectionDescription}>
+            Our CDL program prepares you for a high-demand career in commercial truck driving. With comprehensive training and hands-on experience, you'll be ready to hit the road with confidence.
+          </Text>
+
+          <View style={styles.cdlBenefitsContainer}>
+            <Text style={styles.subSectionTitle}>Program Benefits</Text>
+            <View style={styles.cdlBenefitsGrid}>
+              <View style={styles.cdlBenefit}>
+                <FontAwesome5 name="truck" size={30} color={colors.primary} />
+                <Text style={styles.cdlBenefitText}>ELDT Registered Training</Text>
               </View>
-              
-              <View style={styles.cdlTrainingSection}>
-                <Text style={styles.subSectionTitle}>GET THE TRAINING YOU NEED FROM OUR ELDT REGISTERED SCHOOLS</Text>
-                <Text style={styles.text}>
-                  If you are looking for a new career in a growing industry, the commercial trucking sector could be the place for you. Since 1993, more than 50,000 students have graduated from our CDL training, and more than more than 95% of them got help finding a job. Learn more about our Entry Level Driver Training program.
-                </Text>
-                
-                <TouchableOpacity style={styles.cdlApplyButton}>
-                  <Text style={styles.cdlApplyButtonText}>Apply Now</Text>
-                </TouchableOpacity>
+              <View style={styles.cdlBenefit}>
+                <FontAwesome5 name="money-bill-wave" size={30} color={colors.primary} />
+                <Text style={styles.cdlBenefitText}>High Earning Potential</Text>
               </View>
-              
-              <View style={styles.cdlEarningSection}>
-                <Text style={styles.subSectionTitle}>START YOUR NEW CAREER IN TRUCK DRIVING TODAY!</Text>
-                <View style={styles.cdlEarningPoint}>
-                  <MaterialIcons name="attach-money" size={24} color={colors.primary} />
-                  <Text style={styles.cdlEarningText}>Earn between $69,000 and $85,000</Text>
-                </View>
-                
-                <View style={styles.cdlEarningPoint}>
-                  <MaterialIcons name="check-circle" size={24} color={colors.primary} />
-                  <Text style={styles.cdlEarningText}>No experience required</Text>
-                </View>
-                
-                <TouchableOpacity style={styles.cdlApplyButton}>
-                  <Text style={styles.cdlApplyButtonText}>Apply Now</Text>
-                </TouchableOpacity>
+              <View style={styles.cdlBenefit}>
+                <FontAwesome5 name="calendar-alt" size={30} color={colors.primary} />
+                <Text style={styles.cdlBenefitText}>3-4 Week Program</Text>
               </View>
-              
-              <View style={styles.cdlFormSection}>
-                <Text style={styles.subSectionTitle}>YOUR NEW DRIVING CAREER STARTS HERE</Text>
-                
-                <TouchableOpacity style={styles.cdlApplyButton}>
-                  <Text style={styles.cdlApplyButtonText}>Complete Application Form</Text>
-                </TouchableOpacity>
+              <View style={styles.cdlBenefit}>
+                <FontAwesome5 name="hands-helping" size={30} color={colors.primary} />
+                <Text style={styles.cdlBenefitText}>Job Placement Assistance</Text>
               </View>
-            </Card.Content>
-          </Card>
-        </>
+            </View>
+          </View>
+
+          <View style={styles.cdlTrainingSection}>
+            <Text style={styles.subSectionTitle}>Training Includes</Text>
+            <View style={styles.bulletPoint}>
+              <MaterialIcons name="check-circle" size={20} color={colors.primary} />
+              <Text style={styles.bulletText}>
+                <Text style={styles.boldText}>Classroom Instruction: </Text>
+                Learn traffic laws, safety regulations, and trip planning.
+              </Text>
+            </View>
+            <View style={styles.bulletPoint}>
+              <MaterialIcons name="check-circle" size={20} color={colors.primary} />
+              <Text style={styles.bulletText}>
+                <Text style={styles.boldText}>Range Training: </Text>
+                Practice vehicle inspection, backing, and basic maneuvers in a controlled environment.
+              </Text>
+            </View>
+            <View style={styles.bulletPoint}>
+              <MaterialIcons name="check-circle" size={20} color={colors.primary} />
+              <Text style={styles.bulletText}>
+                <Text style={styles.boldText}>Road Training: </Text>
+                Gain experience driving on public roads with an experienced instructor.
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.cdlEarningSection}>
+            <Text style={styles.subSectionTitle}>Earning Potential</Text>
+            <View style={styles.cdlEarningPoint}>
+              <FontAwesome5 name="dollar-sign" size={20} color={colors.primary} />
+              <Text style={styles.cdlEarningText}>Starting salary: $69,000 - $85,000</Text>
+            </View>
+            <View style={styles.cdlEarningPoint}>
+              <FontAwesome5 name="dollar-sign" size={20} color={colors.primary} />
+              <Text style={styles.cdlEarningText}>Experienced drivers can earn $100,000+</Text>
+            </View>
+          </View>
+
+          <TouchableOpacity 
+            style={styles.cdlApplyButton}
+            onPress={() => navigation.navigate('CDLTrainingProgram')}
+          >
+            <Text style={styles.cdlApplyButtonText}>View Full Program Details</Text>
+          </TouchableOpacity>
+        </View>
       )}
 
-      {/* Enroll CTA */}
-      <TouchableOpacity style={styles.enrollButton}>
-        <Text style={styles.enrollButtonText}>Enroll Today</Text>
-      </TouchableOpacity>
+      {/* Physician Mentor Program Tab */}
+      {activeTab === 'physician' && (
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Physician Mentor Program</Text>
+          
+          {/* Application Notice */}
+          <View style={styles.noticeContainer}>
+            <MaterialIcons name="announcement" size={24} color="#ff6b6b" />
+            <Text style={styles.noticeText}>
+              <Text style={styles.noticeHighlight}>Applications are only accepted March 27, 2023 through April 24, 2023.</Text> Please DO NOT submit the application until March 27th.
+            </Text>
+          </View>
+          
+          <Text style={styles.sectionDescription}>
+            The Purpose Tech Physician Mentoring Program provides local high school and college students the opportunity to witness and understand the importance of professions in the medical field, from evaluation and treatment for follow-up care.
+          </Text>
+          
+          <Card style={styles.programDetailsCard}>
+            <Card.Content>
+              <Text style={styles.paragraphText}>
+                Doctors from a variety of specialties volunteer their time, leading students in the office setting, on their hospital rounds, in the emergency department, and even in the operating room. The Purpose Tech Physician Mentoring Program is offered at both WalkNFaith outpatient clinic and St. Luke's Hospital.
+              </Text>
+              
+              <Text style={styles.paragraphText}>
+                The Program is offered for six to eight weeks between June and August. Student participation for the program requires a three to five day per week commitment. Each week, participating students work with a different medical professional in a different specialty. This rotation introduces the participating students to the many multidisciplinary facets of medicine. By exposing the students to many specialties, participants have a more complete understanding of the diversity of medical career opportunities.
+              </Text>
+            </Card.Content>
+          </Card>
+          
+          <Text style={styles.subSectionTitle}>Forms to Download</Text>
+          
+          <TouchableOpacity style={styles.downloadButton}>
+            <MaterialIcons name="file-download" size={24} color="white" />
+            <Text style={styles.buttonText}>2023 Background Check</Text>
+          </TouchableOpacity>
+          <Text style={styles.noteText}>*If over 18 only. You will be asked to upload this information onto your application.</Text>
+          
+          <TouchableOpacity style={styles.downloadButton}>
+            <MaterialIcons name="file-download" size={24} color="white" />
+            <Text style={styles.buttonText}>2023 Details/Instructions to Apply</Text>
+          </TouchableOpacity>
+          <Text style={styles.noteText}>*Read thoroughly before completing the application.</Text>
+          
+          <Text style={styles.subSectionTitle}>Application Link</Text>
+          <Text style={styles.noticeText}>
+            <Text style={styles.noticeHighlight}>Applications are only accepted March 27, 2023 through April 24, 2023.</Text> Please DO NOT submit the application until March 27th.
+          </Text>
+          
+          <Text style={styles.paragraphText}>
+            We will be having both a Physician Mentorship Program and a Nurse Mentorship Program. Please click the appropriate link for which program you would like to apply.
+          </Text>
+          
+          <TouchableOpacity style={styles.applicationButton}>
+            <Text style={styles.applicationButtonText}>2023 Physician Mentorship Application Link</Text>
+          </TouchableOpacity>
+          <Text style={styles.noteText}>*Click the link to fill out the application. Please read through the "2023 Details & instructions to Apply" BEFORE completing the application.</Text>
+          
+          <TouchableOpacity style={styles.applicationButton}>
+            <Text style={styles.applicationButtonText}>2023 Nurse Mentorship Application Link</Text>
+          </TouchableOpacity>
+          <Text style={styles.noteText}>*Click the link to fill out the application. Please read through the "2023 Details & instructions to Apply" BEFORE completing the application.</Text>
+          
+          <Text style={styles.subSectionTitle}>Learn More</Text>
+          <Text style={styles.paragraphText}>
+            To learn more about our physician mentoring program email Sabrina@walknfaith.org
+            or call Sabrina at (805) 739-3590.
+          </Text>
+          
+          <TouchableOpacity style={styles.downloadButton}>
+            <MaterialIcons name="file-download" size={24} color="white" />
+            <Text style={styles.buttonText}>2023 Mentor Brochure</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={styles.viewFullDetailsButton}
+            onPress={() => navigation.navigate('PhysicianMentorProgram')}
+          >
+            <Text style={styles.viewFullDetailsText}>View Full Program Details</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </ScrollView>
   );
 };
@@ -367,174 +307,74 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    padding: 16,
+    backgroundColor: '#f8f9fa',
   },
   headerCard: {
-    marginBottom: 16,
-    backgroundColor: colors.primary,
+    margin: 16,
+    backgroundColor: colors.primary + '10',
   },
   headerTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',
+    color: colors.primary,
     marginBottom: 8,
   },
   headerText: {
     fontSize: 16,
-    color: 'white',
     lineHeight: 24,
+    color: '#555',
+  },
+  section: {
+    padding: 16,
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 12,
+  },
+  sectionDescription: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+    marginBottom: 20,
   },
   card: {
     marginBottom: 16,
-    elevation: 4,
-  },
-  sectionHeader: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 16,
-    marginBottom: 12,
-    color: '#2c3e50',
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 12,
-    color: '#2c3e50',
   },
   text: {
     fontSize: 16,
     lineHeight: 24,
-    color: '#34495e',
-    marginBottom: 16,
-  },
-  featureContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 16,
-  },
-  feature: {
-    alignItems: 'center',
-  },
-  featureText: {
-    fontSize: 14,
-    color: '#2c3e50',
-    marginTop: 8,
-    textAlign: 'center',
+    color: '#555',
+    marginBottom: 12,
   },
   programCard: {
     marginBottom: 16,
   },
   programHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: 12,
   },
-  programTitleContainer: {
-    marginLeft: 12,
+  programInfo: {
+    marginLeft: 16,
     flex: 1,
   },
   programTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2c3e50',
-  },
-  duration: {
-    fontSize: 14,
-    color: colors.primary,
-    marginTop: 4,
+    color: '#333',
   },
   programDescription: {
     fontSize: 16,
-    color: '#34495e',
     lineHeight: 24,
-    marginBottom: 12,
-  },
-  readMoreButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  readMoreText: {
-    fontSize: 16,
-    color: colors.primary,
-    marginRight: 8,
-  },
-  eventCard: {
-    marginBottom: 12,
-  },
-  eventHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 8,
-  },
-  eventDay: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: colors.primary,
-  },
-  eventTime: {
-    fontSize: 14,
-    color: '#7f8c8d',
-  },
-  eventTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#2c3e50',
-    marginBottom: 4,
-  },
-  eventDescription: {
-    fontSize: 16,
-    color: '#34495e',
-    marginBottom: 8,
-  },
-  eventLocation: {
-    fontSize: 14,
-    color: '#7f8c8d',
-  },
-  featuresCard: {
-    backgroundColor: colors.primary + '10',
-  },
-  supportFeature: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    padding: 16,
-    borderRadius: 8,
-    marginTop: 16,
-  },
-  supportText: {
-    fontSize: 16,
-    color: '#2c3e50',
-    marginLeft: 16,
-    flex: 1,
-  },
-  enrollButton: {
-    backgroundColor: colors.primary,
-    padding: 16,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginVertical: 24,
-  },
-  enrollButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
+    color: '#555',
+    marginBottom: 16,
   },
   programDuration: {
     fontSize: 14,
     color: colors.primary,
     marginTop: 4,
-  },
-  readMoreContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  readMore: {
-    fontSize: 16,
-    color: "#007AFF",
-    marginRight: 8,
   },
   learnMoreButton: {
     flexDirection: 'row',
@@ -543,15 +383,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     padding: 8,
     borderRadius: 8,
+    alignSelf: 'flex-end',
   },
   learnMoreButtonText: {
-    fontSize: 16,
+    fontSize: 14,
     color: 'white',
     marginRight: 8,
   },
   // Tab styles
   tabContainer: {
     flexDirection: 'row',
+    marginHorizontal: 16,
     marginBottom: 16,
     borderRadius: 8,
     overflow: 'hidden',
@@ -654,12 +496,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  cdlContactText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: colors.primary,
-    textAlign: 'center',
-  },
   cdlTrainingSection: {
     marginTop: 24,
   },
@@ -678,8 +514,69 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 12,
   },
-  cdlFormSection: {
-    marginTop: 24,
+  // Physician Mentor Program styles
+  programDetailsCard: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    marginVertical: 16,
+  },
+  paragraphText: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginBottom: 15,
+    color: '#34495e',
+  },
+  noticeContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#fff8e1',
+    padding: 15,
+    borderRadius: 10,
+    marginVertical: 15,
+    alignItems: 'flex-start',
+  },
+  noticeText: {
+    marginLeft: 10,
+    flex: 1,
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  noticeHighlight: {
+    fontWeight: 'bold',
+    color: '#ff6b6b',
+  },
+  downloadButton: {
+    backgroundColor: '#007AFF',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
+  noteText: {
+    fontSize: 14,
+    color: '#7f8c8d',
+    fontStyle: 'italic',
+    marginBottom: 15,
+  },
+  viewFullDetailsButton: {
+    backgroundColor: colors.primary,
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  viewFullDetailsText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

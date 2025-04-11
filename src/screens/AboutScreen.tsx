@@ -154,28 +154,14 @@ export default function AboutScreen() {
             </View>
           </View>
 
-          {/* Richard Hayes */}
-          <View style={styles.teamMemberCard}>
-            <Image 
-              source={require('../../assets/walknfaith-logo.png')} 
-              style={styles.teamMemberImage} 
-              resizeMode="contain" 
-            />
-            <View style={styles.teamMemberInfo}>
-              <Text style={styles.teamMemberName}>Richard Hayes</Text>
-              <Text style={styles.teamMemberRole}>President of WalkNFaith</Text>
-              <Text style={styles.teamMemberBio}>
-                Richard Hayes serves as the President of WalkNFaith, bringing leadership and vision to our organization's mission. His dedication to community service and improving healthcare access has been instrumental in the growth and success of our programs.
-              </Text>
-            </View>
-          </View>
+
 
           {/* Mandy Parker */}
           <View style={styles.teamMemberCard}>
             <Image 
               source={require('../../assets/walknfaith-logo.png')} 
               style={styles.teamMemberImage} 
-              resizeMode="contain" 
+              resizeMode="cover" 
             />
             <View style={styles.teamMemberInfo}>
               <Text style={styles.teamMemberName}>Mandy Parker MS, BCBA, LBA</Text>
@@ -223,7 +209,7 @@ export default function AboutScreen() {
             <Image 
               source={require('../../assets/walknfaith-logo.png')} 
               style={styles.teamMemberImage} 
-              resizeMode="contain" 
+              resizeMode="cover" 
             />
             <View style={styles.teamMemberInfo}>
               <Text style={styles.teamMemberName}>Nurse Practitioner</Text>
@@ -386,15 +372,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    flexDirection: 'row',
   },
   teamMemberImage: {
-    width: '100%',
-    height: 250,
+    width: 150,
+    height: 150,
     borderRadius: 10,
-    marginBottom: 15,
+    marginRight: 15,
   },
   teamMemberInfo: {
-    marginTop: 10,
+    flex: 1,
   },
   teamMemberName: {
     fontSize: 20,
