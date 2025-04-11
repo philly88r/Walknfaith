@@ -50,22 +50,22 @@ const MentorshipScreen = () => {
       image: { uri: '/image_2022_06_22T19_30_23_373Z.png' },
     },
     {
-      name: "Leah Johnson",
+      name: "Donyell Brooks",
       role: "CNA Student Mentor",
-      bio: "Guiding CNA students through their educational journey with practical insights and support",
-      image: require('../../assets/placeholder.png'),
+      bio: "Hello all, I am Donyell Brooks, CNA. I recently completed my CNA course at WalkNFaith/Purpose Tech Institute. I am so excited about my accomplishment and finally reaching one of my goals. A little more about me is that I graduated in 2017 as a medical assistant and in 2018 I became a pharmacy technician. I love the medical field and have a passion for caring for people. I have future plans to become a nurse practitioner in the NICU and also want to mentor and assist others wanting to join the medical field.",
+      image: require('../../assets/donyell_brooks.png'),
     },
     {
       name: "Staci Stevenson",
       role: "Peer Youth Mentor",
-      bio: "Supporting youth through peer mentorship and creating a positive community environment",
-      image: require('../../assets/placeholder.png'),
+      bio: "I'm a dedicated nursing student at the University of Missouri. After completing the CNA program with Walk N Faith last summer, I discovered my passion for healthcare and have since committed to pursuing a career in nursing. This fall, I'm starting my clinical major, and I'm on track to graduate in December 2026. In addition to my studies, I founded USNursing, an organization designed to build a supportive community on campus and promote diversity within the nursing field.",
+      image: require('../../assets/staci_stevenson.jpeg'),
     },
     {
       name: "Emmanuel Opada",
       role: "Physician Mentor/Regional Health Director",
       bio: "Experienced physician providing guidance and insights into healthcare careers and practices",
-      image: require('../../assets/product photos 2 (10).png'),
+      image: require('../../assets/embada.png'),
     }
   ];
 
