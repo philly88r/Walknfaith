@@ -42,6 +42,13 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
       icon: 'psychology',
       route: 'PhysicianMentorProgram',
     },
+    {
+      title: 'Nurse Mentorship Program',
+      duration: 'Coming Soon',
+      description: 'An opportunity for aspiring nurses to learn from experienced healthcare professionals in real-world settings.',
+      icon: 'favorite',
+      route: '',
+    },
   ];
 
   return (
@@ -60,10 +67,41 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
 
       {/* Overview Section */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Career Training Programs</Text>
+        <Text style={styles.sectionTitle}>Workforce Training</Text>
         <Text style={styles.sectionDescription}>
           Purpose Tech Institute offers comprehensive career training programs designed to prepare you for in-demand jobs in healthcare, transportation, and medical fields. Our programs combine classroom learning with hands-on experience to ensure you're ready for your new career.
         </Text>
+
+        {/* Program Cards */}
+        <View style={styles.programsContainer}>
+          {programs.map((program, index) => (
+            <Card key={index} style={styles.programCard}>
+              <View style={styles.programHeader}>
+                <View style={styles.iconContainer}>
+                  <MaterialIcons name={program.icon} size={36} color={colors.primary} />
+                </View>
+                <View style={styles.programInfo}>
+                  <Text style={styles.programTitle}>{program.title}</Text>
+                  <Text style={styles.programDuration}>{program.duration}</Text>
+                </View>
+              </View>
+              <Text style={styles.programDescription}>{program.description}</Text>
+              {program.route ? (
+                <TouchableOpacity 
+                  style={styles.learnMoreButton}
+                  onPress={() => navigation.navigate(program.route as keyof RootStackParamList)}
+                >
+                  <Text style={styles.learnMoreButtonText}>Learn More</Text>
+                  <MaterialIcons name="arrow-forward" size={16} color="white" />
+                </TouchableOpacity>
+              ) : (
+                <View style={styles.comingSoonBadge}>
+                  <Text style={styles.comingSoonText}>Coming Soon</Text>
+                </View>
+              )}
+            </Card>
+          ))}
+        </View>
       </View>
 
       {/* Tab Navigation */}
@@ -349,12 +387,32 @@ const styles = StyleSheet.create({
     color: '#555',
     marginBottom: 12,
   },
+  programsContainer: {
+    marginTop: 20,
+  },
   programCard: {
-    marginBottom: 16,
+    marginBottom: 20,
+    padding: 16,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   programHeader: {
     flexDirection: 'row',
     marginBottom: 12,
+    alignItems: 'center',
+  },
+  iconContainer: {
+    width: 60,
+    height: 60,
+    backgroundColor: colors.primary + '15',
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   programInfo: {
     marginLeft: 16,
@@ -379,16 +437,28 @@ const styles = StyleSheet.create({
   learnMoreButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     backgroundColor: colors.primary,
-    padding: 8,
+    padding: 10,
     borderRadius: 8,
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
   },
   learnMoreButtonText: {
     fontSize: 14,
+    fontWeight: 'bold',
     color: 'white',
     marginRight: 8,
+  },
+  comingSoonBadge: {
+    backgroundColor: '#f0f0f0',
+    padding: 8,
+    borderRadius: 6,
+    alignSelf: 'flex-start',
+  },
+  comingSoonText: {
+    fontSize: 14,
+    color: '#666',
+    fontStyle: 'italic',
   },
   // Tab styles
   tabContainer: {
