@@ -204,18 +204,18 @@ export default function AboutScreen() {
             </View>
           </View>
 
-          {/* Nurse Practitioner */}
+          {/* Janika Johnson */}
           <View style={styles.teamMemberCard}>
             <Image 
-              source={require('../../assets/walknfaith-logo.png')} 
+              source={require('../../assets/janika.jpeg')} 
               style={styles.teamMemberImage} 
               resizeMode="cover" 
             />
             <View style={styles.teamMemberInfo}>
-              <Text style={styles.teamMemberName}>Nurse Practitioner</Text>
-              <Text style={styles.teamMemberRole}>Internal Medicine Specialist</Text>
+              <Text style={styles.teamMemberName}>Janika Johnson</Text>
+              <Text style={styles.teamMemberRole}>Nurse Practitioner, Internal Medicine Specialist</Text>
               <Text style={styles.teamMemberBio}>
-                I am Nurse Practitioner specializing in Internal Medicine and serving as a Hospitalist. I have traveled and worked across various clinical settings, including labor and delivery, medical-surgical, inpatient rehabilitation, and psychiatric nursing. This broad experience has equipped me with a comprehensive understanding of patient care, enabling a holistic approach to managing complex medical conditions.
+                I am a Nurse Practitioner specializing in Internal Medicine and serving as a Hospitalist. I have traveled and worked across various clinical settings, including labor and delivery, medical-surgical, inpatient rehabilitation, and psychiatric nursing. This broad experience has equipped me with a comprehensive understanding of patient care, enabling a holistic approach to managing complex medical conditions.
                 
                 I am passionate about advancing the field of healthcare, and deeply committed to teaching and mentoring the next generation of healthcare professionals. Whether through clinical training or educational outreach, I strive to inspire future healthcare workers to provide compassionate and evidence-based care.
               </Text>
