@@ -17,19 +17,8 @@ import { colors } from '../theme/colors';
 type Props = NativeStackScreenProps<RootStackParamList, 'CNATraining'>;
 
 const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
-  const handleUploadAssignment = async () => {
-    try {
-      const result = await DocumentPicker.getDocumentAsync({
-        type: ['application/pdf', 'image/*'],
-      });
-
-      if (!result.canceled) {
-        // Handle the uploaded file
-        console.log('Document:', result.assets[0].uri);
-      }
-    } catch (error) {
-      console.error('Error uploading assignment:', error);
-    }
+  const handleVideoQuizzes = () => {
+    navigation.navigate('VideoQuizzes');
   };
 
   const handleSkillsVideo = () => {
@@ -108,10 +97,10 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
             <View style={styles.actionButtons}>
               <TouchableOpacity 
                 style={styles.actionButton}
-                onPress={handleUploadAssignment}
+                onPress={handleVideoQuizzes}
               >
                 <MaterialIcons name="assignment" size={24} color="white" />
-                <Text style={styles.buttonText}>Assignments</Text>
+                <Text style={styles.buttonText}>Video Quizzes</Text>
               </TouchableOpacity>
 
               <TouchableOpacity 

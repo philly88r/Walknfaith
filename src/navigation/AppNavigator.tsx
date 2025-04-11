@@ -22,6 +22,7 @@ import CrisisHotlinesScreen from '../screens/CrisisHotlinesScreen';
 import PeerPressureScreen from '../screens/PeerPressureScreen';
 import SuicidePreventionScreen from '../screens/SuicidePreventionScreen';
 import TestAuthScreen from '../screens/TestAuthScreen';
+import VideoQuizzesScreen from '../screens/VideoQuizzesScreen';
 import BackButton from '../components/BackButton';
 import { RootStackParamList } from './types';
 import { colors } from '../theme/colors';
@@ -202,6 +203,11 @@ export default function AppNavigator() {
         name="SuicidePrevention" 
         component={SuicidePreventionScreen}
         options={{ title: 'Suicide Prevention Resources' }}
+      />
+      <Stack.Screen 
+        name="VideoQuizzes" 
+        component={VideoQuizzesScreen}
+        options={{ title: 'Video Quizzes' }}
       />
     </Stack.Navigator>
   );
