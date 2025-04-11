@@ -1,4 +1,5 @@
 import supabase from './supabaseClient';
+import insertOfficialQuizData from './completeQuizData';
 
 // Function to check if tables exist and create them if needed
 export const setupQuizDatabase = async () => {
@@ -185,52 +186,72 @@ export const insertSampleQuizData = async () => {
         questions = [
           {
             quiz_id: quizId,
-            question_text: 'When should a gait belt be used?',
+            question_text: 'When ambulating a resident with a gait belt, the NA should:',
             options: [
-              { option_text: 'Only when transferring patients from bed to chair', is_correct: false },
-              { option_text: 'When assisting patients who are unsteady or at risk for falls', is_correct: true },
-              { option_text: 'Only for patients who are completely dependent', is_correct: false },
-              { option_text: 'Only during physical therapy sessions', is_correct: false }
+              { option_text: 'Stand behind the resident', is_correct: false },
+              { option_text: 'Stand on the resident\'s stronger side', is_correct: true },
+              { option_text: 'Stand on the resident\'s weaker side', is_correct: false },
+              { option_text: 'Stand in front of the resident', is_correct: false }
             ]
           },
           {
             quiz_id: quizId,
-            question_text: 'Where should a gait belt be positioned on the patient?',
+            question_text: 'When using a gait belt, the NA should:',
             options: [
-              { option_text: 'Around the chest, under the armpits', is_correct: false },
-              { option_text: 'Around the waist, over clothing', is_correct: true },
-              { option_text: 'Around the hips, below the waistline', is_correct: false },
-              { option_text: 'Around the upper thighs', is_correct: false }
+              { option_text: 'Apply the belt over bare skin', is_correct: false },
+              { option_text: 'Apply the belt over clothing', is_correct: true },
+              { option_text: 'Apply the belt under the breasts', is_correct: false },
+              { option_text: 'Apply the belt over the breasts', is_correct: false }
             ]
           },
           {
             quiz_id: quizId,
-            question_text: 'How should you grip the gait belt when assisting a patient to walk?',
+            question_text: 'When ambulating a resident with a gait belt, the NA should:',
             options: [
-              { option_text: 'With one hand on the side', is_correct: false },
-              { option_text: 'With both hands on the back of the belt', is_correct: false },
-              { option_text: 'With an underhand grip using the handhold', is_correct: true },
-              { option_text: 'With fingers inside the belt', is_correct: false }
+              { option_text: 'Grasp the belt with palms up', is_correct: true },
+              { option_text: 'Grasp the belt with palms down', is_correct: false },
+              { option_text: 'Grasp the resident\'s arm', is_correct: false },
+              { option_text: 'Grasp the resident\'s clothing', is_correct: false }
             ]
           },
           {
             quiz_id: quizId,
-            question_text: 'What should you check before using a gait belt?',
+            question_text: 'Before applying a gait belt, the NA should check to see that:',
             options: [
-              { option_text: 'That the patient has signed a consent form', is_correct: false },
-              { option_text: 'That the belt is the right color for the facility', is_correct: false },
-              { option_text: 'That the belt is intact with no fraying and the buckle works properly', is_correct: true },
-              { option_text: 'That the patient has used a gait belt before', is_correct: false }
+              { option_text: 'The resident has on non-skid footwear', is_correct: true },
+              { option_text: 'The resident has on skid-resistant socks', is_correct: false },
+              { option_text: 'The resident has on slippers', is_correct: false },
+              { option_text: 'The resident is barefoot', is_correct: false }
             ]
           },
           {
             quiz_id: quizId,
-            question_text: 'What is the proper position for the caregiver when ambulating a patient with a gait belt?',
+            question_text: 'When ambulating a resident with a gait belt, the NA should:',
             options: [
-              { option_text: 'Standing in front of the patient', is_correct: false },
-              { option_text: 'Standing slightly behind and to one side of the patient', is_correct: true },
-              { option_text: 'Standing on the opposite side of the patient\'s stronger side', is_correct: false },
-              { option_text: 'Standing at least 3 feet away from the patient', is_correct: false }
+              { option_text: 'Walk in front of the resident', is_correct: false },
+              { option_text: 'Walk behind the resident', is_correct: false },
+              { option_text: 'Walk on the same side as the gait belt', is_correct: false },
+              { option_text: 'Walk slightly behind and to the side of the resident', is_correct: true }
+            ]
+          },
+          {
+            quiz_id: quizId,
+            question_text: 'When using a gait belt, the NA should:',
+            options: [
+              { option_text: 'Check that the belt is secure, but not too tight', is_correct: true },
+              { option_text: 'Check that the belt is as tight as possible', is_correct: false },
+              { option_text: 'Check that the belt is loose', is_correct: false },
+              { option_text: 'Check that the belt is twisted', is_correct: false }
+            ]
+          },
+          {
+            quiz_id: quizId,
+            question_text: 'When ambulating a resident with a gait belt, the NA should:',
+            options: [
+              { option_text: 'Encourage the resident to look down', is_correct: false },
+              { option_text: 'Encourage the resident to look up', is_correct: false },
+              { option_text: 'Encourage the resident to look straight ahead', is_correct: true },
+              { option_text: 'Encourage the resident to close his eyes', is_correct: false }
             ]
           }
         ];
@@ -349,11 +370,14 @@ export const runDatabaseSetup = async () => {
       if (error) {
         console.error('Error checking for quiz data:', error.message);
       } else if (data && data.length === 0) {
-        // Tables exist but no data, insert sample data
-        console.log('Tables exist but no data found. Inserting sample data...');
-        await insertSampleQuizData();
+        // Tables exist but no data, insert official quiz data
+        console.log('Tables exist but no data found. Inserting official quiz data...');
+        await insertOfficialQuizData();
       } else {
         console.log('Quiz tables exist and contain data');
+        // Ensure all required questions exist for licensing purposes
+        console.log('Verifying all required questions exist...');
+        await insertOfficialQuizData();
       }
     } else {
       console.log('Unable to access quiz tables. Please ensure they are created in Supabase dashboard');
