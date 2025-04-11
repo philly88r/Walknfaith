@@ -65,13 +65,52 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
         </Card.Content>
       </Card>
 
-      {/* Overview Section */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Workforce Training</Text>
-        <Text style={styles.sectionDescription}>
-          Purpose Tech Institute offers comprehensive career training programs designed to prepare you for in-demand jobs in healthcare, transportation, and medical fields. Our programs combine classroom learning with hands-on experience to ensure you're ready for your new career.
-        </Text>
+      {/* Enroll Today Section */}
+      <Card style={styles.enrollCard}>
+        <Card.Content>
+          <Text style={styles.enrollTitle}>Enroll Today</Text>
+          <Text style={styles.enrollText}>
+            Are you ready to take the next step toward your future career?
+            Check out all that we offer and come see us today in the Career Center located on the WalkNFaith-Purpose Tech Campus!
+          </Text>
+        </Card.Content>
+      </Card>
 
+      {/* About Us Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>About Us</Text>
+        <Card style={styles.infoCard}>
+          <Card.Content>
+            <Text style={styles.infoTitle}>About Us</Text>
+            <Text style={styles.infoText}>
+              Purpose Technical Institute & Staffing is more than a Technical College. We provide skills training and education needed to find a well-paying, high-demand job. Enrollment is just the first step.
+            </Text>
+          </Card.Content>
+        </Card>
+
+        <Card style={styles.infoCard}>
+          <Card.Content>
+            <Text style={styles.infoTitle}>Our Mission</Text>
+            <Text style={styles.infoText}>
+              Your success is our priority. Our school instructors provide a personal approach to support our inclusive community, tailoring learning methods to each student's needs.
+            </Text>
+          </Card.Content>
+        </Card>
+
+        <Card style={styles.infoCard}>
+          <Card.Content>
+            <Text style={styles.infoTitle}>Dedicated Educators</Text>
+            <Text style={styles.infoText}>
+              Our classes are taught by dedicated, diverse, and experienced educators throughout the United States. Using proven teaching strategies, they make sure that every student finds a path to success.
+            </Text>
+          </Card.Content>
+        </Card>
+      </View>
+
+      {/* Programs Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Programs</Text>
+        
         {/* Program Cards */}
         <View style={styles.programsContainer}>
           {programs.map((program, index) => (
@@ -91,7 +130,7 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
                   style={styles.learnMoreButton}
                   onPress={() => navigation.navigate(program.route as keyof RootStackParamList)}
                 >
-                  <Text style={styles.learnMoreButtonText}>Learn More</Text>
+                  <Text style={styles.learnMoreButtonText}>Read More</Text>
                   <MaterialIcons name="arrow-forward" size={16} color="white" />
                 </TouchableOpacity>
               ) : (
@@ -103,6 +142,123 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
           ))}
         </View>
       </View>
+
+      {/* Events Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Career Placement</Text>
+        
+        <View style={styles.eventsContainer}>
+          <Card style={styles.eventCard}>
+            <Card.Content>
+              <Text style={styles.eventDay}>Tuesdays</Text>
+              <Text style={styles.eventTitle}>Facilities Tour</Text>
+              <Text style={styles.eventDescription}>Tour for prospective students.</Text>
+              <View style={styles.eventDetails}>
+                <MaterialIcons name="access-time" size={16} color={colors.primary} />
+                <Text style={styles.eventTime}>1:00 pm-2:00 pm</Text>
+                <MaterialIcons name="location-on" size={16} color={colors.primary} />
+                <Text style={styles.eventLocation}>Main Campus</Text>
+              </View>
+            </Card.Content>
+          </Card>
+
+          <Card style={styles.eventCard}>
+            <Card.Content>
+              <Text style={styles.eventDay}>Wednesday</Text>
+              <Text style={styles.eventTitle}>Financial Aid Q&A</Text>
+              <Text style={styles.eventDescription}>A questions and answer session about available tuition assistance.</Text>
+              <View style={styles.eventDetails}>
+                <MaterialIcons name="access-time" size={16} color={colors.primary} />
+                <Text style={styles.eventTime}>6:00 pm-8:00 pm</Text>
+                <MaterialIcons name="location-on" size={16} color={colors.primary} />
+                <Text style={styles.eventLocation}>Main Campus</Text>
+              </View>
+            </Card.Content>
+          </Card>
+
+          <Card style={styles.eventCard}>
+            <Card.Content>
+              <Text style={styles.eventDay}>Saturday</Text>
+              <Text style={styles.eventTitle}>Facilities Tour</Text>
+              <Text style={styles.eventDescription}>Visit our facilities and see the work of our students.</Text>
+              <View style={styles.eventDetails}>
+                <MaterialIcons name="access-time" size={16} color={colors.primary} />
+                <Text style={styles.eventTime}>10:00 am-3:00 pm</Text>
+                <MaterialIcons name="location-on" size={16} color={colors.primary} />
+                <Text style={styles.eventLocation}>Main Campus</Text>
+              </View>
+            </Card.Content>
+          </Card>
+        </View>
+      </View>
+
+      {/* Support Section */}
+      <Card style={styles.supportCard}>
+        <Card.Content>
+          <Text style={styles.supportTitle}>Support 24/7</Text>
+          <Text style={styles.supportText}>Access to Online Library, Skills Videos, Lectures and more.</Text>
+        </Card.Content>
+      </Card>
+
+      {/* Features Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Successful Programs</Text>
+        <Text style={styles.featureText}>
+          Our programs are fully accredited, and will prepare you to tackle real-world issues with confidence in your methodology, no matter where you go.
+        </Text>
+        
+        <Text style={styles.featureSubtitle}>Our Best Features Specially For You</Text>
+        <Text style={styles.featureText}>
+          Want a head start on your career? Career and Technical Education courses deliver a core academic education and the employable knowledge you'll need for prolonged career success. On top of that, we've created a structure that drives career growth even before graduation, giving you the chance to earn back tuition costs and get ahead fast.
+        </Text>
+
+        <Card style={styles.trainingCard}>
+          <Card.Content>
+            <Text style={styles.trainingTitle}>Training program opportunities include:</Text>
+            <View style={styles.trainingGrid}>
+              <View style={styles.trainingItem}>
+                <Text style={styles.trainingText}>CNA Program</Text>
+              </View>
+              <View style={styles.trainingItem}>
+                <Text style={styles.trainingText}>CDL Program</Text>
+              </View>
+              <View style={styles.trainingItem}>
+                <Text style={styles.trainingText}>Physician Mentorship</Text>
+              </View>
+              <View style={styles.trainingItem}>
+                <Text style={styles.trainingText}>Clinical Instructor</Text>
+              </View>
+              <View style={styles.trainingItem}>
+                <Text style={styles.trainingText}>Nurse Mentorship Program</Text>
+              </View>
+              <View style={styles.trainingItem}>
+                <Text style={styles.trainingText}>Nurse Practitioner Mentorship</Text>
+              </View>
+            </View>
+            
+            <Text style={styles.comingSoonTitle}>Coming soon</Text>
+            <View style={styles.trainingGrid}>
+              <View style={styles.trainingItem}>
+                <Text style={styles.trainingText}>PN Program</Text>
+              </View>
+              <View style={styles.trainingItem}>
+                <Text style={styles.trainingText}>LPN Bridge To RN</Text>
+              </View>
+            </View>
+          </Card.Content>
+        </Card>
+      </View>
+
+      {/* CDL Promotion */}
+      <Card style={styles.cdlPromoCard}>
+        <Card.Content>
+          <Text style={styles.cdlPromoTitle}>Let's Learn Beyond The Limits</Text>
+          <Text style={styles.cdlPromoSubtitle}>No CDL? No Problem, We Train!</Text>
+          <Text style={styles.cdlPromoText}>
+            We will train you how to successfully drive a commercial vehicle in a safe and professional manner. We will provide you with the tools to become a truck driver. Our 4-week program consists of classroom learning, road skills, and knowledge of state and federal driver regulations.
+          </Text>
+        </Card.Content>
+      </Card>
 
       {/* Tab Navigation */}
       <View style={styles.tabContainer}>
@@ -362,6 +518,21 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: '#555',
   },
+  enrollCard: {
+    margin: 16,
+    backgroundColor: colors.primary + '20',
+  },
+  enrollTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 8,
+  },
+  enrollText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+  },
   section: {
     padding: 16,
     marginBottom: 16,
@@ -378,6 +549,21 @@ const styles = StyleSheet.create({
     color: '#555',
     marginBottom: 20,
   },
+  infoCard: {
+    marginBottom: 16,
+    backgroundColor: 'white',
+  },
+  infoTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 8,
+  },
+  infoText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+  },
   card: {
     marginBottom: 16,
   },
@@ -386,6 +572,136 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: '#555',
     marginBottom: 12,
+  },
+  eventsContainer: {
+    marginTop: 16,
+  },
+  eventCard: {
+    marginBottom: 16,
+    backgroundColor: 'white',
+  },
+  eventDay: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 4,
+  },
+  eventTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 4,
+  },
+  eventDescription: {
+    fontSize: 16,
+    color: '#555',
+    marginBottom: 8,
+  },
+  eventDetails: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
+  eventTime: {
+    fontSize: 14,
+    color: '#555',
+    marginLeft: 4,
+    marginRight: 12,
+  },
+  eventLocation: {
+    fontSize: 14,
+    color: '#555',
+    marginLeft: 4,
+  },
+  supportCard: {
+    margin: 16,
+    backgroundColor: colors.primary + '15',
+  },
+  supportTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  supportText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+    textAlign: 'center',
+  },
+  featureText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+    marginBottom: 16,
+  },
+  featureSubtitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  trainingCard: {
+    marginTop: 16,
+    marginBottom: 16,
+    backgroundColor: 'white',
+  },
+  trainingTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 16,
+  },
+  trainingGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  trainingItem: {
+    width: '48%',
+    backgroundColor: colors.primary + '10',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+  },
+  trainingText: {
+    fontSize: 14,
+    color: '#333',
+    textAlign: 'center',
+  },
+  comingSoonTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginTop: 8,
+    marginBottom: 16,
+  },
+  cdlPromoCard: {
+    margin: 16,
+    backgroundColor: colors.primary + '15',
+  },
+  cdlPromoTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  cdlPromoSubtitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  cdlPromoText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+    textAlign: 'center',
   },
   programsContainer: {
     marginTop: 20,
