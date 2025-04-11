@@ -124,6 +124,76 @@ const MentorshipScreen = () => {
     Linking.openURL(`tel:${phone}`);
   };
 
+  const renderMentorshipInfo = () => (
+    <View style={styles.section}>
+      <View style={styles.infoCard}>
+        <Text style={styles.paragraphText}>
+          We understand mentoring is widely used, and the chances are that you will have either been mentored or mentored someone else at some stage, or several stages in your life, without even realizing it or calling it mentoring. We, here at Purpose Tech Institute define mentoring as a caring seasoned individual or peer, nurse, cna, or Nurse Practitioner sharing their knowledge, skills, and experience with another person to help them to progress.
+        </Text>
+      </View>
+
+      <View style={styles.infoCard}>
+        <Text style={styles.infoTitle}>Who are the Peer Mentors?</Text>
+        <Text style={styles.paragraphText}>
+          The definition of a mentor is a person who shares their knowledge, skills, and/or their experience, to help another person, or group of people, to progress. Our mentors are Certified Nurse Aides and Nurses who want to see you exceed and reach your goals.
+        </Text>
+      </View>
+
+      <View style={styles.infoCard}>
+        <Text style={styles.infoTitle}>What is a Mentee?</Text>
+        <Text style={styles.paragraphText}>
+          The definition of a mentee is a person who receives knowledge, skills, experience, and guidance from a mentor, to help them, the mentee, to progress. This progress is seen in our program as student's who are enrolled in our technical program and are looking for career development, such as moving into a new role or job, but can be offered throughout a person's life. In some cases, you may here the word mentee referred to as 'mentoree'.
+        </Text>
+      </View>
+
+      <View style={styles.infoCard}>
+        <Text style={styles.infoTitle}>What are the Benefits of Mentoring?</Text>
+        <Text style={styles.paragraphText}>
+          There are a significant number of benefits to mentoring for everyone involved. In traditional mentoring, with two parties, both the mentor and mentee stand to gain a lot from the mentoring relationship, which is why organizations are increasingly using mentoring programs and mentoring software to promote mentoring to their employees.
+        </Text>
+        
+        <Text style={styles.subTitle}>Benefits of mentoring can include:</Text>
+        
+        <View style={styles.benefitsList}>
+          <View style={styles.benefitItem}>
+            <View style={styles.bulletPoint} />
+            <Text style={styles.benefitText}>Effective learning and first-hand knowledge-sharing through mentoring</Text>
+          </View>
+          
+          <View style={styles.benefitItem}>
+            <View style={styles.bulletPoint} />
+            <Text style={styles.benefitText}>Gaining practical insights, guidance, and advice from those in a position of experience</Text>
+          </View>
+          
+          <View style={styles.benefitItem}>
+            <View style={styles.bulletPoint} />
+            <Text style={styles.benefitText}>Increased confidence (typically for the mentee) from having a mentor in a position of seniority in an organisation</Text>
+          </View>
+          
+          <View style={styles.benefitItem}>
+            <View style={styles.bulletPoint} />
+            <Text style={styles.benefitText}>Improved interpersonal and communication skills for both the mentor and mentee</Text>
+          </View>
+          
+          <View style={styles.benefitItem}>
+            <View style={styles.bulletPoint} />
+            <Text style={styles.benefitText}>Empowerment from the mentee to progress effectively and the mentor to take on the new and additional responsibilities of supporting the mentee</Text>
+          </View>
+          
+          <View style={styles.benefitItem}>
+            <View style={styles.bulletPoint} />
+            <Text style={styles.benefitText}>Wider understanding of different perspectives, be that from different countries, organisations or departments in the same organisation</Text>
+          </View>
+          
+          <View style={styles.benefitItem}>
+            <View style={styles.bulletPoint} />
+            <Text style={styles.benefitText}>A trusted partner to discuss more confidential challenges and goals in one's career</Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+
   const renderProgramLeads = () => (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Program Leads</Text>
@@ -271,6 +341,7 @@ const MentorshipScreen = () => {
         {activeTab === 'program' && (
           <>
             {renderProgramLeads()}
+            {renderMentorshipInfo()}
           </>
         )}
         {activeTab === 'calendar' && renderUpcomingZoomSessions()}
@@ -486,6 +557,61 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 16,
     fontWeight: '600',
+  },
+  infoCard: {
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  infoTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 12,
+  },
+  paragraphText: {
+    fontSize: 16,
+    color: colors.text,
+    lineHeight: 24,
+    marginBottom: 12,
+  },
+  subTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: colors.text,
+    marginTop: 12,
+    marginBottom: 12,
+  },
+  benefitsList: {
+    marginTop: 8,
+  },
+  benefitItem: {
+    flexDirection: 'row',
+    marginBottom: 8,
+    alignItems: 'flex-start',
+  },
+  bulletPoint: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: colors.primary,
+    marginTop: 8,
+    marginRight: 8,
+  },
+  benefitText: {
+    flex: 1,
+    fontSize: 16,
+    color: colors.text,
+    lineHeight: 24,
   },
 });
 
