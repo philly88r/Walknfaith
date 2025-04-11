@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, Linking, TouchableOpacity, Platform } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Linking, TouchableOpacity, Platform } from 'react-native-web';
 import { Card } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
@@ -35,13 +35,6 @@ const CrisisHotlinesScreen = () => {
       hours: '24/7',
       website: 'https://www.samhsa.gov/find-help/national-helpline',
     },
-    {
-      name: 'Veterans Crisis Line',
-      description: 'Connects veterans and their families with caring, qualified responders.',
-      number: '988',
-      hours: '24/7',
-      website: 'https://www.veteranscrisisline.net',
-    },
   ];
 
   const makeCall = (number: string) => {
@@ -66,7 +59,7 @@ const CrisisHotlinesScreen = () => {
           <TouchableOpacity 
             style={styles.emergencyButton}
             onPress={() => makeCall('911')}>
-            <MaterialIcons name="emergency" size={24} color="#e74c3c" />
+            <MaterialIcons name="warning" size={24} color="#e74c3c" />
             <Text style={styles.emergencyButtonText}>Call 911 for Immediate Emergency</Text>
           </TouchableOpacity>
           <Text style={styles.emergencyText}>
