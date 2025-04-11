@@ -391,7 +391,7 @@ const CNAApplicationScreen: React.FC<Props> = ({ navigation }) => {
                 {termsAgreed && <MaterialIcons name="check" size={18} color="white" />}
               </TouchableOpacity>
               <Text style={styles.termsText}>
-                Terms of Use and Privacy Agreement.<Text style={styles.required}>*</Text>
+                By checking this box, I agree to the Terms of Use and Privacy Agreement and I am consenting to receive messages from Walk N Faith. I understand that my personal information will not be shared with third parties for marketing purposes. Message frequency varies and recurring messages may be sent. I may reply STOP to opt-out of future messaging or HELP for more information. Message and data rates may apply.<Text style={styles.required}>*</Text>
               </Text>
             </View>
             {errors.termsAgreed ? <Text style={styles.errorText}>{errors.termsAgreed}</Text> : null}
