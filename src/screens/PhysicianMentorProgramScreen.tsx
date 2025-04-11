@@ -19,19 +19,13 @@ const PhysicianMentorProgramScreen: React.FC<Props> = ({ navigation }) => {
   const [showLearnMoreModal, setShowLearnMoreModal] = useState(false);
 
   const handleEmailContact = () => {
-    Linking.openURL('mailto:Sabrina@walknfaith.org');
-  };
-
-  const handleDownload = (documentName: string) => {
-    // In a real implementation, this would download the document
-    alert(`Download requested for: ${documentName}`);
-    // You would implement actual download functionality here
+    // Redirect to contact form
+    navigation.navigate('Contact');
   };
 
   const handleApplicationLink = (programType: string) => {
-    // In a real implementation, this would open the application link
-    alert(`Opening application for: ${programType}`);
-    // You would implement actual link opening functionality here
+    // Redirect to contact form
+    navigation.navigate('Contact');
   };
   
   const toggleLearnMoreModal = () => {
@@ -69,28 +63,7 @@ const PhysicianMentorProgramScreen: React.FC<Props> = ({ navigation }) => {
           </Text>
         </View>
 
-        {/* Forms Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Forms to Download</Text>
-          
-          <TouchableOpacity 
-            style={styles.downloadButton}
-            onPress={() => handleDownload('2023 Background Check')}
-          >
-            <MaterialIcons name="file-download" size={24} color="white" />
-            <Text style={styles.buttonText}>2023 Background Check</Text>
-          </TouchableOpacity>
-          <Text style={styles.noteText}>*If over 18 only. You will be asked to upload this information onto your application.</Text>
-          
-          <TouchableOpacity 
-            style={styles.downloadButton}
-            onPress={() => handleDownload('2023 Details/Instructions to Apply')}
-          >
-            <MaterialIcons name="file-download" size={24} color="white" />
-            <Text style={styles.buttonText}>2023 Details/Instructions to Apply</Text>
-          </TouchableOpacity>
-          <Text style={styles.noteText}>*Read thoroughly before completing the application.</Text>
-        </View>
+        {/* Forms Section removed as requested */}
 
         {/* Application Links */}
         <View style={styles.section}>
