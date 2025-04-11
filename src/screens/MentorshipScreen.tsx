@@ -44,10 +44,10 @@ const MentorshipScreen = () => {
   
   const programLeads: ProgramLead[] = [
     {
-      name: "Mandy Parker",
+      name: "Mandy Parker MS, BCBA, LBA",
       role: "Youth Regional Director",
-      bio: "Experienced youth mentor dedicated to empowering young individuals in healthcare careers",
-      image: { uri: '/image_2022_06_22T19_30_23_373Z.png' },
+      bio: "Mandy Parker has her undergraduate degree from Utah State University and a Master in Science at Southern Illinois University in Behavior Analysis and Therapy. She has years of experience working in various areas of human services: disabilities, youth corrections, substance abuse for adolescents, brain injury rehabilitation, helping families indicated on abuse and neglect in their homes to establish routines, acquire child management, problem-solving, assertiveness, budgeting, and stress management skills. She facilitates community training and serves on a Children's behavioral health coalition. Mandy specializes in Acceptance and Commitment Training and is passionate about teaching others how to identify their values and live more in line with what matters most to them amid whatever challenges they face.",
+      image: require('../../assets/walknfaith-logo.png'),
     },
     {
       name: "Donyell Brooks",
@@ -197,7 +197,7 @@ const MentorshipScreen = () => {
   const renderProgramLeads = () => (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Program Leads</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <View style={styles.leadsContainer}>
         {programLeads.map((lead, index) => (
           <View key={index} style={styles.leadCard}>
             <Image source={lead.image} style={styles.leadImage} />
@@ -206,7 +206,7 @@ const MentorshipScreen = () => {
             <Text style={styles.leadBio}>{lead.bio}</Text>
           </View>
         ))}
-      </ScrollView>
+      </View>
     </View>
   );
 
@@ -421,8 +421,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 12,
     padding: 16,
-    marginRight: 16,
-    width: 200,
+    width: '48%',
+    maxWidth: 500,
+    marginBottom: 16,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -456,6 +457,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.textLight,
     textAlign: 'center',
+  },
+  leadsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    gap: 16,
   },
   sessionCard: {
     backgroundColor: colors.white,
