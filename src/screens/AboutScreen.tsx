@@ -74,27 +74,39 @@ const services = [
 const partners = [
   {
     id: 1,
-    name: 'St. Luke\'s Hospital',
-    description: 'Leading healthcare provider offering comprehensive medical services.',
+    name: 'St. Luke\'s Surrey Rehab',
+    description: 'Comprehensive rehabilitation services for the community.',
     icon: 'medical-outline' as const,
   },
   {
     id: 2,
-    name: 'Community Health Network',
-    description: 'Network of healthcare providers focused on community wellness.',
-    icon: 'people-outline' as const,
+    name: 'St. John\'s Place',
+    description: 'Community-focused healthcare and support services.',
+    icon: 'home-outline' as const,
   },
   {
     id: 3,
-    name: 'Local Mental Health Alliance',
-    description: 'Coalition of mental health professionals and organizations.',
-    icon: 'heart-outline' as const,
+    name: 'Community Foundation',
+    description: 'Supporting local initiatives and community development programs.',
+    icon: 'people-outline' as const,
   },
   {
     id: 4,
-    name: 'Workforce Development Center',
-    description: 'Supporting career development and job placement services.',
+    name: 'Urban Strategies',
+    description: 'Strategic planning and development for urban communities.',
     icon: 'business-outline' as const,
+  },
+  {
+    id: 5,
+    name: 'Episcopal Health Trust Fund',
+    description: 'Funding healthcare initiatives and programs for underserved communities.',
+    icon: 'cash-outline' as const,
+  },
+  {
+    id: 6,
+    name: 'Department of Health & Senior Services',
+    description: 'Government agency providing health services and resources for seniors.',
+    icon: 'shield-outline' as const,
   },
 ];
 
