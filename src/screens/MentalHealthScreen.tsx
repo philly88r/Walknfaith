@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
-} from 'react-native';
+} from 'react-native-web';
 import { colors } from '../theme/colors';
 
 interface Resource {
@@ -33,11 +33,7 @@ export default function MentalHealthScreen() {
       description: 'Resources and support groups for anxiety and depression',
       link: 'https://adaa.org',
     },
-    {
-      title: 'Mindfulness Meditation',
-      description: 'Free guided meditation resources',
-      link: 'https://www.headspace.com',
-    },
+    // Mindfulness Meditation resource removed as requested
     {
       title: 'Support Groups',
       description: 'Find local and online support groups',
