@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet, Linking, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Linking, TouchableOpacity } from 'react-native-web';
 import { Card } from 'react-native-paper';
 import { colors } from '../theme/colors';
 
@@ -54,17 +54,17 @@ const DepressionResourcesScreen = () => {
         </Card.Content>
       </Card>
 
-      {/* Local Resources */}
+      {/* National Resources */}
       <Card style={styles.card}>
         <Card.Content>
-          <Text style={styles.sectionTitle}>Local Resources in Greensboro</Text>
+          <Text style={styles.sectionTitle}>National Resources</Text>
           <TouchableOpacity 
             style={styles.link}
-            onPress={() => Linking.openURL('https://namiguilford.org')}>
-            <Text style={styles.linkText}>NAMI Guilford</Text>
+            onPress={() => Linking.openURL('https://www.nami.org')}>
+            <Text style={styles.linkText}>National Alliance on Mental Illness (NAMI)</Text>
           </TouchableOpacity>
           <Text style={styles.text}>
-            Free mental health support, online groups, resources, and education for residents.
+            The nation's largest grassroots mental health organization dedicated to building better lives for Americans affected by mental illness.
           </Text>
           <TouchableOpacity 
             style={styles.link}
@@ -72,7 +72,7 @@ const DepressionResourcesScreen = () => {
             <Text style={styles.linkText}>Depression and Bipolar Support Alliance</Text>
           </TouchableOpacity>
           <Text style={styles.text}>
-            Access online support groups and educational resources.
+            Provides hope, help, support, and education to improve the lives of people who have mood disorders.
           </Text>
         </Card.Content>
       </Card>
