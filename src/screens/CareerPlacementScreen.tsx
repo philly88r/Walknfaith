@@ -260,6 +260,26 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
         </Card>
       </View>
 
+      {/* Upcoming Events Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Upcoming Events</Text>
+        <Card style={styles.eventCard}>
+          <Card.Content>
+            <Text style={styles.eventTitle}>Monthly CNA Orientation</Text>
+            <View style={styles.eventDetails}>
+              <View style={styles.eventDetail}>
+                <MaterialIcons name="event" size={18} color={colors.primary} />
+                <Text style={styles.eventDetailText}>Time to be announced</Text>
+              </View>
+              <View style={styles.eventDetail}>
+                <MaterialIcons name="location-on" size={18} color={colors.primary} />
+                <Text style={styles.eventDetailText}>On Campus or Zoom</Text>
+              </View>
+            </View>
+          </Card.Content>
+        </Card>
+      </View>
+
       {/* CDL Promotion */}
       <Card style={styles.cdlPromoCard}>
         <Card.Content>
@@ -267,86 +287,170 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
           <Text style={styles.cdlPromoSubtitle}>No CDL? No Problem, We Train!</Text>
         </Card.Content>
       </Card>
+    </ScrollView>
+  );
+};
 
-      {/* Tab Navigation */}
-      <View style={styles.tabContainer}>
-        <TouchableOpacity 
-          style={[styles.tab, activeTab === 'cna' && styles.activeTab]}
-          onPress={() => setActiveTab('cna')}
-        >
-          <Text style={[styles.tabText, activeTab === 'cna' && styles.activeTabText]}>CNA</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.tab, activeTab === 'cdl' && styles.activeTab]}
-          onPress={() => setActiveTab('cdl')}
-        >
-          <Text style={[styles.tabText, activeTab === 'cdl' && styles.activeTabText]}>CDL License</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.tab, activeTab === 'physician' && styles.activeTab]}
-          onPress={() => setActiveTab('physician')}
-        >
-          <Text style={[styles.tabText, activeTab === 'physician' && styles.activeTabText]}>Physician Mentor Program</Text>
-        </TouchableOpacity>
-      </View>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f9fa',
+  },
+  headerCard: {
+    margin: 16,
+    backgroundColor: colors.primary + '10',
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 8,
+  },
+  headerText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+  },
+  enrollCard: {
+    margin: 16,
+    backgroundColor: colors.primary + '20',
+  },
+  enrollTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 8,
+  },
+  enrollText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+  },
+  section: {
+    padding: 16,
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 12,
+  },
+  sectionDescription: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+    marginBottom: 20,
+  },
+  infoCard: {
+    marginBottom: 16,
+    backgroundColor: 'white',
+  },
+  infoTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 8,
+  },
+  infoText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+  },
+  programsContainer: {
+    marginTop: 20,
+  },
+  programCard: {
+    marginBottom: 20,
+    padding: 16,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  programHeader: {
+    flexDirection: 'row',
+    marginBottom: 12,
+    alignItems: 'center',
+  },
+  iconContainer: {
+    width: 60,
+    height: 60,
+    backgroundColor: colors.primary + '15',
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  programInfo: {
+    marginLeft: 16,
+    flex: 1,
+  },
+  programTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  programDescription: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#555',
+    marginBottom: 16,
+  },
+  programDuration: {
+    fontSize: 14,
+    color: colors.primary,
+    marginTop: 4,
+  },
+  learnMoreButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.primary,
+    padding: 10,
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  },
+  learnMoreButtonText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: 'white',
+    marginRight: 8,
+  },
+  comingSoonBadge: {
+    backgroundColor: '#f0f0f0',
+    padding: 8,
+    borderRadius: 6,
+    alignSelf: 'flex-start',
+  },
+  comingSoonText: {
+    fontSize: 14,
+    color: '#666',
+    fontStyle: 'italic',
+  },
+  cdlPromoCard: {
+    margin: 16,
+    backgroundColor: colors.primary + '15',
+  },
+  cdlPromoTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: colors.primary,
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  cdlPromoSubtitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+});
 
-      {/* CNA Program Tab Content */}
-      {activeTab === 'cna' && (
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Certified Nursing Assistant (CNA) Program</Text>
-          <Text style={styles.sectionDescription}>
-            Our CNA program prepares students for a rewarding career in healthcare. As a certified nursing assistant, you'll provide essential care to patients in hospitals, nursing homes, and other healthcare settings.
-          </Text>
-
-          <Card style={styles.programDetailsCard}>
-            <Card.Content>
-              <Text style={styles.subSectionTitle}>Program Highlights</Text>
-              
-              <View style={styles.bulletPoint}>
-                <MaterialIcons name="check-circle" size={20} color={colors.primary} />
-                <Text style={styles.bulletText}>
-                  <Text style={styles.boldText}>Comprehensive Training: </Text>
-                  Our 6-8 week program covers all aspects of patient care, from basic nursing skills to specialized care techniques.
-                </Text>
-              </View>
-
-              <View style={styles.bulletPoint}>
-                <MaterialIcons name="check-circle" size={20} color={colors.primary} />
-                <Text style={styles.bulletText}>
-                  <Text style={styles.boldText}>Hands-on Experience: </Text>
-                  Practice your skills in our state-of-the-art lab and through clinical rotations at local healthcare facilities.
-                </Text>
-              </View>
-
-              <View style={styles.bulletPoint}>
-                <MaterialIcons name="check-circle" size={20} color={colors.primary} />
-                <Text style={styles.bulletText}>
-                  <Text style={styles.boldText}>Job Placement Assistance: </Text>
-                  Our career services team will help you find employment opportunities after graduation.
-                </Text>
-              </View>
-
-              <View style={styles.bulletPoint}>
-                <MaterialIcons name="check-circle" size={20} color={colors.primary} />
-                <Text style={styles.bulletText}>
-                  <Text style={styles.boldText}>Certification Preparation: </Text>
-                  We'll prepare you to pass the state certification exam with confidence.
-                </Text>
-              </View>
-
-              <TouchableOpacity 
-                style={styles.applicationButton}
-                onPress={() => navigation.navigate('CNATraining')}
-              >
-                <Text style={styles.applicationButtonText}>View Full Program Details</Text>
-              </TouchableOpacity>
-            </Card.Content>
-          </Card>
-        </View>
-      )}
-
-      {/* CDL Program Tab Content */}
-      {activeTab === 'cdl' && (
+export default CareerPlacementScreen;
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Commercial Driver's License (CDL) Program</Text>
           <Text style={styles.sectionDescription}>

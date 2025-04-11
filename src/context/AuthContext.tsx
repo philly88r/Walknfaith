@@ -61,8 +61,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Sign up with email and password
   const signUp = async (email: string, password: string) => {
-    // Get the current domain for redirect
-    const redirectUrl = window.location.origin;
+    // Use the production URL for email redirects
+    const redirectUrl = 'https://walknfaith.vercel.app';
     
     const { data, error } = await supabase.auth.signUp({ 
       email, 
@@ -81,8 +81,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Reset password
   const resetPassword = async (email: string) => {
-    // Get the current domain for redirect
-    const redirectUrl = window.location.origin + '/reset-password';
+    // Use the production URL for email redirects
+    const redirectUrl = 'https://walknfaith.vercel.app/reset-password';
     
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: redirectUrl,

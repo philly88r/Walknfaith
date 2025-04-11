@@ -64,7 +64,7 @@ const MentorshipScreen = () => {
     {
       name: "Emmanuel Opada",
       role: "Physician Mentor/Regional Health Director",
-      bio: "Experienced physician providing guidance and insights into healthcare careers and practices",
+      bio: "Emmanuel is a board certified Infection Control Epidemiologist. He has about 10 years experience working in both healthcare facilities and public health both in West Africa and the United State. He has a background in Medicine and also holds a Master degree in Public health. He is currently an Epidemiologist at the Victoria County Health Department, Texas, having worked with government and non governmental organizations including the Global Fund Project on HIV prevention, care and treatment in West Africa. He has some articles published in his name.",
       image: require('../../assets/embada.png'),
     }
   ];
@@ -225,6 +225,7 @@ const MentorshipScreen = () => {
 
   const tabs = [
     { key: 'program', title: 'Program' },
+    { key: 'team', title: 'Team' },
     { key: 'resources', title: 'Resources' },
   ];
 
@@ -254,10 +255,10 @@ const MentorshipScreen = () => {
       <View style={styles.content}>
         {activeTab === 'program' && (
           <>
-            {renderProgramLeads()}
             {renderMentorshipInfo()}
           </>
         )}
+        {activeTab === 'team' && renderProgramLeads()}
         {activeTab === 'resources' && renderMentalHealthResources()}
       </View>
     </ScrollView>
