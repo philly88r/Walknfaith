@@ -69,15 +69,7 @@ const MentorshipScreen = () => {
     }
   ];
 
-  const upcomingSessions: ZoomSession[] = [
-    {
-      title: "Mental Health Awareness Workshop",
-      date: "November 15, 2023",
-      time: "2:00 PM - 3:30 PM",
-      link: "https://zoom.us/j/example",
-    },
-    // Add more sessions here
-  ];
+  // Calendar data removed as requested
 
   const mentalHealthResources: Resource[] = [
     {
@@ -98,23 +90,7 @@ const MentorshipScreen = () => {
     // Add more resources here
   ];
 
-  const educationalResources: Resource[] = [
-    {
-      title: "CNA Program Guide",
-      description: "Complete guide to becoming a Certified Nursing Assistant",
-      link: "https://example.com/cna-guide",
-    },
-    {
-      title: "Certification Opportunities",
-      description: "Available certifications in healthcare and mental health",
-      link: "https://example.com/certifications",
-    },
-    {
-      title: "Scholarship Database",
-      description: "Scholarships available for seniors",
-      link: "https://example.com/scholarships",
-    },
-  ];
+  // Education data removed as requested
 
   const handleLink = (url: string) => {
     Linking.openURL(url);
@@ -210,28 +186,7 @@ const MentorshipScreen = () => {
     </View>
   );
 
-  const renderUpcomingZoomSessions = () => (
-    <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Upcoming Sessions</Text>
-      {upcomingSessions.map((session, index) => (
-        <TouchableOpacity
-          key={index}
-          style={styles.sessionCard}
-          onPress={() => handleLink(session.link)}
-        >
-          <Text style={styles.sessionTitle}>{session.title}</Text>
-          <View style={styles.sessionDetails}>
-            <Text style={styles.sessionDate}>{session.date}</Text>
-            <Text style={styles.sessionTime}>{session.time}</Text>
-          </View>
-          <Text style={styles.joinLink}>Click to join Zoom meeting →</Text>
-        </TouchableOpacity>
-      ))}
-      <TouchableOpacity style={styles.scheduleButton}>
-        <Text style={styles.scheduleButtonText}>Schedule One-on-One Meeting</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  // Calendar tab removed as requested
 
   const renderMentalHealthResources = () => (
     <View style={styles.section}>
@@ -287,31 +242,13 @@ const MentorshipScreen = () => {
     </View>
   );
 
-  const renderEducationalResources = () => (
-    <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Educational Resources</Text>
-      {educationalResources.map((resource, index) => (
-        <TouchableOpacity
-          key={index}
-          style={styles.resourceCard}
-          onPress={() => resource.link ? handleLink(resource.link) : resource.phone ? handleCall(resource.phone) : null}
-        >
-          <Text style={styles.resourceTitle}>{resource.title}</Text>
-          <Text style={styles.resourceDescription}>{resource.description}</Text>
-          {resource.link && <Text style={styles.resourceLink}>Learn More →</Text>}
-          {resource.phone && <Text style={styles.resourceLink}>Call Now →</Text>}
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
+  // Education tab removed as requested
 
   // Attendance survey removed as requested
 
   const tabs = [
     { key: 'program', title: 'Program' },
-    { key: 'calendar', title: 'Calendar' },
     { key: 'resources', title: 'Resources' },
-    { key: 'education', title: 'Education' },
   ];
 
   return (
@@ -344,9 +281,7 @@ const MentorshipScreen = () => {
             {renderMentorshipInfo()}
           </>
         )}
-        {activeTab === 'calendar' && renderUpcomingZoomSessions()}
         {activeTab === 'resources' && renderMentalHealthResources()}
-        {activeTab === 'education' && renderEducationalResources()}
       </View>
     </ScrollView>
   );
