@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native-web';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '../theme/colors';
 
 interface Resource {
@@ -17,6 +18,7 @@ interface Resource {
 }
 
 export default function MentalHealthScreen() {
+  const navigation = useNavigation();
   const resources: Resource[] = [
     {
       title: '24/7 Crisis Hotline',
@@ -25,8 +27,9 @@ export default function MentalHealthScreen() {
     },
     {
       title: 'Online Counseling',
-      description: 'Connect with licensed therapists online',
-      link: 'https://www.betterhelp.com',
+      description: 'Connect with our counselors through our contact form',
+      // Using a special identifier instead of a URL for the contact form
+      link: 'CONTACT_FORM',
     },
     {
       title: 'Anxiety and Depression Support',
@@ -42,7 +45,10 @@ export default function MentalHealthScreen() {
   ];
 
   const handleLinkPress = (url?: string) => {
-    if (url) {
+    if (url === 'CONTACT_FORM') {
+      // Navigate to the Contact screen
+      navigation.navigate('Contact' as never);
+    } else if (url) {
       Linking.openURL(url);
     }
   };
