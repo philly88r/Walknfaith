@@ -34,7 +34,7 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleSkillsVideo = () => {
     // Open the skills video link in a new window/tab
-    window.open('https://instructors.hartmanonline.com/ui/core/index.html', '_blank');
+    window.open('https://videos.hartmanonline.com/', '_blank');
   };
 
   const handleApplyNow = () => {
