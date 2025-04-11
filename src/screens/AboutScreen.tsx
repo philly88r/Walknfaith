@@ -138,16 +138,82 @@ export default function AboutScreen() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Our Team</Text>
         <View style={styles.teamContainer}>
+          {/* Sabrina Davis */}
           <View style={styles.teamMemberCard}>
             <Image 
-              source={{uri: '/image_2022_06_22T19_30_23_373Z.png'}} 
+              source={require('../../assets/sabrina.jpg')} 
               style={styles.teamMemberImage} 
               resizeMode="cover" 
             />
             <View style={styles.teamMemberInfo}>
+              <Text style={styles.teamMemberName}>Sabrina Davis, APRN-PMHNP, MSN, RADC-P</Text>
+              <Text style={styles.teamMemberRole}>Founder & Executive Director</Text>
+              <Text style={styles.teamMemberBio}>
+                Sabrina Davis, APRN-PMHNP, MSN, is the Co-Founder and Executive Director of WalkNFaith Substance Abuse & Mental Health Treatment Center. Sabrina is a Psych Mental Health Nurse Practitioner with over 20 years of experience in Community Health, Mental Health, and Substance Use Treatment. She holds her Master's Degree in Executive Leadership & Management. Her commitment to advocacy for individuals diagnosed with Opiate Use Disorder has led her to open WalkNFaith in one of the highest crime and impoverished communities in Saint Louis City. To ensure individuals in rural and low-income communities have access to quality substance abuse & mental health treatment, she has acquired the only substance abuse mobile clinic van in Saint Louis. She has become the voice of those suffering from health and racial disparities.
+              </Text>
+            </View>
+          </View>
+
+          {/* Richard Hayes */}
+          <View style={styles.teamMemberCard}>
+            <Image 
+              source={require('../../assets/walknfaith-logo.png')} 
+              style={styles.teamMemberImage} 
+              resizeMode="contain" 
+            />
+            <View style={styles.teamMemberInfo}>
+              <Text style={styles.teamMemberName}>Richard Hayes</Text>
+              <Text style={styles.teamMemberRole}>President of WalkNFaith</Text>
+              <Text style={styles.teamMemberBio}>
+                Richard Hayes serves as the President of WalkNFaith, bringing leadership and vision to our organization's mission. His dedication to community service and improving healthcare access has been instrumental in the growth and success of our programs.
+              </Text>
+            </View>
+          </View>
+
+          {/* Mandy Parker */}
+          <View style={styles.teamMemberCard}>
+            <Image 
+              source={require('../../assets/walknfaith-logo.png')} 
+              style={styles.teamMemberImage} 
+              resizeMode="contain" 
+            />
+            <View style={styles.teamMemberInfo}>
               <Text style={styles.teamMemberName}>Mandy Parker MS, BCBA, LBA</Text>
+              <Text style={styles.teamMemberRole}>Behavioral Specialist</Text>
               <Text style={styles.teamMemberBio}>
                 Mandy Parker has her undergraduate degree from Utah State University and a Master in Science at Southern Illinois University in Behavior Analysis and Therapy. She has years of experience working in various areas of human services: disabilities, youth corrections, substance abuse for adolescents, brain injury rehabilitation, helping families indicated on abuse and neglect in their homes to establish routines, acquire child management, problem-solving, assertiveness, budgeting, and stress management skills. She facilitates community training and serves on a Children's behavioral health coalition. Mandy specializes in Acceptance and Commitment Training and is passionate about teaching others how to identify their values and live more in line with what matters most to them amid whatever challenges they face.
+              </Text>
+            </View>
+          </View>
+
+          {/* Emmanuel Opada */}
+          <View style={styles.teamMemberCard}>
+            <Image 
+              source={require('../../assets/embada.png')} 
+              style={styles.teamMemberImage} 
+              resizeMode="cover" 
+            />
+            <View style={styles.teamMemberInfo}>
+              <Text style={styles.teamMemberName}>Emmanuel Opada MD, MPH, CPH, CIC</Text>
+              <Text style={styles.teamMemberRole}>Infection Control Epidemiologist</Text>
+              <Text style={styles.teamMemberBio}>
+                Emmanuel is a board-certified Infection Control Epidemiologist. He has ten years of experience working in healthcare facilities and public health in West Africa and the United States. He has a medical background and a Master's degree in Public health. He is an Epidemiologist and have lead several projects including the Global Fund Project, on HIV prevention, care, and treatment in West Africa. He has several published articles regarding therapy for HIV and maternal health.
+              </Text>
+            </View>
+          </View>
+
+          {/* Dr. Christine Crowder */}
+          <View style={styles.teamMemberCard}>
+            <Image 
+              source={require('../../assets/christina.png')} 
+              style={styles.teamMemberImage} 
+              resizeMode="cover" 
+            />
+            <View style={styles.teamMemberInfo}>
+              <Text style={styles.teamMemberName}>Dr. Christine Crowder</Text>
+              <Text style={styles.teamMemberRole}>Associate Professor</Text>
+              <Text style={styles.teamMemberBio}>
+                Greetings everyone! My name is Dr. Christine Crowder. I reside in the St. Louis metropolitan area. I received my bachelor's degree in Psychology, Master of Social Work and Master of Arts in Teaching (Social Sciences) degrees at Grambling State University (Grambling, Louisiana). Additionally, I have earned a Master of Arts in Education degree from Lindenwood University (St. Charles, Missouri). I have specialized certifications in Cognitive Behavioral Therapy, Mental Health First Aid, and Addictions Study. In addition, I have a Doctor of Education degree, in Developmental Education (Student Development & Personnel Service) from Grambling State University (Grambling, Louisiana). At the onset of the pandemic, I served as Team Leader for the St. Louis County CARES Humanitarian COVID-19 Response Fund grant. Currently, I serve as an associate professor at Myrtle Beach College. In the past, I worked as an adjunct faculty member at St. Louis Community College, where I taught Smart Start, Student Success courses to first year students. My additional professional experiences include serving as a community grant reviewer for the St. Louis Mental Health Board, school social worker, mental health counselor, athletic coach, AmeriCorps Site Coordinator, and Medical Reserve Corps Volunteer. I am a proud member of Delta Sigma Theta Sorority, Incorporated.
               </Text>
             </View>
           </View>
@@ -316,7 +382,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: colors.primary,
+    marginBottom: 5,
+  },
+  teamMemberRole: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: colors.primary,
     marginBottom: 10,
+    fontStyle: 'italic',
   },
   teamMemberBio: {
     fontSize: 16,
