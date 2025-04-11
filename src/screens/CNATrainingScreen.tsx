@@ -32,22 +32,9 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
-  const handleAddSkillsVideo = async () => {
-    try {
-      const permissionResult = await launchImageLibraryAsync({
-        mediaTypes: MediaTypeOptions.Videos,
-        allowsEditing: true,
-        quality: 1,
-      });
-
-      if (!permissionResult.canceled) {
-        // Handle the selected video
-        console.log('Video selected:', permissionResult.assets[0].uri);
-        // Add your video upload logic here
-      }
-    } catch (error) {
-      console.error('Error selecting video:', error);
-    }
+  const handleSkillsVideo = () => {
+    // Open the skills video link in a new window/tab
+    window.open('https://instructors.hartmanonline.com/ui/core/index.html', '_blank');
   };
 
   const handleApplyNow = () => {
@@ -93,7 +80,7 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
 
             <Text style={styles.courseDescription}>
               With this course, you will learn how to use your skills and compassion to provide excellent 
-              patient care to individuals who are unable to do so for themselves.
+              patient care to individuals who are unable to do so for themselves. We offer this course for 6 - 8 weeks at $1250.00.
             </Text>
           </View>
 
@@ -105,7 +92,7 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
             </View>
             <View style={styles.detailItem}>
               <MaterialIcons name="attach-money" size={24} color="#007AFF" />
-              <Text style={styles.detailText}>Application Cost: $50</Text>
+              <Text style={styles.detailText}>Course Cost: $1250.00</Text>
             </View>
             <TouchableOpacity 
               style={styles.applyButton}
@@ -123,16 +110,16 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
                 style={styles.actionButton}
                 onPress={handleUploadAssignment}
               >
-                <MaterialIcons name="upload-file" size={24} color="white" />
-                <Text style={styles.buttonText}>Upload Assignments</Text>
+                <MaterialIcons name="assignment" size={24} color="white" />
+                <Text style={styles.buttonText}>Assignments</Text>
               </TouchableOpacity>
 
               <TouchableOpacity 
                 style={[styles.actionButton, styles.videoButton]}
-                onPress={handleAddSkillsVideo}
+                onPress={handleSkillsVideo}
               >
                 <MaterialIcons name="video-library" size={24} color="white" />
-                <Text style={styles.buttonText}>Add Skills Video</Text>
+                <Text style={styles.buttonText}>Skills Video</Text>
               </TouchableOpacity>
             </View>
           </View>
