@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   Linking,
   Platform,
-} from 'react-native';
+} from 'react-native-web';
 import { colors } from '../theme/colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
+// Using View instead of SafeAreaView for web compatibility
 
 export default function ContactScreen() {
   const [message, setMessage] = useState({
@@ -21,9 +21,10 @@ export default function ContactScreen() {
   });
 
   const contactInfo = {
-    phone: '+1 (555) 123-4567',
-    email: 'support@mentalhealth.com',
-    address: '123 Healthcare Ave, Medical District, NY 10001',
+    phone: '314-260-9097',
+    email: 'info@walknfaith.org',
+    address: '4001 Cottage St. St. Louis, MO 63113',
+    name: 'WalkNFaith/PurposeTech Institute'
   };
 
   const handleSubmit = () => {
@@ -47,10 +48,10 @@ export default function ContactScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={styles.safeArea}>
       <ScrollView style={styles.container}>
         <View style={styles.content}>
-          <Text style={styles.title}>Contact Us</Text>
+          <Text style={styles.title}>Contact {contactInfo.name}</Text>
           
           <View style={styles.contactInfoSection}>
             <TouchableOpacity style={styles.contactItem} onPress={handleCall}>
@@ -76,14 +77,14 @@ export default function ContactScreen() {
               style={styles.input}
               placeholder="Your Name"
               value={message.name}
-              onChangeText={(text) => setMessage({ ...message, name: text })}
+              onChangeText={(text: string) => setMessage({ ...message, name: text })}
             />
             
             <TextInput
               style={styles.input}
               placeholder="Your Email"
               value={message.email}
-              onChangeText={(text) => setMessage({ ...message, email: text })}
+              onChangeText={(text: string) => setMessage({ ...message, email: text })}
               keyboardType="email-address"
               autoCapitalize="none"
             />
@@ -92,14 +93,14 @@ export default function ContactScreen() {
               style={styles.input}
               placeholder="Subject"
               value={message.subject}
-              onChangeText={(text) => setMessage({ ...message, subject: text })}
+              onChangeText={(text: string) => setMessage({ ...message, subject: text })}
             />
             
             <TextInput
               style={[styles.input, styles.messageInput]}
               placeholder="Your Message"
               value={message.message}
-              onChangeText={(text) => setMessage({ ...message, message: text })}
+              onChangeText={(text: string) => setMessage({ ...message, message: text })}
               multiline
               numberOfLines={Platform.select({ ios: null, android: 4, default: 4 })}
               textAlignVertical="top"
@@ -114,7 +115,7 @@ export default function ContactScreen() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
