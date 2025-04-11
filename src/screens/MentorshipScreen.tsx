@@ -81,12 +81,7 @@ const MentorshipScreen = () => {
       title: "Depression Resources",
       description: "Coping strategies and support for depression",
       link: "https://example.com/depression",
-    },
-    {
-      title: "Crisis Hotline",
-      description: "24/7 support for suicide prevention",
-      phone: "1-800-273-8255",
-    },
+    }
     // Add more resources here
   ];
 
@@ -192,24 +187,6 @@ const MentorshipScreen = () => {
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Mental Health Resources</Text>
       <View style={styles.resourcesContainer}>
-        <TouchableOpacity 
-          style={[styles.resourceCard, styles.emergencyCard]}
-          onPress={() => navigation.navigate('CrisisHotlines')}
-        >
-          <Text style={[styles.resourceTitle, { color: 'white' }]}>Crisis Hotlines</Text>
-          <Text style={[styles.resourceDescription, { color: 'white' }]}>
-            24/7 support hotlines with immediate access to trained counselors
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.resourceCard, styles.emergencyCard]}
-          onPress={() => navigation.navigate('SuicidePrevention')}
-        >
-          <Text style={[styles.resourceTitle, { color: 'white' }]}>Suicide Prevention</Text>
-          <Text style={[styles.resourceDescription, { color: 'white' }]}>
-            Immediate help and resources for suicide prevention
-          </Text>
-        </TouchableOpacity>
         <TouchableOpacity 
           style={styles.resourceCard}
           onPress={() => navigation.navigate('AnxietyResources')}
