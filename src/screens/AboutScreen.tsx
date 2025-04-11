@@ -235,6 +235,22 @@ export default function AboutScreen() {
               </Text>
             </View>
           </View>
+
+          {/* Shon Wash */}
+          <View style={styles.teamMemberCard}>
+            <Image 
+              source={require('../../assets/shon-wash.jpg')} 
+              style={styles.teamMemberImage} 
+              resizeMode="cover" 
+            />
+            <View style={styles.teamMemberInfo}>
+              <Text style={styles.teamMemberName}>Shon Wash</Text>
+              <Text style={styles.teamMemberRole}>Marketing Director</Text>
+              <Text style={styles.teamMemberBio}>
+                Shon Wash brings over 15 years of strategic marketing experience to WalkNFaith. His expertise in community outreach and digital marketing has helped expand the organization's reach throughout the St. Louis area. Shon is passionate about creating awareness for mental health and substance abuse resources in underserved communities. He leads all marketing initiatives, public relations efforts, and community engagement strategies, ensuring that those who need WalkNFaith's services can easily find and access them.
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
 
