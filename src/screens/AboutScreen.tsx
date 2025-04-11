@@ -217,6 +217,24 @@ export default function AboutScreen() {
               </Text>
             </View>
           </View>
+
+          {/* Nurse Practitioner */}
+          <View style={styles.teamMemberCard}>
+            <Image 
+              source={require('../../assets/walknfaith-logo.png')} 
+              style={styles.teamMemberImage} 
+              resizeMode="contain" 
+            />
+            <View style={styles.teamMemberInfo}>
+              <Text style={styles.teamMemberName}>Nurse Practitioner</Text>
+              <Text style={styles.teamMemberRole}>Internal Medicine Specialist</Text>
+              <Text style={styles.teamMemberBio}>
+                I am Nurse Practitioner specializing in Internal Medicine and serving as a Hospitalist. I have traveled and worked across various clinical settings, including labor and delivery, medical-surgical, inpatient rehabilitation, and psychiatric nursing. This broad experience has equipped me with a comprehensive understanding of patient care, enabling a holistic approach to managing complex medical conditions.
+                
+                I am passionate about advancing the field of healthcare, and deeply committed to teaching and mentoring the next generation of healthcare professionals. Whether through clinical training or educational outreach, I strive to inspire future healthcare workers to provide compassionate and evidence-based care.
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
 
