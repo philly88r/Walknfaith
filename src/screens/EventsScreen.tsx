@@ -21,6 +21,14 @@ interface Event {
 export default function EventsScreen() {
   const events: Event[] = [
     {
+      title: 'Monthly CNA Orientation',
+      date: 'To be Announced',
+      time: 'To be Announced',
+      location: '4343 W. Florissant, St. Louis, MO 63115 Or Zoom',
+      description:
+        'Join us for our monthly CNA orientation session to learn more about our CNA training program, certification process, and career opportunities. Date and time will be announced soon.',
+    },
+    {
       title: 'Monthly Diaper Distribution',
       date: 'First Saturday each Month',
       time: '12:00 PM - 2:00 PM',
