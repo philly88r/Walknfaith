@@ -22,14 +22,15 @@ export default function ContactScreen() {
 
   const contactInfo = {
     phone: '314-260-9097',
-    email: 'info@walknfaith.org',
+    email: 'Sabrina@walknfaith.org',
     address: '4001 Cottage St. St. Louis, MO 63113',
     name: 'WalkNFaith/PurposeTech Institute'
   };
 
   const handleSubmit = () => {
-    // Here you would typically send the message to your backend
-    console.log('Message submitted:', message);
+    // Send email to Sabrina
+    const mailtoUrl = `mailto:${contactInfo.email}?subject=${encodeURIComponent(message.subject)}&body=${encodeURIComponent(`Name: ${message.name}\nEmail: ${message.email}\n\n${message.message}`)}`;  
+    window.open(mailtoUrl, '_blank');
     alert('Message sent successfully!');
     setMessage({ name: '', email: '', subject: '', message: '' });
   };

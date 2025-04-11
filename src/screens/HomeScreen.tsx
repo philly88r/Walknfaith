@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Image } from 'react-native';
+import { ScrollView, StyleSheet, View, Image } from 'react-native-web';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import MenuItem from '../components/MenuItem';
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: '#f0f8ff', // Light blue background to make white parts of logo visible
     paddingVertical: 20,
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
