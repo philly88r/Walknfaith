@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -7,6 +7,7 @@ import { View, Text } from 'react-native-web';
 import { ProfileProvider } from './src/context/ProfileContext';
 import { AuthProvider } from './src/context/AuthContext';
 import MainNavigator from './src/navigation/MainNavigator';
+import runDatabaseSetup from './src/utils/setupDatabase';
 
 // Enable screens for better performance
 enableScreens();
@@ -38,6 +39,12 @@ class ErrorBoundary extends React.Component<any, { hasError: boolean, error: Err
 export default function App() {
   // Log that the app is rendering
   console.log('App is rendering');
+  
+  // Run database setup when the app starts
+  useEffect(() => {
+    console.log('Running database setup...');
+    runDatabaseSetup();
+  }, []);
   
   return (
     <ErrorBoundary>
