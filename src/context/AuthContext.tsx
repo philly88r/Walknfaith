@@ -61,7 +61,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Sign up with email and password
   const signUp = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signUp({ email, password });
+    // Get the current domain for redirect
+    const redirectUrl = window.location.origin;
+    
+    const { data, error } = await supabase.auth.signUp({ 
+      email, 
+      password,
+      options: {
+        emailRedirectTo: redirectUrl
+      }
+    });
     return { data, error };
   };
 
@@ -72,8 +81,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Reset password
   const resetPassword = async (email: string) => {
+    // Get the current domain for redirect
+    const redirectUrl = window.location.origin + '/reset-password';
+    
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + '/reset-password',
+      redirectTo: redirectUrl,
     });
     return { error };
   };
