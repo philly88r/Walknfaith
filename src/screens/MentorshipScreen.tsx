@@ -44,12 +44,6 @@ const MentorshipScreen = () => {
   
   const programLeads: ProgramLead[] = [
     {
-      name: "Richard Hayes",
-      role: "President",
-      bio: "Richard Hayes has over ten years of experience in ministry and is the President of WalkNFaith. He facilitates spiritual counseling at WalkNFaith Treatment Center. Richard brings over 15 years of experience as a community activist. He remains committed to decreasing racial disparities and improving the quality of life for underprivileged people by leading our \"Homeless Outreach\" and \"Youth Mentoring\" programs.",
-      image: require('../../assets/Richard-Hayes.jpg'),
-    },
-    {
       name: "Mandy Parker MS, BCBA, LBA",
       role: "Youth Regional Director",
       bio: "Mandy Parker has her undergraduate degree from Utah State University and a Master in Science at Southern Illinois University in Behavior Analysis and Therapy. She has years of experience working in various areas of human services: disabilities, youth corrections, substance abuse for adolescents, brain injury rehabilitation, helping families indicated on abuse and neglect in their homes to establish routines, acquire child management, problem-solving, assertiveness, budgeting, and stress management skills. She facilitates community training and serves on a Children's behavioral health coalition. Mandy specializes in Acceptance and Commitment Training and is passionate about teaching others how to identify their values and live more in line with what matters most to them amid whatever challenges they face.",

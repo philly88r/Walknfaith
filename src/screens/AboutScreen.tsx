@@ -154,7 +154,21 @@ export default function AboutScreen() {
             </View>
           </View>
 
-
+          {/* Richard Hayes */}
+          <View style={styles.teamMemberCard}>
+            <Image 
+              source={require('../../assets/Richard-Hayes.jpg')} 
+              style={styles.teamMemberImage} 
+              resizeMode="cover" 
+            />
+            <View style={styles.teamMemberInfo}>
+              <Text style={styles.teamMemberName}>Richard Hayes</Text>
+              <Text style={styles.teamMemberRole}>President</Text>
+              <Text style={styles.teamMemberBio}>
+                Richard Hayes has over ten years of experience in ministry and is the President of WalkNFaith. He facilitates spiritual counseling at WalkNFaith Treatment Center. Richard brings over 15 years of experience as a community activist. He remains committed to decreasing racial disparities and improving the quality of life for underprivileged people by leading our "Homeless Outreach" and "Youth Mentoring" programs.
+              </Text>
+            </View>
+          </View>
 
           {/* Mandy Parker */}
           <View style={styles.teamMemberCard}>
