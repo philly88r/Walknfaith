@@ -23,6 +23,8 @@ import PeerPressureScreen from '../screens/PeerPressureScreen';
 import SuicidePreventionScreen from '../screens/SuicidePreventionScreen';
 import TestAuthScreen from '../screens/TestAuthScreen';
 import VideoQuizzesScreen from '../screens/VideoQuizzesScreen';
+import AuthCallbackScreen from '../screens/AuthCallbackScreen';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import BackButton from '../components/BackButton';
 import { RootStackParamList } from './types';
 import { colors } from '../theme/colors';
@@ -208,6 +210,19 @@ export default function AppNavigator() {
         name="VideoQuizzes" 
         component={VideoQuizzesScreen}
         options={{ title: 'Video Quizzes' }}
+      />
+      <Stack.Screen 
+        name="AuthCallback" 
+        component={AuthCallbackScreen}
+        options={{ 
+          title: 'Authentication', 
+          headerShown: false 
+        }}
+      />
+      <Stack.Screen 
+        name="ResetPassword" 
+        component={ResetPasswordScreen}
+        options={{ title: 'Reset Password' }}
       />
     </Stack.Navigator>
   );

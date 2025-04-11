@@ -61,8 +61,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Sign up with email and password
   const signUp = async (email: string, password: string) => {
-    // Use the production URL for email redirects
-    const redirectUrl = 'https://walknfaith.vercel.app';
+    // Use the absolute production URL for email redirects
+    const redirectUrl = 'https://walknfaith.vercel.app/auth/callback';
+    
+    console.log('Signing up with redirect URL:', redirectUrl);
     
     const { data, error } = await supabase.auth.signUp({ 
       email, 
@@ -71,6 +73,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         emailRedirectTo: redirectUrl
       }
     });
+    
+    if (error) {
+      console.error('Sign up error:', error);
+    } else {
+      console.log('Sign up successful, confirmation email sent');
+    }
+    
     return { data, error };
   };
 
@@ -82,11 +91,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Reset password
   const resetPassword = async (email: string) => {
     // Use the production URL for email redirects
-    const redirectUrl = 'https://walknfaith.vercel.app/reset-password';
+    const redirectUrl = 'https://walknfaith.vercel.app/auth/callback';
+    
+    console.log('Resetting password with redirect URL:', redirectUrl);
     
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: redirectUrl,
     });
+    
+    if (error) {
+      console.error('Password reset error:', error);
+    } else {
+      console.log('Password reset email sent successfully');
+    }
+    
     return { error };
   };
 

@@ -24,4 +24,6 @@ export type RootStackParamList = {
   ProfileForm: undefined;
   CNAApplication: undefined;
   VideoQuizzes: undefined;
+  AuthCallback: undefined;
+  ResetPassword: undefined;
 };
