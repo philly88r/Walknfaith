@@ -1,0 +1,2 @@
+This is a placeholder for the "Positions on Side" quiz PDF.
+In the production environment, this would be a properly formatted PDF with 7 questions as required for licensing compliance.

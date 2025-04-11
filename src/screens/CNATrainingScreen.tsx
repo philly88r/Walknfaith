@@ -35,7 +35,6 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
       <ScrollView>
         {/* Header Section */}
         <View style={styles.header}>
-          <Text style={styles.headerNumber}>01</Text>
           <Text style={styles.headerTitle}>Certified Nursing Assistant (CNA) Course</Text>
         </View>
 
@@ -69,7 +68,7 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
 
             <Text style={styles.courseDescription}>
               With this course, you will learn how to use your skills and compassion to provide excellent 
-              patient care to individuals who are unable to do so for themselves. We offer this course for 6 - 8 weeks at $1250.00.
+              patient care to individuals who are unable to do so for themselves. We offer this course for 6 - 8 weeks at $1358.00.
             </Text>
           </View>
 
@@ -81,7 +80,7 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
             </View>
             <View style={styles.detailItem}>
               <MaterialIcons name="attach-money" size={24} color="#007AFF" />
-              <Text style={styles.detailText}>Course Cost: $1250.00</Text>
+              <Text style={styles.detailText}>Course Cost: $1358.00</Text>
             </View>
             <TouchableOpacity 
               style={styles.applyButton}
@@ -100,7 +99,7 @@ const CNATrainingScreen: React.FC<Props> = ({ navigation }) => {
                 onPress={handleVideoQuizzes}
               >
                 <MaterialIcons name="assignment" size={24} color="white" />
-                <Text style={styles.buttonText}>Video Quizzes</Text>
+                <Text style={styles.buttonText}>Assignments and Quiz</Text>
               </TouchableOpacity>
 
               <TouchableOpacity 

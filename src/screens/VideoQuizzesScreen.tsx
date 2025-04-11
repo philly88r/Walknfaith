@@ -6,14 +6,18 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native-web';
 import { Card } from 'react-native-paper';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { colors } from '../theme/colors';
 import supabase from '../utils/supabaseClient';
 import runDatabaseSetup from '../utils/setupDatabase';
+import QuizPdfSection from '../components/QuizPdfSection';
+import openQuizPdf, { openAssignmentPdf } from '../utils/quizPdfHandler';
+import AssignmentsSection from '../components/AssignmentsSection';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'VideoQuizzes'>;
 
@@ -50,6 +54,7 @@ const VideoQuizzesScreen: React.FC<Props> = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [showPdfSection, setShowPdfSection] = useState(false);
 
   // Sample quiz data to use when database access fails
   const sampleQuizzes = [
@@ -398,6 +403,10 @@ const VideoQuizzesScreen: React.FC<Props> = ({ navigation }) => {
     setCurrentQuestionIndex(0);
     setQuizCompleted(false);
   };
+  
+  const handleOpenAssignment = async (filename: string) => {
+    await openAssignmentPdf(filename);
+  };
 
   const renderQuizList = () => {
     if (loading) {
@@ -412,29 +421,60 @@ const VideoQuizzesScreen: React.FC<Props> = ({ navigation }) => {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>CNA Video Quizzes</Text>
+          <Text style={styles.title}>Assignments and Quiz</Text>
           <Text style={styles.subtitle}>
-            Complete these quizzes to test your knowledge on CNA skills and procedures.
+            Access assignments and complete quizzes to test your knowledge on CNA skills and procedures.
           </Text>
         </View>
 
-        {quizzes.map((quiz) => (
-          <Card key={quiz.id} style={styles.quizCard}>
-            <Card.Content>
-              <Text style={styles.quizTitle}>{quiz.title}</Text>
-              <Text style={styles.quizDescription}>{quiz.description}</Text>
-            </Card.Content>
-            <Card.Actions style={{ justifyContent: 'flex-end' }}>
-              <TouchableOpacity
-                style={styles.startQuizButton}
-                onPress={() => loadQuiz(quiz)}
-              >
-                <Text style={styles.startQuizButtonText}>Start Quiz</Text>
-                <MaterialIcons name="arrow-forward" size={18} color="white" />
-              </TouchableOpacity>
-            </Card.Actions>
-          </Card>
-        ))}
+        {/* Assignments Section */}
+        <View style={styles.assignmentsContainer}>
+          <AssignmentsSection onOpenAssignment={handleOpenAssignment} />
+        </View>
+
+        {/* Divider */}
+        <View style={styles.divider}>
+          <Text style={styles.dividerText}>Quizzes</Text>
+        </View>
+
+        <View style={styles.sectionToggleContainer}>
+          <TouchableOpacity 
+            style={[styles.sectionToggleButton, !showPdfSection && styles.activeToggleButton]}
+            onPress={() => setShowPdfSection(false)}
+          >
+            <Text style={[styles.sectionToggleText, !showPdfSection && styles.activeToggleText]}>Interactive Quizzes</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={[styles.sectionToggleButton, showPdfSection && styles.activeToggleButton]}
+            onPress={() => setShowPdfSection(true)}
+          >
+            <Text style={[styles.sectionToggleText, showPdfSection && styles.activeToggleText]}>PDF Quizzes</Text>
+          </TouchableOpacity>
+        </View>
+
+        {!showPdfSection ? (
+          // Interactive Quizzes Section
+          quizzes.map((quiz) => (
+            <Card key={quiz.id} style={styles.quizCard}>
+              <Card.Content>
+                <Text style={styles.quizTitle}>{quiz.title}</Text>
+                <Text style={styles.quizDescription}>{quiz.description}</Text>
+              </Card.Content>
+              <Card.Actions style={{ justifyContent: 'flex-end' }}>
+                <TouchableOpacity
+                  style={styles.startQuizButton}
+                  onPress={() => loadQuiz(quiz)}
+                >
+                  <Text style={styles.startQuizButtonText}>Start Quiz</Text>
+                  <MaterialIcons name="arrow-forward" size={18} color="white" />
+                </TouchableOpacity>
+              </Card.Actions>
+            </Card>
+          ))
+        ) : (
+          // PDF Quizzes Section
+          <QuizPdfSection quizzes={quizzes} />
+        )}
       </ScrollView>
     );
   };
@@ -872,6 +912,92 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     marginLeft: 8,
+  },
+  assignmentsContainer: {
+    marginBottom: 20,
+  },
+  divider: {
+    marginVertical: 20,
+    position: 'relative',
+    height: 1,
+    backgroundColor: '#e0e0e0',
+  },
+  dividerText: {
+    position: 'absolute',
+    top: -10,
+    left: 20,
+    backgroundColor: 'white',
+    paddingHorizontal: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  sectionToggleContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    borderRadius: 8,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  sectionToggleButton: {
+    flex: 1,
+    padding: 12,
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  activeToggleButton: {
+    backgroundColor: colors.primary,
+  },
+  sectionToggleText: {
+    fontWeight: 'bold',
+    color: colors.primary,
+  },
+  activeToggleText: {
+    color: 'white',
+  },
+  pdfSection: {
+    marginTop: 10,
+  },
+  pdfSectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#333',
+  },
+  pdfSectionDescription: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 16,
+  },
+  pdfCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  pdfIcon: {
+    marginRight: 16,
+  },
+  pdfCardContent: {
+    flex: 1,
+  },
+  pdfTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 4,
+  },
+  pdfDescription: {
+    fontSize: 14,
+    color: '#666',
   },
 });
 
