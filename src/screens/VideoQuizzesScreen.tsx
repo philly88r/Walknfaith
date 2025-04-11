@@ -51,6 +51,89 @@ const VideoQuizzesScreen: React.FC<Props> = ({ navigation }) => {
   const [submitting, setSubmitting] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
 
+  // Sample quiz data to use when database access fails
+  const sampleQuizzes = [
+    {
+      id: 1,
+      title: 'Positions on Side',
+      description: 'Test your knowledge about positioning patients on their side.'
+    },
+    {
+      id: 2,
+      title: 'Assists to Ambulate Using Gait Belt',
+      description: 'Test your knowledge about assisting patients to walk using a gait belt.'
+    },
+    {
+      id: 3,
+      title: 'Transferring a Patient Using a Mechanical Lift',
+      description: 'Test your knowledge about safe patient transfers using mechanical lifts.'
+    },
+    {
+      id: 4,
+      title: 'Transfers from Bed to Wheelchair',
+      description: 'Test your knowledge about transferring patients from bed to wheelchair.'
+    },
+    {
+      id: 5,
+      title: 'Using Proper Body Mechanics',
+      description: 'Test your knowledge about proper body mechanics when caring for patients.'
+    }
+  ];
+
+  // Sample questions for the first quiz
+  const sampleQuestions = [
+    {
+      id: 1,
+      question_text: 'What is the proper position for the patient\'s arms when they are positioned on their side?',
+      options: [
+        { id: 1, option_text: 'Both arms extended straight out', is_correct: false },
+        { id: 2, option_text: 'Upper arm supported with pillow, lower arm in comfortable position', is_correct: true },
+        { id: 3, option_text: 'Both arms tucked under the body', is_correct: false },
+        { id: 4, option_text: 'Arms crossed over chest', is_correct: false }
+      ]
+    },
+    {
+      id: 2,
+      question_text: 'Why is a pillow placed between the patient\'s knees when positioned on their side?',
+      options: [
+        { id: 5, option_text: 'To keep the patient from rolling over', is_correct: false },
+        { id: 6, option_text: 'To maintain body alignment and prevent pressure on bony prominences', is_correct: true },
+        { id: 7, option_text: 'To elevate the legs for better circulation', is_correct: false },
+        { id: 8, option_text: 'It\'s not necessary to place a pillow between the knees', is_correct: false }
+      ]
+    },
+    {
+      id: 3,
+      question_text: 'How often should a patient\'s position be changed?',
+      options: [
+        { id: 9, option_text: 'Every 2 hours', is_correct: true },
+        { id: 10, option_text: 'Every 8 hours', is_correct: false },
+        { id: 11, option_text: 'Only when the patient requests it', is_correct: false },
+        { id: 12, option_text: 'Once per shift', is_correct: false }
+      ]
+    },
+    {
+      id: 4,
+      question_text: 'What is the proper angle for the head of the bed when a patient is in a side-lying position?',
+      options: [
+        { id: 13, option_text: 'Completely flat (0 degrees)', is_correct: false },
+        { id: 14, option_text: '30 degrees or less', is_correct: true },
+        { id: 15, option_text: '90 degrees (fully upright)', is_correct: false },
+        { id: 16, option_text: '60 degrees', is_correct: false }
+      ]
+    },
+    {
+      id: 5,
+      question_text: 'Which of the following is NOT a benefit of proper positioning?',
+      options: [
+        { id: 17, option_text: 'Prevents pressure ulcers', is_correct: false },
+        { id: 18, option_text: 'Promotes comfort', is_correct: false },
+        { id: 19, option_text: 'Maintains proper body alignment', is_correct: false },
+        { id: 20, option_text: 'Eliminates the need for regular position changes', is_correct: true }
+      ]
+    }
+  ];
+
   useEffect(() => {
     // Set up the database and load quizzes when the component mounts
     const setupAndLoadQuizzes = async () => {
@@ -62,6 +145,8 @@ const VideoQuizzesScreen: React.FC<Props> = ({ navigation }) => {
         await loadQuizzes();
       } catch (error) {
         console.error('Error setting up database:', error);
+        // Fall back to sample data if database setup fails
+        setQuizzes(sampleQuizzes);
       } finally {
         setLoading(false);
       }
@@ -81,68 +166,18 @@ const VideoQuizzesScreen: React.FC<Props> = ({ navigation }) => {
 
       if (error) {
         console.error('Error loading quizzes:', error);
-        // If there's an error, use the temporary data
-        setQuizzes([
-          {
-            id: 1,
-            title: 'Positions on Side',
-            description: 'Test your knowledge about positioning patients on their side.'
-          },
-          {
-            id: 2,
-            title: 'Assists to Ambulate Using Gait Belt',
-            description: 'Test your knowledge about assisting patients to walk using a gait belt.'
-          },
-          {
-            id: 3,
-            title: 'Transferring a Patient Using a Mechanical Lift',
-            description: 'Test your knowledge about safe patient transfers using mechanical lifts.'
-          },
-          {
-            id: 4,
-            title: 'Transfers from Bed to Wheelchair',
-            description: 'Test your knowledge about transferring patients from bed to wheelchair.'
-          },
-          {
-            id: 5,
-            title: 'Using Proper Body Mechanics',
-            description: 'Test your knowledge about proper body mechanics when caring for patients.'
-          }
-        ]);
+        // If there's an error, use the sample data
+        setQuizzes(sampleQuizzes);
       } else if (data && data.length > 0) {
         setQuizzes(data);
       } else {
-        // If no data is returned, use the temporary data
-        setQuizzes([
-          {
-            id: 1,
-            title: 'Positions on Side',
-            description: 'Test your knowledge about positioning patients on their side.'
-          },
-          {
-            id: 2,
-            title: 'Assists to Ambulate Using Gait Belt',
-            description: 'Test your knowledge about assisting patients to walk using a gait belt.'
-          },
-          {
-            id: 3,
-            title: 'Transferring a Patient Using a Mechanical Lift',
-            description: 'Test your knowledge about safe patient transfers using mechanical lifts.'
-          },
-          {
-            id: 4,
-            title: 'Transfers from Bed to Wheelchair',
-            description: 'Test your knowledge about transferring patients from bed to wheelchair.'
-          },
-          {
-            id: 5,
-            title: 'Using Proper Body Mechanics',
-            description: 'Test your knowledge about proper body mechanics when caring for patients.'
-          }
-        ]);
+        // If no data is returned, use the sample data
+        setQuizzes(sampleQuizzes);
       }
     } catch (error) {
       console.error('Error loading quizzes:', error);
+      // Fall back to sample data on any error
+      setQuizzes(sampleQuizzes);
     } finally {
       setLoading(false);
     }
@@ -201,70 +236,42 @@ const VideoQuizzesScreen: React.FC<Props> = ({ navigation }) => {
           selectedOptionId: null
         })));
       } else {
-        // If no questions found, use default questions for testing
-        const defaultQuestions = [
-          {
-            id: 1,
-            question_text: 'What is the proper position for the patient\'s arms when they are positioned on their side?',
-            options: [
-              { id: 1, option_text: 'Both arms extended straight out', is_correct: false },
-              { id: 2, option_text: 'Upper arm supported with pillow, lower arm in comfortable position', is_correct: true },
-              { id: 3, option_text: 'Both arms tucked under the body', is_correct: false },
-              { id: 4, option_text: 'Arms crossed over chest', is_correct: false }
-            ]
-          },
-          {
-            id: 2,
-            question_text: 'Why is a pillow placed between the patient\'s knees when positioned on their side?',
-            options: [
-              { id: 5, option_text: 'To keep the patient from rolling over', is_correct: false },
-              { id: 6, option_text: 'To maintain body alignment and prevent pressure on bony prominences', is_correct: true },
-              { id: 7, option_text: 'To elevate the legs for better circulation', is_correct: false },
-              { id: 8, option_text: 'It\'s not necessary to place a pillow between the knees', is_correct: false }
-            ]
-          },
-          {
-            id: 3,
-            question_text: 'How often should a patient\'s position be changed?',
-            options: [
-              { id: 9, option_text: 'Every 2 hours', is_correct: true },
-              { id: 10, option_text: 'Every 8 hours', is_correct: false },
-              { id: 11, option_text: 'Only when the patient requests it', is_correct: false },
-              { id: 12, option_text: 'Once per shift', is_correct: false }
-            ]
-          },
-          {
-            id: 4,
-            question_text: 'What is the proper angle for the head of the bed when a patient is in a side-lying position?',
-            options: [
-              { id: 13, option_text: 'Completely flat (0 degrees)', is_correct: false },
-              { id: 14, option_text: '30 degrees or less', is_correct: true },
-              { id: 15, option_text: '90 degrees (fully upright)', is_correct: false },
-              { id: 16, option_text: '60 degrees', is_correct: false }
-            ]
-          },
-          {
-            id: 5,
-            question_text: 'Which of the following is NOT a benefit of proper positioning?',
-            options: [
-              { id: 17, option_text: 'Prevents pressure ulcers', is_correct: false },
-              { id: 18, option_text: 'Promotes comfort', is_correct: false },
-              { id: 19, option_text: 'Maintains proper body alignment', is_correct: false },
-              { id: 20, option_text: 'Eliminates the need for regular position changes', is_correct: true }
-            ]
-          }
-        ];
-        
-        setQuestions(defaultQuestions);
-        
-        // Initialize answers array
-        setAnswers(defaultQuestions.map(q => ({
-          questionId: q.id,
-          selectedOptionId: null
-        })));
+        // If no questions found, use sample questions for testing
+        // Use the appropriate sample questions based on the quiz ID
+        if (quiz.id === 1) {
+          // For "Positions on Side" quiz, use the sample questions
+          setQuestions(sampleQuestions);
+          
+          // Initialize answers array
+          setAnswers(sampleQuestions.map(q => ({
+            questionId: q.id,
+            selectedOptionId: null
+          })));
+        } else {
+          // For other quizzes, use a subset of sample questions with modified text
+          const modifiedQuestions = sampleQuestions.slice(0, 3).map((q, index) => ({
+            ...q,
+            id: index + 1,
+            question_text: `Sample question ${index + 1} for ${quiz.title}`
+          }));
+          
+          setQuestions(modifiedQuestions);
+          
+          // Initialize answers array
+          setAnswers(modifiedQuestions.map(q => ({
+            questionId: q.id,
+            selectedOptionId: null
+          })));
+        }
       }
     } catch (error) {
       console.error('Error in loadQuiz:', error);
+      // Fall back to sample questions on error
+      setQuestions(sampleQuestions);
+      setAnswers(sampleQuestions.map(q => ({
+        questionId: q.id,
+        selectedOptionId: null
+      })));
     } finally {
       setLoading(false);
     }
@@ -317,47 +324,54 @@ const VideoQuizzesScreen: React.FC<Props> = ({ navigation }) => {
       setScore(quizScore);
       setQuizCompleted(true);
       
-      // Get the current user
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (user) {
-        // Create a submission record
-        const { data: submissionData, error: submissionError } = await supabase
-          .from('quiz_submissions')
-          .insert({
-            user_id: user.id,
-            quiz_id: selectedQuiz.id,
-            score: quizScore,
-            completed: true
-          })
-          .select();
+      try {
+        // Get the current user
+        const { data: { user } } = await supabase.auth.getUser();
         
-        if (submissionError) {
-          console.error('Error creating submission:', submissionError);
-        } else if (submissionData && submissionData.length > 0) {
-          const submissionId = submissionData[0].id;
+        if (user) {
+          // Create a submission record
+          const { data: submissionData, error: submissionError } = await supabase
+            .from('quiz_submissions')
+            .insert({
+              user_id: user.id,
+              quiz_id: selectedQuiz.id,
+              score: quizScore,
+              completed: true
+            })
+            .select();
           
-          // Save each answer
-          for (const answer of answers) {
-            if (answer.selectedOptionId) {
-              const { error: answerError } = await supabase
-                .from('quiz_answers')
-                .insert({
-                  submission_id: submissionId,
-                  question_id: answer.questionId,
-                  selected_option_id: answer.selectedOptionId
-                });
-              
-              if (answerError) {
-                console.error('Error saving answer:', answerError);
+          if (submissionError) {
+            console.error('Error creating submission:', submissionError);
+          } else if (submissionData && submissionData.length > 0) {
+            const submissionId = submissionData[0].id;
+            
+            // Save each answer
+            for (const answer of answers) {
+              if (answer.selectedOptionId) {
+                const { error: answerError } = await supabase
+                  .from('quiz_answers')
+                  .insert({
+                    submission_id: submissionId,
+                    question_id: answer.questionId,
+                    selected_option_id: answer.selectedOptionId
+                  });
+                
+                if (answerError) {
+                  console.error('Error saving answer:', answerError);
+                }
               }
             }
+            
+            console.log('Quiz submitted successfully with ID:', submissionId);
           }
-          
-          console.log('Quiz submitted successfully with ID:', submissionId);
+        } else {
+          console.log('User not authenticated, quiz results not saved to database');
         }
-      } else {
-        console.log('User not authenticated, quiz results not saved to database');
+      } catch (dbError) {
+        // If there's an error saving to the database, just log it
+        // The quiz will still be marked as completed locally
+        console.error('Error saving quiz results to database:', dbError);
+        console.log('Quiz completed locally with score:', quizScore);
       }
     } catch (error) {
       console.error('Error submitting quiz:', error);

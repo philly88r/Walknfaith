@@ -1,103 +1,31 @@
 import supabase from './supabaseClient';
 
-// Function to set up the quiz database tables
+// Function to check if tables exist and create them if needed
 export const setupQuizDatabase = async () => {
   try {
-    // Create quizzes table
-    const { error: quizzesError } = await supabase.rpc('exec_sql', {
-      sql_query: `
-        CREATE TABLE IF NOT EXISTS quizzes (
-          id SERIAL PRIMARY KEY,
-          title TEXT NOT NULL,
-          description TEXT,
-          created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-        );
-      `
-    });
+    console.log('Checking if quiz tables exist...');
+    
+    // We'll assume the tables already exist in Supabase
+    // This is because table creation requires admin privileges
+    // Instead, we'll just check if we can access the tables
+    
+    // Try to access the quizzes table
+    const { error: quizzesError } = await supabase
+      .from('quizzes')
+      .select('count')
+      .limit(1);
     
     if (quizzesError) {
-      console.error('Error creating quizzes table:', quizzesError);
+      console.log('Quizzes table may not exist:', quizzesError.message);
+      console.log('Note: Tables should be created in the Supabase dashboard');
+      console.log('Required tables: quizzes, quiz_questions, quiz_options, quiz_submissions, quiz_answers');
       return false;
     }
     
-    // Create quiz_questions table
-    const { error: questionsError } = await supabase.rpc('exec_sql', {
-      sql_query: `
-        CREATE TABLE IF NOT EXISTS quiz_questions (
-          id SERIAL PRIMARY KEY,
-          quiz_id INTEGER REFERENCES quizzes(id) ON DELETE CASCADE,
-          question_text TEXT NOT NULL,
-          question_type TEXT NOT NULL DEFAULT 'multiple_choice',
-          created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-        );
-      `
-    });
-    
-    if (questionsError) {
-      console.error('Error creating quiz_questions table:', questionsError);
-      return false;
-    }
-    
-    // Create quiz_options table
-    const { error: optionsError } = await supabase.rpc('exec_sql', {
-      sql_query: `
-        CREATE TABLE IF NOT EXISTS quiz_options (
-          id SERIAL PRIMARY KEY,
-          question_id INTEGER REFERENCES quiz_questions(id) ON DELETE CASCADE,
-          option_text TEXT NOT NULL,
-          is_correct BOOLEAN NOT NULL DEFAULT FALSE,
-          created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-        );
-      `
-    });
-    
-    if (optionsError) {
-      console.error('Error creating quiz_options table:', optionsError);
-      return false;
-    }
-    
-    // Create quiz_submissions table
-    const { error: submissionsError } = await supabase.rpc('exec_sql', {
-      sql_query: `
-        CREATE TABLE IF NOT EXISTS quiz_submissions (
-          id SERIAL PRIMARY KEY,
-          user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
-          quiz_id INTEGER REFERENCES quizzes(id) ON DELETE CASCADE,
-          score INTEGER,
-          completed BOOLEAN DEFAULT FALSE,
-          created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-          updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-        );
-      `
-    });
-    
-    if (submissionsError) {
-      console.error('Error creating quiz_submissions table:', submissionsError);
-      return false;
-    }
-    
-    // Create quiz_answers table
-    const { error: answersError } = await supabase.rpc('exec_sql', {
-      sql_query: `
-        CREATE TABLE IF NOT EXISTS quiz_answers (
-          id SERIAL PRIMARY KEY,
-          submission_id INTEGER REFERENCES quiz_submissions(id) ON DELETE CASCADE,
-          question_id INTEGER REFERENCES quiz_questions(id) ON DELETE CASCADE,
-          selected_option_id INTEGER REFERENCES quiz_options(id) ON DELETE CASCADE,
-          created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-        );
-      `
-    });
-    
-    if (answersError) {
-      console.error('Error creating quiz_answers table:', answersError);
-      return false;
-    }
-    
-    console.log('Quiz database tables created successfully');
+    console.log('Quiz tables exist or are accessible');
     return true;
   } catch (error) {
-    console.error('Error setting up quiz database:', error);
+    console.error('Error checking quiz database:', error);
     return false;
   }
 };
@@ -201,11 +129,15 @@ export const insertSampleQuizData = async () => {
         // Insert questions and options
         for (const question of questions) {
           const options = [...question.options];
-          delete question.options;
+          // Create a new object without the options property
+          const questionData = {
+            quiz_id: question.quiz_id,
+            question_text: question.question_text
+          };
           
-          const { data: questionData, error: questionError } = await supabase
+          const { data: insertedQuestion, error: questionError } = await supabase
             .from('quiz_questions')
-            .insert(question)
+            .insert(questionData)
             .select();
           
           if (questionError) {
@@ -213,7 +145,7 @@ export const insertSampleQuizData = async () => {
             continue;
           }
           
-          const questionId = questionData[0].id;
+          const questionId = insertedQuestion[0].id;
           
           // Insert options for this question
           for (const option of options) {
@@ -243,25 +175,29 @@ export const insertSampleQuizData = async () => {
 // Function to run the database setup
 export const runDatabaseSetup = async () => {
   try {
-    // Check if tables already exist
-    const { data, error } = await supabase
-      .from('quizzes')
-      .select('id')
-      .limit(1);
+    console.log('Starting database setup...');
     
-    if (error && error.code === '42P01') {
-      // Table doesn't exist, create tables and insert data
-      const tablesCreated = await setupQuizDatabase();
-      if (tablesCreated) {
+    // Check if tables exist and are accessible
+    const tablesExist = await setupQuizDatabase();
+    
+    if (tablesExist) {
+      // Check if there's data in the quizzes table
+      const { data, error } = await supabase
+        .from('quizzes')
+        .select('id')
+        .limit(1);
+      
+      if (error) {
+        console.error('Error checking for quiz data:', error.message);
+      } else if (data && data.length === 0) {
+        // Tables exist but no data, insert sample data
+        console.log('Tables exist but no data found. Inserting sample data...');
         await insertSampleQuizData();
+      } else {
+        console.log('Quiz tables exist and contain data');
       }
-    } else if (!error && data && data.length === 0) {
-      // Tables exist but no data, insert sample data
-      await insertSampleQuizData();
-    } else if (error) {
-      console.error('Error checking if tables exist:', error);
     } else {
-      console.log('Quiz tables already exist and contain data');
+      console.log('Unable to access quiz tables. Please ensure they are created in Supabase dashboard');
     }
   } catch (error) {
     console.error('Error running database setup:', error);
