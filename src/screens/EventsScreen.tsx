@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-} from 'react-native';
+} from 'react-native-web';
 import { colors } from '../theme/colors';
 
 interface Event {
@@ -21,28 +21,12 @@ interface Event {
 export default function EventsScreen() {
   const events: Event[] = [
     {
-      title: 'Mental Health Awareness Workshop',
-      date: 'June 15, 2024',
-      time: '2:00 PM - 4:00 PM',
-      location: 'Community Center',
+      title: 'Monthly Diaper Distribution',
+      date: 'First Saturday each Month',
+      time: '12:00 PM - 2:00 PM',
+      location: 'YMCA 4343 W. Florissant, St. Louis, MO 63115',
       description:
-        'Join us for an interactive workshop on understanding and managing mental health. Learn practical strategies for maintaining emotional well-being.',
-    },
-    {
-      title: 'Meditation & Mindfulness Session',
-      date: 'June 20, 2024',
-      time: '10:00 AM - 11:30 AM',
-      location: 'Healing Garden',
-      description:
-        'Experience the benefits of meditation and mindfulness practices. Suitable for beginners and experienced practitioners alike.',
-    },
-    {
-      title: 'Support Group Meeting',
-      date: 'June 25, 2024',
-      time: '6:00 PM - 7:30 PM',
-      location: 'Online via Zoom',
-      description:
-        'Monthly support group meeting for individuals seeking community and shared experiences in their mental health journey.',
+        'Join us for our Saturday-monthly diaper distribution event. We provide diapers to families in need. No registration required, just come during the event hours.',
     },
   ];
 
