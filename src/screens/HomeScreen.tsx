@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    backgroundColor: '#f0f8ff', // Light blue background to make white parts of logo visible
+    backgroundColor: '#e0e9f5', // Darker blue background for better contrast
     paddingVertical: 20,
     borderBottomWidth: 1,
     borderBottomColor: colors.border,

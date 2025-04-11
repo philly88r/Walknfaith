@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   logoBackground: {
-    backgroundColor: '#f0f8ff', // Light blue background
+    backgroundColor: '#e0e9f5', // Darker blue background for better contrast
     borderRadius: 15,
     padding: 15,
     shadowColor: '#000',
