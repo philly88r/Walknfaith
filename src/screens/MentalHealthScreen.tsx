@@ -21,11 +21,6 @@ export default function MentalHealthScreen() {
   const navigation = useNavigation();
   const resources: Resource[] = [
     {
-      title: '24/7 Crisis Hotline',
-      description: 'Immediate support available 24/7 for mental health crises',
-      phone: '1-800-273-8255',
-    },
-    {
       title: 'Online Counseling',
       description: 'Connect with our counselors through our contact form',
       // Using a special identifier instead of a URL for the contact form
@@ -69,19 +64,6 @@ export default function MentalHealthScreen() {
       </View>
 
       <View style={styles.content}>
-        <Text style={styles.sectionTitle}>Emergency Support</Text>
-        <View style={styles.emergencyCard}>
-          <Text style={styles.emergencyTitle}>Need immediate help?</Text>
-          <Text style={styles.emergencyText}>
-            If you're in crisis or having thoughts of suicide, help is available 24/7
-          </Text>
-          <TouchableOpacity
-            style={styles.emergencyButton}
-            onPress={() => handlePhonePress('1-800-273-8255')}
-          >
-            <Text style={styles.emergencyButtonText}>Call Crisis Hotline</Text>
-          </TouchableOpacity>
-        </View>
 
         {resources.map((resource, index) => (
           <TouchableOpacity
@@ -137,34 +119,7 @@ const styles = StyleSheet.create({
     color: colors.text,
     marginBottom: 16,
   },
-  emergencyCard: {
-    backgroundColor: colors.error,
-    borderRadius: 12,
-    padding: 20,
-    marginBottom: 24,
-  },
-  emergencyTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: colors.white,
-    marginBottom: 8,
-  },
-  emergencyText: {
-    fontSize: 16,
-    color: colors.white,
-    marginBottom: 16,
-  },
-  emergencyButton: {
-    backgroundColor: colors.white,
-    borderRadius: 8,
-    padding: 12,
-    alignItems: 'center',
-  },
-  emergencyButtonText: {
-    color: colors.error,
-    fontSize: 16,
-    fontWeight: '600',
-  },
+
   resourceCard: {
     backgroundColor: colors.white,
     borderRadius: 12,
