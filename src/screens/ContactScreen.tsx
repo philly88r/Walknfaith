@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Linking,
   Platform,
+  ActivityIndicator,
 } from 'react-native-web';
 import { colors } from '../theme/colors';
 // Using View instead of SafeAreaView for web compatibility
@@ -19,6 +20,8 @@ export default function ContactScreen() {
     subject: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitResult, setSubmitResult] = useState<{ success: boolean; message: string } | null>(null);
 
   const contactInfo = {
     phone: '314-260-9097',
@@ -27,12 +30,56 @@ export default function ContactScreen() {
     name: 'WalkNFaith/PurposeTech Institute'
   };
 
-  const handleSubmit = () => {
-    // Send email to Sabrina
-    const mailtoUrl = `mailto:${contactInfo.email}?subject=${encodeURIComponent(message.subject)}&body=${encodeURIComponent(`Name: ${message.name}\nEmail: ${message.email}\n\n${message.message}`)}`;  
-    window.open(mailtoUrl, '_blank');
-    alert('Message sent successfully!');
-    setMessage({ name: '', email: '', subject: '', message: '' });
+  // Create a ref for the form
+  const formRef = useRef(null);
+
+  const handleSubmit = async () => {
+    // Validate form
+    if (!message.name || !message.email || !message.subject || !message.message) {
+      setSubmitResult({
+        success: false,
+        message: 'Please fill out all fields'
+      });
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(message.email)) {
+      setSubmitResult({
+        success: false,
+        message: 'Please enter a valid email address'
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitResult(null);
+
+    try {
+      // Submit the form to FormSubmit
+      if (formRef.current) {
+        formRef.current.submit();
+        
+        // Since the form will redirect, we'll show a success message briefly
+        setSubmitResult({
+          success: true,
+          message: 'Sending message...'
+        });
+        
+        // Clear form after submission
+        setTimeout(() => {
+          setMessage({ name: '', email: '', subject: '', message: '' });
+          setIsSubmitting(false);
+        }, 1000);
+      }
+    } catch (error) {
+      setSubmitResult({
+        success: false,
+        message: 'An error occurred. Please try again later.'
+      });
+      setIsSubmitting(false);
+    }
   };
 
   const handleCall = () => {
@@ -74,6 +121,24 @@ export default function ContactScreen() {
           <View style={styles.formSection}>
             <Text style={styles.subtitle}>Send us a message</Text>
             
+            {/* Hidden form for FormSubmit */}
+            <form 
+              ref={formRef}
+              action="https://formsubmit.co/Sabrina@walknfaith.org" 
+              method="POST"
+              style={{ display: 'none' }}
+            >
+              <input type="text" name="name" value={message.name} readOnly />
+              <input type="email" name="email" value={message.email} readOnly />
+              <input type="text" name="_subject" value={`Contact Form: ${message.subject}`} readOnly />
+              <input type="text" name="subject" value={message.subject} readOnly />
+              <textarea name="message" value={message.message} readOnly />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_next" value={window.location.href} />
+            </form>
+            
+            {/* Visual form that users interact with */}
             <TextInput
               style={styles.input}
               placeholder="Your Name"
@@ -108,11 +173,22 @@ export default function ContactScreen() {
             />
 
             <TouchableOpacity 
-              style={styles.submitButton}
+              style={[styles.submitButton, isSubmitting && styles.disabledButton]}
               onPress={handleSubmit}
+              disabled={isSubmitting}
             >
-              <Text style={styles.submitButtonText}>Send Message</Text>
+              {isSubmitting ? (
+                <ActivityIndicator color={colors.white} size="small" />
+              ) : (
+                <Text style={styles.submitButtonText}>Send Message</Text>
+              )}
             </TouchableOpacity>
+
+            {submitResult && (
+              <View style={[styles.resultContainer, submitResult.success ? styles.successContainer : styles.errorContainer]}>
+                <Text style={styles.resultText}>{submitResult.message}</Text>
+              </View>
+            )}
           </View>
         </View>
       </ScrollView>
@@ -214,5 +290,25 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 16,
     fontWeight: '600',
+  },
+  disabledButton: {
+    opacity: 0.7,
+  },
+  resultContainer: {
+    marginTop: 16,
+    padding: 12,
+    borderRadius: 8,
+  },
+  successContainer: {
+    backgroundColor: '#d4edda',
+    borderColor: '#c3e6cb',
+  },
+  errorContainer: {
+    backgroundColor: '#f8d7da',
+    borderColor: '#f5c6cb',
+  },
+  resultText: {
+    fontSize: 16,
+    textAlign: 'center',
   },
 });

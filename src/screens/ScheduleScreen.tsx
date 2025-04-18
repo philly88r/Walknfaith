@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,7 +6,8 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-} from 'react-native';
+  ActivityIndicator,
+} from 'react-native-web';
 import { Picker } from '@react-native-picker/picker';
 import { format, addDays, isWeekend, parseISO, isValid } from 'date-fns';
 import { colors } from '../theme/colors';
@@ -32,6 +33,11 @@ export default function ScheduleScreen() {
   const [selectedTime, setSelectedTime] = useState('');
   const [dateString, setDateString] = useState(format(new Date(), 'yyyy-MM-dd'));
   const [dateError, setDateError] = useState<string>('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitResult, setSubmitResult] = useState<{ success: boolean; message: string } | null>(null);
 
   const handleDateChange = (text: string) => {
     setDateString(text);
@@ -74,9 +80,37 @@ export default function ScheduleScreen() {
     setSelectedTime(time);
   };
 
-  const handleSubmit = () => {
+  // Create a ref for the form
+  const formRef = useRef(null);
+
+  const handleSubmit = async () => {
+    // Reset previous submission result
+    setSubmitResult(null);
+    
+    // Validate form
     if (!selectedType || !selectedTime) {
-      alert('Please select both appointment type and time');
+      setSubmitResult({
+        success: false,
+        message: 'Please select both appointment type and time'
+      });
+      return;
+    }
+
+    if (!name || !email) {
+      setSubmitResult({
+        success: false,
+        message: 'Please provide your name and email'
+      });
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setSubmitResult({
+        success: false,
+        message: 'Please enter a valid email address'
+      });
       return;
     }
 
@@ -87,12 +121,39 @@ export default function ScheduleScreen() {
     appointmentDateTime.setHours(selectedTimeSlot.hour);
     appointmentDateTime.setMinutes(0);
 
-    console.log('Appointment scheduled:', {
-      type: selectedType,
-      date: format(appointmentDateTime, 'PPpp'),
-    });
+    const appointmentType = appointmentTypes.find(type => type.id === selectedType)?.label || selectedType;
+    const formattedDate = format(appointmentDateTime, 'PPpp');
 
-    alert('Appointment scheduled successfully!');
+    setIsSubmitting(true);
+
+    try {
+      // Submit the form to FormSubmit
+      if (formRef.current) {
+        formRef.current.submit();
+        
+        // Since the form will redirect, we'll show a success message briefly
+        setSubmitResult({
+          success: true,
+          message: 'Scheduling appointment...'
+        });
+        
+        // Clear form after submission
+        setTimeout(() => {
+          setSelectedType('');
+          setSelectedTime('');
+          setName('');
+          setEmail('');
+          setPhone('');
+          setIsSubmitting(false);
+        }, 1000);
+      }
+    } catch (error) {
+      setSubmitResult({
+        success: false,
+        message: 'An error occurred. Please try again later.'
+      });
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -160,12 +221,68 @@ export default function ScheduleScreen() {
             </View>
           </View>
 
-          <TouchableOpacity
-            style={styles.submitButton}
-            onPress={handleSubmit}
+          <View style={styles.section}>
+            <Text style={styles.label}>Your Information</Text>
+            <TextInput
+              style={styles.input}
+              value={name}
+              onChangeText={setName}
+              placeholder="Your Name"
+            />
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Your Email"
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            <TextInput
+              style={styles.input}
+              value={phone}
+              onChangeText={setPhone}
+              placeholder="Your Phone (optional)"
+              keyboardType="phone-pad"
+            />
+          </View>
+
+          {/* Hidden form for FormSubmit */}
+          <form 
+            ref={formRef}
+            action="https://formsubmit.co/Sabrina@walknfaith.org" 
+            method="POST"
+            style={{ display: 'none' }}
           >
-            <Text style={styles.submitButtonText}>Schedule Appointment</Text>
+            <input type="text" name="name" value={name} readOnly />
+            <input type="email" name="email" value={email} readOnly />
+            <input type="text" name="_subject" value={`New Appointment Request: ${appointmentTypes.find(type => type.id === selectedType)?.label || selectedType}`} readOnly />
+            <input type="text" name="phone" value={phone} readOnly />
+            <input type="text" name="appointment_type" value={appointmentTypes.find(type => type.id === selectedType)?.label || selectedType} readOnly />
+            <input type="text" name="appointment_date" value={selectedDate ? format(selectedDate, 'PPP') : ''} readOnly />
+            <input type="text" name="appointment_time" value={timeSlots.find(slot => slot.id === selectedTime)?.label || ''} readOnly />
+            <textarea name="message" value={`Appointment request for ${appointmentTypes.find(type => type.id === selectedType)?.label || selectedType} on ${selectedDate ? format(selectedDate, 'PPP') : ''} at ${timeSlots.find(slot => slot.id === selectedTime)?.label || ''}`} readOnly />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_next" value={window.location.href} />
+          </form>
+
+          <TouchableOpacity
+            style={[styles.submitButton, isSubmitting && styles.disabledButton]}
+            onPress={handleSubmit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <ActivityIndicator color={colors.white} size="small" />
+            ) : (
+              <Text style={styles.submitButtonText}>Schedule Appointment</Text>
+            )}
           </TouchableOpacity>
+
+          {submitResult && (
+            <View style={[styles.resultContainer, submitResult.success ? styles.successContainer : styles.errorContainer]}>
+              <Text style={styles.resultText}>{submitResult.message}</Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -261,5 +378,34 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 18,
     fontWeight: '600',
+  },
+  input: {
+    backgroundColor: colors.white,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: 12,
+    fontSize: 16,
+    marginBottom: 12,
+  },
+  disabledButton: {
+    opacity: 0.7,
+  },
+  resultContainer: {
+    marginTop: 16,
+    padding: 12,
+    borderRadius: 8,
+  },
+  successContainer: {
+    backgroundColor: '#d4edda',
+    borderColor: '#c3e6cb',
+  },
+  errorContainer: {
+    backgroundColor: '#f8d7da',
+    borderColor: '#f5c6cb',
+  },
+  resultText: {
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
