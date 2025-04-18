@@ -143,53 +143,9 @@ const CareerPlacementScreen: React.FC<Props> = ({ navigation }) => {
         </View>
       </View>
 
-      {/* Events Section */}
+      {/* Career Placement Section */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Career Placement</Text>
-        
-        <View style={styles.eventsContainer}>
-          <Card style={styles.eventCard}>
-            <Card.Content>
-              <Text style={styles.eventDay}>Tuesdays</Text>
-              <Text style={styles.eventTitle}>Facilities Tour</Text>
-              <Text style={styles.eventDescription}>Tour for prospective students.</Text>
-              <View style={styles.eventDetails}>
-                <MaterialIcons name="access-time" size={16} color={colors.primary} />
-                <Text style={styles.eventTime}>1:00 pm-2:00 pm</Text>
-                <MaterialIcons name="location-on" size={16} color={colors.primary} />
-                <Text style={styles.eventLocation}>Main Campus</Text>
-              </View>
-            </Card.Content>
-          </Card>
-
-          <Card style={styles.eventCard}>
-            <Card.Content>
-              <Text style={styles.eventDay}>Wednesday</Text>
-              <Text style={styles.eventTitle}>Financial Aid Q&A</Text>
-              <Text style={styles.eventDescription}>A questions and answer session about available tuition assistance.</Text>
-              <View style={styles.eventDetails}>
-                <MaterialIcons name="access-time" size={16} color={colors.primary} />
-                <Text style={styles.eventTime}>6:00 pm-8:00 pm</Text>
-                <MaterialIcons name="location-on" size={16} color={colors.primary} />
-                <Text style={styles.eventLocation}>Main Campus</Text>
-              </View>
-            </Card.Content>
-          </Card>
-
-          <Card style={styles.eventCard}>
-            <Card.Content>
-              <Text style={styles.eventDay}>Saturday</Text>
-              <Text style={styles.eventTitle}>Facilities Tour</Text>
-              <Text style={styles.eventDescription}>Visit our facilities and see the work of our students.</Text>
-              <View style={styles.eventDetails}>
-                <MaterialIcons name="access-time" size={16} color={colors.primary} />
-                <Text style={styles.eventTime}>10:00 am-3:00 pm</Text>
-                <MaterialIcons name="location-on" size={16} color={colors.primary} />
-                <Text style={styles.eventLocation}>Main Campus</Text>
-              </View>
-            </Card.Content>
-          </Card>
-        </View>
       </View>
 
       {/* Support Section */}
