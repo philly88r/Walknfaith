@@ -104,12 +104,11 @@ export default function ScheduleScreen() {
       return;
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    // Simplified email validation - just check for @ symbol
+    if (!email.includes('@')) {
       setSubmitResult({
         success: false,
-        message: 'Please enter a valid email address'
+        message: 'Please enter a valid email address with @ symbol'
       });
       return;
     }

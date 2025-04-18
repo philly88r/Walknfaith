@@ -43,12 +43,11 @@ export default function ContactScreen() {
       return;
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(message.email)) {
+    // Simplified email validation - just check for @ symbol
+    if (!message.email.includes('@')) {
       setSubmitResult({
         success: false,
-        message: 'Please enter a valid email address'
+        message: 'Please enter a valid email address with @ symbol'
       });
       return;
     }
