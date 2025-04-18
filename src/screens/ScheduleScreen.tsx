@@ -104,11 +104,12 @@ export default function ScheduleScreen() {
       return;
     }
 
-    // Simplified email validation - just check for @ symbol
-    if (!email.includes('@')) {
+    // Very basic email validation - accept almost anything with @ symbol
+    // This is intentionally permissive to avoid false rejections
+    if (!email || email.trim() === '' || !email.includes('@')) {
       setSubmitResult({
         success: false,
-        message: 'Please enter a valid email address with @ symbol'
+        message: 'Please enter your email address with @ symbol'
       });
       return;
     }
@@ -126,25 +127,56 @@ export default function ScheduleScreen() {
     setIsSubmitting(true);
 
     try {
-      // Submit the form to FormSubmit
-      if (formRef.current) {
-        formRef.current.submit();
+      // Direct form submission using window.open with mailto link as fallback
+      try {
+        // First try FormSubmit
+        if (formRef.current) {
+          formRef.current.submit();
+          
+          // Show success message
+          setSubmitResult({
+            success: true,
+            message: 'Scheduling appointment...'
+          });
+          
+          // Clear form after submission
+          setTimeout(() => {
+            setSelectedType('');
+            setSelectedTime('');
+            setName('');
+            setEmail('');
+            setPhone('');
+            setIsSubmitting(false);
+          }, 1000);
+        }
+      } catch (submitError) {
+        console.error('Form submission error:', submitError);
         
-        // Since the form will redirect, we'll show a success message briefly
+        // Fallback to mailto link if FormSubmit fails
+        const mailtoSubject = `New Appointment Request: ${appointmentType}`;
+        const mailtoBody = `
+Name: ${name}
+Email: ${email}
+Phone: ${phone || 'Not provided'}
+
+Appointment Type: ${appointmentType}
+Date: ${format(selectedDate, 'PPP')}
+Time: ${timeSlots.find(slot => slot.id === selectedTime)?.label || ''}`;
+        
+        window.open(`mailto:Sabrina@walknfaith.org?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`, '_blank');
+        
         setSubmitResult({
           success: true,
-          message: 'Scheduling appointment...'
+          message: 'Opening email client to send appointment request...'
         });
         
-        // Clear form after submission
-        setTimeout(() => {
-          setSelectedType('');
-          setSelectedTime('');
-          setName('');
-          setEmail('');
-          setPhone('');
-          setIsSubmitting(false);
-        }, 1000);
+        // Clear form
+        setSelectedType('');
+        setSelectedTime('');
+        setName('');
+        setEmail('');
+        setPhone('');
+        setIsSubmitting(false);
       }
     } catch (error) {
       setSubmitResult({

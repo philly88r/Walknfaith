@@ -43,11 +43,12 @@ export default function ContactScreen() {
       return;
     }
 
-    // Simplified email validation - just check for @ symbol
-    if (!message.email.includes('@')) {
+    // Very basic email validation - accept almost anything with @ symbol
+    // This is intentionally permissive to avoid false rejections
+    if (!message.email || message.email.trim() === '' || !message.email.includes('@')) {
       setSubmitResult({
         success: false,
-        message: 'Please enter a valid email address with @ symbol'
+        message: 'Please enter your email address with @ symbol'
       });
       return;
     }
@@ -56,21 +57,41 @@ export default function ContactScreen() {
     setSubmitResult(null);
 
     try {
-      // Submit the form to FormSubmit
-      if (formRef.current) {
-        formRef.current.submit();
+      // Direct form submission using window.open with mailto link as fallback
+      try {
+        // First try FormSubmit
+        if (formRef.current) {
+          formRef.current.submit();
+          
+          // Show success message
+          setSubmitResult({
+            success: true,
+            message: 'Sending message...'
+          });
+          
+          // Clear form after submission
+          setTimeout(() => {
+            setMessage({ name: '', email: '', subject: '', message: '' });
+            setIsSubmitting(false);
+          }, 1000);
+        }
+      } catch (submitError) {
+        console.error('Form submission error:', submitError);
         
-        // Since the form will redirect, we'll show a success message briefly
+        // Fallback to mailto link if FormSubmit fails
+        const mailtoSubject = message.subject;
+        const mailtoBody = `Name: ${message.name}\nEmail: ${message.email}\n\n${message.message}`;
+        
+        window.open(`mailto:${contactInfo.email}?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`, '_blank');
+        
         setSubmitResult({
           success: true,
-          message: 'Sending message...'
+          message: 'Opening email client to send message...'
         });
         
-        // Clear form after submission
-        setTimeout(() => {
-          setMessage({ name: '', email: '', subject: '', message: '' });
-          setIsSubmitting(false);
-        }, 1000);
+        // Clear form
+        setMessage({ name: '', email: '', subject: '', message: '' });
+        setIsSubmitting(false);
       }
     } catch (error) {
       setSubmitResult({
