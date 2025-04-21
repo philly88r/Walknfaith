@@ -50,10 +50,10 @@ const MentorshipScreen = () => {
       image: require('../../assets/walknfaith-logo.png'),
     },
     {
-      name: "Donyell Brooks",
+      name: "Donyell Brooks, CNA",
       role: "CNA Student Mentor",
-      bio: "Hello all, I am Donyell Brooks, CNA. I recently completed my CNA course at WalkNFaith/Purpose Tech Institute. I am so excited about my accomplishment and finally reaching one of my goals. A little more about me is that I graduated in 2017 as a medical assistant and in 2018 I became a pharmacy technician. I love the medical field and have a passion for caring for people. I have future plans to become a nurse practitioner in the NICU and also want to mentor and assist others wanting to join the medical field.",
-      image: require('../../assets/donyell_brooks.png'),
+      bio: "I recently completed my CNA course at WalkNFaith/Purpose Tech Institute. I am so excited about my accomplishment and finally reaching one of my goals. A little more about me is that I graduated in 2017 as a medical assistant and in 2018 I became a pharmacy technician. I love the medical field and have a passion for caring for people. I have future plans to become a nurse practitioner in the NICU and also want to mentor and assist others wanting to join the medical field.",
+      image: require('../../assets/DonyellBrooks.jpeg'),
     },
     {
       name: "Staci Stevenson",
